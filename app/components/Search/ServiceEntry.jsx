@@ -65,7 +65,7 @@ class ServiceEntry extends Component {
       </div>
       <div className="entry-action-buttons">
         <ul className="action-buttons">
-          <li className="action-button"><Link to={{ pathname: `/service/${hit.service_id}` }}>Details</Link></li>
+          <li className="action-button"><Link to={{ pathname: `/services/${hit.service_id}` }}>Details</Link></li>
           <li className="action-button">
             <a href={`https://maps.google.com?saddr=Current+Location&daddr=${hit._geoloc.lat},${hit._geoloc.lng}&dirflg=w`}
               target="_blank"

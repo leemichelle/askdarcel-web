@@ -67,9 +67,9 @@ class Search extends Component {
     return (
       <div className="search-page-container">
         <InstantSearch
-          appId="J8TVT53HPZ"
-          apiKey="fdf77b152ff7ce0ea4e4221ff3d17d85"
-          indexName="development_service_Resource"
+          appId={CONFIG.ALGOLIA_APPLICATION_ID}
+          apiKey={CONFIG.ALGOLIA_READ_ONLY_API_KEY}
+          indexName={CONFIG.ALGOLIA_INDEX}
           searchState={this.state.searchState}
           onSearchStateChange={this.onSearchStateChange}
           createURL={this.createURL}
