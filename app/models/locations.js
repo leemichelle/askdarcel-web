@@ -17,3 +17,19 @@ export function parseLocationInformation(name, address, schedule) {
     schedule,
   };
 }
+
+// Not technically a redux action
+export function checkIfInSanFrancisco(coords) {
+  // These are conservative bounds, extending into the ocean, the Bay, and Daly
+  // City.
+  const bb = {
+    top: 37.820633,
+    left: -122.562447,
+    bottom: 37.688167,
+    right: -122.326927,
+  };
+  return coords.lat > bb.bottom &&
+    coords.lat < bb.top &&
+    coords.lng > bb.left &&
+    coords.lng < bb.right;
+}

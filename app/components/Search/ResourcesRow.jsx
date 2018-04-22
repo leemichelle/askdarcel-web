@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import moment from 'moment';
+
 import { Link } from 'react-router';
 import Rating from './Rating';
 import { timeToString, stringToTime, daysOfTheWeek } from '../../utils/index';
-import moment from 'moment';
 
 class ResourcesRow extends Component {
   constructor(props) {
@@ -15,8 +16,8 @@ class ResourcesRow extends Component {
   }
 
   handleClick() {
-    // TODO: The Link class has a bunch of validations, etc. We should wrap that all in a service and just
-    // call that.
+    // TODO: The Link class has a bunch of validations, etc. 
+    // We should wrap that all in a service and just call that.
     // Location.push("/resource/" + this.props.resource.id);
   }
 
@@ -100,7 +101,7 @@ class ResourcesRow extends Component {
   }
 
   componentDidMount() {
-    let num = this.props.number;
+    const num = this.props.number;
     this.getWalkTime(this.state.dest, (duration) => {
       this.setState({
         walkTime: duration,
@@ -113,7 +114,7 @@ class ResourcesRow extends Component {
     const { services } = resource;
     const service = services[0];
 
-    console.log(resource)
+    console.log(resource);
 
     services.forEach((item) => {
       item.categories.forEach((category) => {
@@ -161,7 +162,7 @@ function buildAddressCell(address) {
   let addressString = '';
   addressString += address.address_1;
   if (address.address_2) {
-    addressString += ', ' + address.address_2;
+    addressString += `, ${  address.address_2}`;
   }
 
 
@@ -169,17 +170,16 @@ function buildAddressCell(address) {
 }
 
 function buildImgURL(address) {
-  if(address) {
-    let url = "https://maps.googleapis.com/maps/api/streetview?size=400x400&location=" +
-      address.latitude + "," + address.longitude +
-      "&fov=90&heading=235&pitch=10";
-    if(CONFIG.GOOGLE_API_KEY) {
-      url += '&key=' + CONFIG.GOOGLE_API_KEY;
+  if (address) {
+    let url = 'https://maps.googleapis.com/maps/api/streetview?size=400x400&location=' +
+      address.latitude + ',' + address.longitude +
+      '&fov=90&heading=235&pitch=10';
+    if (CONFIG.GOOGLE_API_KEY) {
+      url += `&key=${  CONFIG.GOOGLE_API_KEY}`;
     }
     return url;
-  } 
-    return "http://lorempixel.com/200/200/city/";
-  
+  }
+  return 'http://lorempixel.com/200/200/city/';
 }
 
 export default ResourcesRow;

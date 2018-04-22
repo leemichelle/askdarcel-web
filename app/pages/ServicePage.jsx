@@ -86,7 +86,9 @@ class ServicePage extends React.Component {
                 {/* TODO This should be serviceAtLocation with multiple locations */}
                 <MapOfLocations
                   locations={[parseLocationInformation(name, resource.address, schedule)]}
-                  locationRenderer={location => <TableOfOpeningTimes schedule={location.schedule} />}
+                  locationRenderer={location => (
+                    <TableOfOpeningTimes schedule={location.schedule} />
+                  )}
                 />
                 {/* TODO Transport Options */}
               </section>
@@ -108,7 +110,7 @@ class ServicePage extends React.Component {
                 // TODO Edit should add service ID header
                 { name: 'Edit', icon: 'edit', to: `/resource/edit?resourceid=${resource.id}` }, // TODO Update with path to /resource/:id
                 { name: 'Print', icon: 'print', handler: () => { window.print(); } },
-                // { name: 'Share', icon: 'share' }, // TODO Integrate with mobile share, how to handle shares
+                // { name: 'Share', icon: 'share' }, // TODO Integrate with mobile share
                 // { name: 'Save', icon: 'save' }, TODO We have no save mechanism yet
                 // TODO Directions to address, not lat/long, is much better UX
                 { name: 'Directions', icon: 'directions', link: `http://google.com/maps/dir/?api=1&destination=${resource.address.latitude},${resource.address.longitude}` },

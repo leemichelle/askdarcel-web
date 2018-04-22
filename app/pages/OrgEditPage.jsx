@@ -4,8 +4,8 @@ import { withRouter, browserHistory } from 'react-router';
 import _ from 'lodash';
 
 import { Loader } from 'components/ui';
-import { EditAddress, EditServices, EditNotes, EditSchedule, EditPhones, EditSidebar } from 'components/edit'
-import * as dataService from 'utils/DataService';
+import { EditAddress, EditServices, EditNotes, EditSchedule, EditPhones, EditSidebar } from 'components/edit';
+import dataService from 'utils/DataService';
 
 function getDiffObject(curr, orig) {
   return Object.entries(curr).reduce((acc, [key, value]) => {
@@ -53,7 +53,7 @@ function createNewPhoneNumber(item, resourceID, promises) {
 function deletCollectionObject(item, path, promises) {
   if (path === 'phones') {
     promises.push(
-      dataService.APIDelete(`/api/phones/${item.id}`),
+      dataService.delete(`/api/phones/${item.id}`),
     );
   }
 }
@@ -134,7 +134,7 @@ function postNotes(notesObj, promises, uriObj) {
         promises.push(dataService.post(uri, { note: currentNote }));
       } else if (currentNote.isRemoved) {
         const uri = `/api/notes/${key}`;
-        promises.push(dataService.APIDelete(uri));
+        promises.push(dataService.delete(uri));
       } else {
         const uri = `/api/notes/${key}/change_requests`;
         promises.push(dataService.post(uri, { change_request: currentNote }));
@@ -395,7 +395,7 @@ class EditSections extends React.Component {
       } else if (type === 'service') {
         path = `/api/services/${id}`;
       }
-      dataService.APIDelete(path, { change_request: { status: '2' } })
+      dataService.delete(path, { change_request: { status: '2' } })
         .then(() => {
           alert('Successfully deactivated! \n \nIf this was a mistake, please let someone from the ShelterTech team know.');
           if (type === 'resource') {
@@ -506,7 +506,7 @@ class EditSections extends React.Component {
             promises.push(dataService.post(uri, { note: currentNote }));
           } else if (currentNote.isRemoved) {
             const uri = `/api/notes/${key}`;
-            promises.push(dataService.APIDelete(uri));
+            promises.push(dataService.delete(uri));
           } else {
             const uri = `/api/notes/${key}/change_requests`;
             promises.push(dataService.post(uri, { change_request: currentNote }));

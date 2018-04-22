@@ -3,18 +3,16 @@ import { Route, IndexRoute } from 'react-router';
 
 import App from './App';
 import HomePage from './pages/HomePage';
-// import LoginPage from './pages/LoginPage';
-// import OrganizationEditPage from './pages/OrganizationEditPage';
-import OrganizationPage from './pages/OrganizationPage';
-import OrganizationSearchPage from './pages/OrganizationSearchPage';
-// import Search from './pages/Search';
+import LoginPage from './pages/LoginPage';
+import OrgEditPage from './pages/OrgEditPage';
+import OrgPage from './pages/OrgPage';
+import OrgSearchPage from './pages/OrgSearchPage';
+import Search from './pages/Search';
 import ServicePage from './pages/ServicePage';
 
-// import AdminChangeRequests from './pages/AdminChangeRequestsPage';
-// import AdminDashboard from './pages/AdminDashboardPage';
-
-// import configureStore from './store/configureStore';
-// import { RequireAuth } from './components/Auth/RequireAuth';
+import RequireAuth from './components/auth/RequireAuth';
+import AdminChangeRequests from './pages/AdminChangeRequestsPage';
+import AdminDashboard from './pages/AdminDashboardPage';
 
 function redirectToRoot(nextState, replace) {
   replace({
@@ -35,15 +33,19 @@ function scrollToTop(prevState, nextState) {
 export default (
   <Route path="/" component={App} onChange={scrollToTop} >
     <IndexRoute name="HomePage" component={HomePage} />
-    {/* {/* <Route path="/login" name="login" component={LoginPage} /> */}
-    <Route path="/resource/:resource" name="resource" component={OrganizationPage} />
-    {/* <Route path="/resource/edit" name="editResource" component={OrganizationEditPage} /> */}
-    {/* <Route path="/resource/new" name="newResource" component={OrganizationEditPage} /> */}
-    <Route path="/resources" name="resources" component={OrganizationSearchPage} />
-    {/* <Route path="/search" name="search" component={Search} /> */}
+    <Route path="/login" name="login" component={LoginPage} />
+    <Route path="/resources" name="resources" component={OrgSearchPage} />
+    <Route path="/resources/new" name="newResource" component={OrgEditPage} />
+    <Route path="/resources/r/:resource" name="resource" component={OrgPage} />
+    <Route path="/resources/r/:resource/edit" name="editResource" component={OrgEditPage} />
+    <Route path="/search" name="search" component={Search} />
     <Route path="/services/:service" name="ServicePage" component={ServicePage} />
-    {/* <Route path="/admin" name="Admin" component={RequireAuth(AdminDashboard)} /> */}
-    {/* <Route path="/admin/changes" name="AdminChangeRequests" component={RequireAuth(AdminChangeRequests)} /> */} */}
+    <Route path="/admin" name="Admin" component={RequireAuth(AdminDashboard)} />
+    <Route
+      path="/admin/changes"
+      name="AdminChangeRequests"
+      component={RequireAuth(AdminChangeRequests)}
+    />
     <Route path="*" onEnter={redirectToRoot} />
   </Route>
 );

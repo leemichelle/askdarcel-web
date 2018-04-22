@@ -10,7 +10,7 @@ class Services extends Component {
   }
 
   renderServicesSection() {
-    if(this.props.services && this.props.services.length > 0) {
+    if (this.props.services && this.props.services.length > 0) {
       return (
         <div>
           {this.renderServices(this.props.services)}
@@ -20,9 +20,7 @@ class Services extends Component {
   }
 
   renderServices(services) {
-    return services.map((service, i) => {
-      return <Service service={service} key={i} />
-    });
+    return services.map((service, i) => <Service service={service} key={i} />);
   }
 
   render() {
@@ -46,29 +44,29 @@ class Service extends Component {
   }
 
   render() {
-    let { infoHidden } = this.state;
+    const { infoHidden } = this.state;
     return (
-		<li className="service" id={`service-${this.props.service.id}`} >
-			<div className="service--meta disabled-feature">
-				<p><ServiceCategory category={this.props.service.category} /></p>
-				<p>updated {this.props.service.updated_date}</p>
+      <li className="service" id={`service-${this.props.service.id}`} >
+  <div className="service--meta disabled-feature">
+  <p><ServiceCategory category={this.props.service.category} /></p>
+  <p>updated {this.props.service.updated_date}</p>
 			</div>
-      <h2 className="service--header">{this.props.service.name}</h2>
-      <p className="service--description">{this.props.service.long_description}</p>
-      <div className="service--details-toggle" onClick={this.toggleVisible}>
+  <h2 className="service--header">{this.props.service.name}</h2>
+  <p className="service--description">{this.props.service.long_description}</p>
+  <div className="service--details-toggle" onClick={this.toggleVisible}>
         <span>{infoHidden ?
-            <span>More Info <i className="material-icons">keyboard_arrow_down</i></span> :
+          <span>More Info <i className="material-icons">keyboard_arrow_down</i></span> :
             null}</span>
       </div>
 
-      { infoHidden ? null :
-        <div className="service-application-process-container">
+  { infoHidden ? null :
+      <div className="service-application-process-container">
           <ul className="service--details">
-            <ServiceEligibility subject='How to apply' result={this.props.service.application_process}/>
-            <ServiceEligibilities subject='Eligibilities' eligibilities={this.props.service.eligibilities}/>
-            <ServiceEligibility subject='Required documents' result={this.props.service.required_documents}/>
-            <ServiceEligibility subject='Fees' result={this.props.service.fee}/>
-            {this.props.service.notes.length ? <Notes notes={this.props.service.notes}/> : null  }
+            <ServiceEligibility subject="How to apply" result={this.props.service.application_process} />
+            <ServiceEligibilities subject="Eligibilities" eligibilities={this.props.service.eligibilities} />
+            <ServiceEligibility subject="Required documents" result={this.props.service.required_documents} />
+            <ServiceEligibility subject="Fees" result={this.props.service.fee} />
+            {this.props.service.notes.length ? <Notes notes={this.props.service.notes} /> : null }
             <WeeklyHours schedule={this.props.service.schedule} />
           </ul>
           <div className="service--details-toggle" onClick={this.toggleVisible}>
@@ -79,29 +77,29 @@ class Service extends Component {
         </div>
     	}
 
-    </li>
+</li>
     );
   }
 }
 
 class WeeklyHours extends Component {
-	render() {
-		return this.props.schedule.schedule_days.length > 0 ? (
-			<li className="service--details--item">
-				<header>Hours</header>
-				<div className="service--details--item--info"><DetailedHours schedule={this.props.schedule.schedule_days} /></div>
+  render() {
+  return this.props.schedule.schedule_days.length > 0 ? (
+  <li className="service--details--item">
+  <header>Hours</header>
+  <div className="service--details--item--info"><DetailedHours schedule={this.props.schedule.schedule_days} /></div>
 			</li>
 		) : null;
-	}
+}
 }
 
 
 class ServiceCategory extends Component {
-	render() {
-		return (
-			<span>{this.props.category}</span>
+  render() {
+  return (
+  <span>{this.props.category}</span>
 		);
-	}
+}
 }
 
 class ServiceEligibility extends Component {
@@ -128,9 +126,7 @@ class ServiceEligibilities extends Component {
 
 class Notes extends Component {
   render() {
-    let notes = this.props.notes ?  this.props.notes.map((note, i) => {
-      return <Note note={note} key={i} />
-    }) : [];
+    const notes = this.props.notes ? this.props.notes.map((note, i) => <Note note={note} key={i} />) : [];
 
     return (
       <li className="service--details--item">

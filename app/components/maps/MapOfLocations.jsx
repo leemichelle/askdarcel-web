@@ -27,7 +27,7 @@ class MapOfLocations extends React.Component {
     // TODO We should probably not just have google on the global namespace
     if (google === undefined) { return; }
 
-    const { Map, Marker, LatLng, SymbolPath } = google.maps
+    const { Map, Marker, LatLng, SymbolPath } = google.maps;
     const { locations } = this.state;
     const { latitude, longitude } = locations[0].address;
     // TODO Geocode from address if no lat/long
@@ -49,7 +49,7 @@ class MapOfLocations extends React.Component {
     }
 
     locations.forEach((loc) => {
-      console.log(loc)
+      console.log(loc);
       const { address, name } = loc;
       const locMarker = new google.maps.Marker({
         map,

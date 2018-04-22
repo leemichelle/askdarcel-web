@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import authActions from 'actions/authActions';
+import { bindActionCreators } from 'redux';
+import { browserHistory } from 'react-router';
+import { login } from 'models/auth';
 
 class Login extends React.Component {
   constructor(props) {
@@ -12,8 +14,8 @@ class Login extends React.Component {
   }
 
   componentWillMount() {
-    if(this.props.isAuthenticated) {
-      // browserHistory.push('/testAuth');
+    if (this.props.isAuthenticated) {
+      browserHistory.push('/admin');
     }
   }
 
@@ -24,32 +26,41 @@ class Login extends React.Component {
         <div className="auth-container">
           <header>
             <p className="splash-instructions">Enter your username and password</p>
+            {
+              this.props.loginError && <span className="danger">{ this.props.loginError }</span>
+            }
           </header>
           <div className="splash-actions">
             <div className="input-container">
-              <input onChange={(e) => this.setState({ email: e.target.value })} type="text" placeholder="username" /> 
+              <input
+                onChange={e => this.setState({ email: e.target.value })}
+                type="text"
+                placeholder="username"
+              />
             </div>
             <div className="input-container">
-              <input type="password" onChange={(e) => this.setState({ password: e.target.value })} placeholder="password" />
+              <input
+                type="password"
+                onChange={e => this.setState({ password: e.target.value })}
+                placeholder="password"
+              />
             </div>
-            <a onClick={() => this.props.adminLogin(email, password)} className="login-btn">Login</a>
+            <a
+              onClick={() => this.props.login(email, password)}
+              role="link"
+              tabIndex={0}
+              className="login-btn"
+            >Login</a>
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    isAuthenticated: state.auth.isAuthenticated,
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    adminLogin: (email, password) => dispatch(authActions.adminLogin(email, password)),
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(
+  state => ({
+    ...state.auth,
+  }),
+  dispatch => bindActionCreators({ login }, dispatch),
+)(Login);

@@ -1,18 +1,16 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { browserHistory } from 'react-router';
 
-export function RequireAuth(Component) {
+export default function RequireAuth(Component) {
   class AuthenticatedComponent extends React.Component {
     componentWillMount() {
       this.checkAuth(this.props.isAuthenticated);
     }
 
-    componentWillReceiveProps(nextProps) {
-      this.checkAuth(nextProps.isAuthenticated);
-    }
-
+    // TODO Props for special permissions for a given page
     checkAuth(isAuthenticated) {
       if (!isAuthenticated) {
         const loginRedirect = this.props.location.pathname;
@@ -32,16 +30,7 @@ export function RequireAuth(Component) {
     }
   }
 
-  AuthenticatedComponent.propTypes = {
-    location: PropTypes.object.isRequired,
-    isAuthenticated: PropTypes.bool.isRequired,
-  };
-
-  function mapStateToProps(state) {
-    return {
-      isAuthenticated: state.auth.isAuthenticated,
-    };
-  }
-
-  return connect(mapStateToProps)(AuthenticatedComponent);
+  return connect(
+    state => ({ ...state.user, isAuthenticated: state.auth.isAuthenticated }),
+  )(AuthenticatedComponent);
 }

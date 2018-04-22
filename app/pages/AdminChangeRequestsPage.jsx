@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import TextareaAutosize from 'react-autosize-textarea';
-import { getExistingValueFromChangeRequest } from 'actions/adminActions';
+import { getExistingValueFromChangeRequest } from 'models/admin';
 
 import * as DataService from '../utils/DataService';
 import { getAuthRequestHeaders } from '../utils/index';

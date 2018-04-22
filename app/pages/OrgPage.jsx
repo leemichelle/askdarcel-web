@@ -1,21 +1,22 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchOrganization, createOrganizationChangeRequest } from 'models/organizations';
 import { parseLocationInformation } from 'models/locations';
 
-import { Link } from 'react-router';
+// import { Link } from 'react-router';
 import { ServiceCard } from 'components/layout';
 import { Loader, Datatable } from 'components/ui';
-import { ResourceMap, StreetViewImage, MapOfLocations } from 'components/maps';
+import { MapOfLocations } from 'components/maps';
 import { ActionSidebar, TableOfContactInfo, TableOfOpeningTimes } from 'components/listing';
-// import { AddressInfo, TodaysHours, PhoneNumber, ResourceCategories, Website, StreetView } from 'components/listing/ResourceInfos';
+// import { AddressInfo, TodaysHours, PhoneNumber,
+// ResourceCategories, Website, StreetView } from 'components/listing/ResourceInfos';
 // import DetailedHours from 'components/listing/DetailedHours';
 // import Services from 'components/listing/Services';
 // import Notes from 'components/listing/Notes';
 // import Loader from 'components/ui/Loader';
-import HAPcertified from 'assets/img/ic-hap.png';
+// import HAPcertified from 'assets/img/ic-hap.png';
 
 // import * as dataService from 'utils/DataService';
 
@@ -27,6 +28,14 @@ import HAPcertified from 'assets/img/ic-hap.png';
 // }
 
 class OrganizationPage extends Component {
+  static generateDetailsRows() {
+    // TODO None of this data exists
+    const rows = [
+      // ['Legal Status', ]
+    ];
+    return rows;
+  }
+
   componentWillMount() {
     const { routeParams: { resource } } = this.props;
     this.props.fetchOrganization(resource);
@@ -45,7 +54,8 @@ class OrganizationPage extends Component {
 
   // verifyResource() {
   //   const changeRequest = { verified_at: new Date().toISOString() };
-  //   dataService.post(`/api/resources/${this.state.resource.id}/change_requests`, { change_request: changeRequest })
+  //   dataService.post(`/api/resources/${this.state.resource.id}/change_requests`,
+  // { change_request: changeRequest })
   //     .then((response) => {
   //       // TODO: Do not use alert() for user notifications.
   //       if (response.ok) {
@@ -56,19 +66,11 @@ class OrganizationPage extends Component {
   //     });
   // }
 
-  generateDetailsRows() {
-    // TODO None of this data exists
-    const rows = [
-      // ['Legal Status', ]
-    ];
-    return rows;
-  }
-
   render() {
     const { activeOrganization: organization } = this.props;
     if (!organization) { return (<Loader />); }
 
-    const { address, name, certified, long_description, services, schedule } = organization;
+    const { address, name, long_description, services, schedule } = organization;
     return (
       <div className="listing-container">
         <article className="listing" id="organization">
@@ -76,7 +78,7 @@ class OrganizationPage extends Component {
             <div className="listing--main--left">
               <header>
                 <h1>{ name }</h1>
-                { organization.alsoNamed ? <p>Also Known As</p>: null }
+                { organization.alsoNamed ? <p>Also Known As</p> : null }
               </header>
 
               <section>
@@ -94,7 +96,7 @@ class OrganizationPage extends Component {
                       <td>{ Array.isArray(d.value) ? d.value.join('\n') : d.value }</td>
                     </tr>
                   )}
-                  rows={this.generateDetailsRows()}
+                  rows={OrganizationPage.generateDetailsRows()}
                 />
               </section>
 
@@ -111,25 +113,30 @@ class OrganizationPage extends Component {
                 <h2>Locations and Hours</h2>
                 <MapOfLocations
                   locations={[parseLocationInformation(name, address, schedule)]}
-                  locationRenderer={location => <TableOfOpeningTimes schedule={location.schedule} />}
+                  locationRenderer={location => (
+                    <TableOfOpeningTimes schedule={location.schedule} />
+                  )}
                 />
                 {/* TODO Transport Options */}
               </section>
             </div>
             <div className="listing--aside">
               <ActionSidebar actions={[
-                  { name: 'Edit', icon: 'edit', to: `/resource/edit?resourceid=${organization.id}` }, // TODO Update with path to /resource/:id
-                  { name: 'Print', icon: 'print', handler: () => { window.print(); } },
-                  { name: 'Directions', icon: 'directions', link: `http://google.com/maps/dir/?api=1&destination=${address.latitude},${address.longitude}` },
-                  { 
-                    name: 'Mark Correct',
-                    icon: 'done',
-                    handler: () => {
-                      console.log(this.props)
-                      this.props.createOrganizationChangeRequest(organization.id, { verified_at: new Date().toISOString() })
-                    }
+                { name: 'Edit', icon: 'edit', to: `/resource/edit?resourceid=${organization.id}` }, // TODO Update with path to /resource/:id
+                { name: 'Print', icon: 'print', handler: () => { window.print(); } },
+                { name: 'Directions', icon: 'directions', link: `http://google.com/maps/dir/?api=1&destination=${address.latitude},${address.longitude}` },
+                {
+                  name: 'Mark Correct',
+                  icon: 'done',
+                  handler: () => {
+                    console.log(this.props);
+                    this.props.createOrganizationChangeRequest(
+                      organization.id,
+                      { verified_at: new Date().toISOString() },
+                    );
                   },
-              ]} 
+                },
+              ]}
               />
             </div>
           </div>
@@ -160,10 +167,10 @@ OrganizationPage.propTypes = {
   //   }).isRequired,
   // }).isRequired,
   // userLocation is not required because will be lazy-loaded after initial render.
-  userLocation: PropTypes.shape({
-    lat: PropTypes.number.isRequired,
-    lng: PropTypes.number.isRequired,
-  }),
+  // userLocation: PropTypes.shape({
+  //   lat: PropTypes.number.isRequired,
+  //   lng: PropTypes.number.isRequired,
+  // }),
 };
 
 export default connect(

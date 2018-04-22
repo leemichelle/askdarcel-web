@@ -35,14 +35,14 @@ export function fetchOrganization(id) {
 
 export function createOrganizationChangeRequest(id, change_request) {
   return async (dispatch) => {
-    console.log('verifying')
+    console.log('verifying');
     try {
-      dispatch({ type: ORGANIZATION_SUBMIT_CHANGE })
+      dispatch({ type: ORGANIZATION_SUBMIT_CHANGE });
       const cr = await post(`/api/resources/${id}/change_requests`, { change_request });
-      console.log(cr)
+      console.log(cr);
       dispatch({ type: ORGANIZATION_SUBMIT_CHANGE_SUCCESS });
     } catch (err) {
       dispatch({ type: ORGANIZATION_SUBMIT_CHANGE_FAIL });
     }
-  }
+  };
 }

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 
 class ListPageSidebar extends React.Component {
-  renderButtonContent(action) {
+  static renderButtonContent(action) {
     return (
       <span>
         <i className="material-icons">{ action.icon }</i>
@@ -21,10 +21,10 @@ class ListPageSidebar extends React.Component {
             {
               action.to || action.handler
                 ? <Link to={action.to} onClick={() => action.handler()}>
-                  { this.renderButtonContent(action) }
+                  { ListPageSidebar.renderButtonContent(action) }
                 </Link>
                 : <a href={action.link} target="_blank">
-                  { this.renderButtonContent(action) }
+                  { ListPageSidebar.renderButtonContent(action) }
                 </a>
             }
           </li>

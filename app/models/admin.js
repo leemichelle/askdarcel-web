@@ -1,3 +1,6 @@
+export const ADMIN_LOGIN_SUCCESS = 'ADMIN_LOGIN_SUCCESS';
+export const ADMIN_LOGIN_ERROR = 'ADMIN_LOGIN_ERROR';
+export const ADMIN_LOGIN_REQUEST = 'ADMIN_LOGIN_REQUEST';
 
 // TODO These aren't actual redux actions yet, just removing them from component logic
 export function getExistingValueFromChangeRequest(changeRequest, fieldName, fieldValue) {
@@ -18,8 +21,9 @@ export function getExistingValueFromChangeRequest(changeRequest, fieldName, fiel
   }
 }
 
-export default {
-  getUserLocation() {
-
-  },
+const forms = {
+  resource: {},
 };
+
+export default forms;
+

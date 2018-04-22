@@ -1,13 +1,15 @@
 import moment from 'moment';
 import queryString from 'query-string';
+import React from 'react';
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
 import { Link } from 'react-router';
+// import { connect } from 'react-redux';
+// import { bindActionCreators } from 'redux';
 
 import { images } from 'assets';
 import { daysOfTheWeek } from 'utils';
 import Loader from 'components/ui/Loader';
-import ResourcesList from 'components/Search/ResourcesList';
+import { ResourcesList } from 'components/search';
 import { Gmap } from 'components/maps';
 
 // Show the span of results (11 - 20 for example rather than the #10)
@@ -96,7 +98,7 @@ function prepOpenResources(resources) {
   return preparedOpenResources;
 }
 
-class ResourcesTable extends Component {
+class ResourcesTable extends React.Component {
 
   constructor(props) {
     super(props);
