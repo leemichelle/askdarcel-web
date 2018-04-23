@@ -1,4 +1,4 @@
-import { post } from 'utils/DataService';
+import ds from 'utils/DataService';
 
 const USER_GET_LOCATION = 'USER_GET_LOCATION';
 const USER_GET_LOCATION_SUCCESS = 'USER_GET_LOCATION_SUCCESS';
@@ -28,7 +28,7 @@ export function getUserLocation() {
     dispatch({ type: USER_GET_LOCATION });
     try {
       const getUserLocationFromGoogle = async () => {
-        const resp = await post(`https://www.googleapis.com/geolocation/v1/geolocate${gapiQuery}`);
+        const resp = await ds.post(`https://www.googleapis.com/geolocation/v1/geolocate${gapiQuery}`);
         const coords = await resp.json();
         return { ...coords.location, src: 'google' };
       };
@@ -58,7 +58,7 @@ export function getUserLocation() {
     } catch (err) {
       console.warn('location tracking failed, defaulting to SF', err);
       // Default to San Francisco
-      dispatch({ type: USER_GET_LOCATION_FAIL, err, location: { lat: 37.7749, lng: -122.4194, src: 'defaultsf' } });
+      dispatch({ type: USER_GET_LOCATION_FAIL, err, location: { lat: 37.7749, lng: -122.4194, src: 'defaulttosf' } });
     }
   };
 }

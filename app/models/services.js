@@ -1,4 +1,4 @@
-import { get } from 'utils/DataService';
+import ds from 'utils/DataService';
 
 export const SERVICE_LOAD = 'SERVICE_LOAD';
 export const SERVICE_LOAD_SUCCESS = 'SERVICE_LOAD_SUCCESS';
@@ -23,7 +23,7 @@ export function fetchService(id) {
   return async (dispatch) => {
     dispatch({ type: SERVICE_LOAD });
     try {
-      const { service } = await get(`/api/services/${id}`);
+      const { service } = await ds.get(`/api/services/${id}`);
       dispatch({ type: SERVICE_LOAD_SUCCESS, service });
     } catch (err) {
       dispatch({ type: SERVICE_LOAD_ERROR, err });

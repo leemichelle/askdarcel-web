@@ -1,4 +1,4 @@
-import { get, post } from 'utils/DataService';
+import ds from 'utils/DataService';
 
 const ORGANIZATION_LOAD = 'ORGANIZATION_LOAD';
 const ORGANIZATION_LOAD_SUCCESS = 'ORGANIZATION_LOAD_SUCCESS';
@@ -24,7 +24,7 @@ export function fetchOrganization(id) {
   return async (dispatch) => {
     try {
       dispatch({ type: ORGANIZATION_LOAD });
-      const { resource: organization } = await get(`/api/resources/${id}`);
+      const { resource: organization } = await ds.get(`/api/resources/${id}`);
       console.log(organization);
       dispatch({ type: ORGANIZATION_LOAD_SUCCESS, organization });
     } catch (err) {
@@ -38,7 +38,7 @@ export function createOrganizationChangeRequest(id, change_request) {
     console.log('verifying');
     try {
       dispatch({ type: ORGANIZATION_SUBMIT_CHANGE });
-      const cr = await post(`/api/resources/${id}/change_requests`, { change_request });
+      const cr = await ds.post(`/api/resources/${id}/change_requests`, { change_request });
       console.log(cr);
       dispatch({ type: ORGANIZATION_SUBMIT_CHANGE_SUCCESS });
     } catch (err) {

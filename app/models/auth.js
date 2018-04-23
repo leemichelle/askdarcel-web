@@ -1,4 +1,4 @@
-import { post } from 'utils/DataService';
+import ds from 'utils/DataService';
 
 const ADMIN_LOGIN = 'ADMIN_LOGIN';
 const ADMIN_LOGIN_SUCCESS = 'ADMIN_LOGIN_SUCCESS';
@@ -48,9 +48,10 @@ export function login(email, password) {
   console.log('attempting to login', email, password);
   return async (dispatch) => {
     try {
-      const session = await post('/api/admin/auth/sign_in', { email, password });
+      const session = await ds.post('/api/admin/auth/sign_in', { email, password }, {  });
       console.log(session);
     } catch (err) {
+      dispatch({ type: ADMIN_LOGIN_FAIL, err });
       console.error(err);
     }
   };

@@ -1,4 +1,4 @@
-import { get } from 'utils/DataService';
+import ds from 'utils/DataService';
 
 export const CATEGORIES_LOAD = 'CATEGORIES_LOAD';
 export const CATEGORIES_LOAD_SUCCESS = 'CATEGORIES_LOAD_SUCCESS';
@@ -20,7 +20,7 @@ export function fetchCategories(top = true) {
   return async (dispatch) => {
     dispatch({ type: CATEGORIES_LOAD });
     try {
-      const { categories } = await get(`/api/categories${top ? '?top_level=true' : ''}`);
+      const { categories } = await ds.get(`/api/categories${top ? '?top_level=true' : ''}`);
       dispatch({ type: CATEGORIES_LOAD_SUCCESS, categories });
     } catch (err) {
       dispatch({ type: CATEGORIES_LOAD_FAIL, err });

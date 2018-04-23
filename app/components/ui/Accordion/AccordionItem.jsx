@@ -26,7 +26,7 @@ class AccordionItem extends React.Component {
 
 AccordionItem.propTypes = {
   title: PropTypes.string.isRequired,
-  headerRenderer: PropTypes.function,
+  headerRenderer: PropTypes.func,
 };
 
 AccordionItem.defaultProps = {

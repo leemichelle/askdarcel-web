@@ -67,6 +67,8 @@ class DataService {
   }
 }
 
-export default new DataService({
+const ds = new DataService({
   'Content-Type': 'application/json',
 });
+
+export default ds;

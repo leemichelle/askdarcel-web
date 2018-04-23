@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
+import './utils/google';
 
 import App from './App';
 import HomePage from './pages/HomePage';
