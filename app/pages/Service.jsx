@@ -31,7 +31,7 @@ class ServicePage extends React.Component {
       ['Notes', service.notes.map(d => d.note).join('\n')],
     ];
     return rows
-      .filter(row => row[0] !== undefined)
+      .filter(row => row[1])
       .map(row => ({ title: row[0], value: row[1] }));
   }
 
@@ -40,12 +40,11 @@ class ServicePage extends React.Component {
     if (!service) { return (<Loader />); }
 
     const { resource, program, schedule } = service;
+    const details = this.generateDetailsRows();
 
     // TODO This should be serviceAtLocation
     const locations = [
       resource.address,
-      { address_1: '666 Devil St.', latitude: '37.7800203', longitude: '-122.4077237' },
-      { address_1: '20 Chain Road.', latitude: '37.7811230', longitude: '-122.4076298' },
     ].map(address => ({
       id: address.id,
       address,
@@ -74,7 +73,7 @@ class ServicePage extends React.Component {
                 <p>{ service.long_description }</p>
               </section>
 
-              <section>
+              { details.length ? <section>
                 <h2>Service Details</h2>
                 <Datatable
                   rowRenderer={d => (
@@ -85,7 +84,7 @@ class ServicePage extends React.Component {
                   )}
                   rows={this.generateDetailsRows()}
                 />
-              </section>
+              </section> : null}
 
               <section>
                 <h2>Contact Info</h2>
@@ -96,7 +95,9 @@ class ServicePage extends React.Component {
                 <h2>Locations and Hours</h2>
                 <MapOfLocations
                   locations={locations}
-                  locationRenderer={(location) => <TableOfOpeningTimes schedule={location.schedule} />}
+                  locationRenderer={location => (
+                    <TableOfOpeningTimes schedule={location.schedule} />
+                  )}
                 />
                 {/* TODO Transport Options */}
               </section>
@@ -118,7 +119,8 @@ class ServicePage extends React.Component {
                 // TODO Edit should add service ID header
                 { name: 'Edit', icon: 'edit', to: `/resource/edit?resourceid=${resource.id}` }, // TODO Update with path to /resource/:id
                 { name: 'Print', icon: 'print', handler: () => { window.print(); } },
-                // { name: 'Share', icon: 'share' }, // TODO Integrate with mobile share, how to handle shares
+                // TODO Integrate with mobile share, how to handle shares
+                // { name: 'Share', icon: 'share' },
                 // { name: 'Save', icon: 'save' }, TODO We have no save mechanism yet
                 // TODO Directions to address, not lat/long, is much better UX
                 { name: 'Directions', icon: 'directions', link: `http://google.com/maps/dir/?api=1&destination=${resource.address.latitude},${resource.address.longitude}` },
