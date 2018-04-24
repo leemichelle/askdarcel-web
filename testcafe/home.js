@@ -13,8 +13,8 @@ fixture `Home Page`
 test('Basic navigation test', async (t) => {
   await t
     .click(findPage.categoryButton.withText('Food'))
-    .expect(searchPage.resultsCount.textContent).contains('Total Results')
-    .click(searchPage.resultEntry)
+    .expect(searchPage.pagination).exists
+    .click(searchPage.resourceEntry)
     .expect(resourcePage.description.textContent)
     .contains('About this resource')
     ;
@@ -24,6 +24,6 @@ test('Basic search test', async (t) => {
   await t
     .typeText(findPage.searchBox, 'Food')
     .pressKey('enter')
-    .expect(searchPage.resultsCount.textContent).contains('Total Results')
+    .expect(searchPage.pagination).exists
     ;
 });
