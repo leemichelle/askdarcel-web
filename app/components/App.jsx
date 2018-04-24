@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Navigation from './Navigation';
+import Navigation from './ui/Navigation';
 import CategoryPage from './Find/FindPage';
 import ResourcesTable from './Search/ResourcesTable';
 import { round } from '../utils/index';

@@ -11,14 +11,22 @@ var buildDir = path.resolve(__dirname, 'build');
 
 module.exports = {
   context: __dirname,
-  entry: ['whatwg-fetch', path.resolve(appRoot, 'init.js')],
+  entry: ['whatwg-fetch', 'babel-polyfill', path.resolve(appRoot, 'init.jsx')],
   output: {
     path: buildDir,
     publicPath: '/dist/',
-    filename: 'bundle.js'
+    filename: 'bundle.js',
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.jsx', '.js'],
+    alias: {
+      assets: path.resolve(appRoot, 'assets'),
+      actions: path.resolve(appRoot, 'actions'),
+      components: path.resolve(appRoot, 'components'),
+      reducers: path.resolve(appRoot, 'reducers'),
+      styles: path.resolve(appRoot, 'styles'),
+      utils: path.resolve(appRoot, 'utils'),
+    },
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -27,8 +35,8 @@ module.exports = {
       favicon: 'app/favicon.ico',
     }),
     new ExtendedDefinePlugin({
-      CONFIG: config
-    })
+      CONFIG: config,
+    }),
   ],
   devtool: 'source-map',
   module: {
@@ -39,15 +47,15 @@ module.exports = {
           {
             loader: 'babel-loader',
             options: {
-              presets: ['es2015', 'react', 'stage-2']
-            }
-          }
+              presets: ['es2015', 'react', 'stage-0'],
+            },
+          },
         ],
         exclude: [/node_modules/, /typings/],
       },
       {
         test: /\.s?css$/,
-        use: ['style-loader', 'css-loader', 'sass-loader']
+        use: ['style-loader', 'css-loader', 'sass-loader'],
       },
       {
         test: /\.(ttf|otf|eot|woff(2)?)(\?[a-z0-9]+)?$/,
@@ -55,10 +63,10 @@ module.exports = {
           {
             loader: 'file-loader',
             options: {
-              name: 'fonts/[name].[ext]'
-            }
-          }
-        ]
+              name: 'fonts/[name].[ext]',
+            },
+          },
+        ],
       },
       {
         test: /\.(jpe?g|png|gif|svg)$/i,

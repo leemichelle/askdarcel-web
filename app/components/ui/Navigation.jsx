@@ -1,6 +1,6 @@
 import React from 'react';
 import { browserHistory, Link } from 'react-router';
-import { images } from '../assets';
+import { images } from 'assets';
 
 class Navigation extends React.Component {
   constructor() {
