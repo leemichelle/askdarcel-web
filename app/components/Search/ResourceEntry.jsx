@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { getTimes, timeToString } from '../../utils/index';
 
+// TODO: create a shared component for Resource and Service entries
 class ServiceEntry extends Component {
   constructor(props) {
     super(props);
@@ -34,7 +35,7 @@ class ServiceEntry extends Component {
     const description = hit.long_description || 'No description, yet...';
     let timeInfo = null;
     if (isOpen) {
-      if(is24hour) {
+      if (is24hour) {
         timeInfo = 'Open 24 hours';
       } else {
         timeInfo = `Open Until ${timeToString(openUntil)}`;
