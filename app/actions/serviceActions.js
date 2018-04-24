@@ -8,7 +8,6 @@ export function getService(id) {
       const { service } = resp;
       dispatch({ type: SERVICE_LOAD_SUCCESS, service });
     }).catch((e) => {
-      console.log(e);
       dispatch({ type: SERVICE_LOAD_ERROR, e });
     });
   };
