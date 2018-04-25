@@ -1,11 +1,11 @@
 import config from './config';
 import FindPage from './pages/FindPage';
 import SearchPage from './pages/SearchPage';
-import ResourcePage from './pages/ResourcePage';
+// import ResourcePage from './pages/ResourcePage';
 
 const findPage = new FindPage();
 const searchPage = new SearchPage();
-const resourcePage = new ResourcePage();
+// const resourcePage = new ResourcePage();
 
 fixture `Home Page`
   .page `${config.baseUrl}`;
