@@ -686,6 +686,7 @@ class EditSections extends React.Component {
         submitting={this.state.submitting}
         certifyHAP={this.certifyHAP}
         newServices={this.state.services.services}
+        newResource={this.state.newResource}
       />
       <div className="edit--main">
         <header className="edit--main--header">

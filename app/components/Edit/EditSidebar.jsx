@@ -64,9 +64,9 @@ class EditSidebar extends React.Component {
           {Object.keys(this.props.newServices).reverse().map(service => (
             <li><a href={`#${service}`} style={{ display: 'block' }}>{this.props.newServices[service].name}</a></li>
           ))}
-          {resource.services.map(service => (
+          { resource.services ? resource.services.map(service => (
             <li><a href={`#${service.id}`}>{service.name}</a></li>
-          ))}
+          )) : null }
         </ul>
         <div className="button--group">
           {actionButtons.map(button => button)}
