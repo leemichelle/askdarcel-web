@@ -10,6 +10,7 @@
   "dependencies": {
     "es6-promise": "^3.0.2",
     "express": "4.13.4",
+    "google-map-react": "^0.34.0",
     "history": "2.0.1",
     "html-webpack-plugin": "^2.19.0",
     "image-webpack-loader": "^1.8.0",
