@@ -112,7 +112,7 @@ class ProvidedService extends Component {
             <label htmlFor="input">Alternate name</label>
             <input
               type="text"
-              placeholder="Alternat Name"
+              placeholder="Alternate Name"
               data-field="alternate_name"
               defaultValue={this.props.service.alternate_name}
               onChange={this.handleFieldChange}
