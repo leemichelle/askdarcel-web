@@ -1,9 +1,10 @@
-import ReactSelector from 'testcafe-react-selectors';
+import { ReactSelector } from 'testcafe-react-selectors';
 
 export default class SearchPage {
   constructor() {
     const baseSelector = ReactSelector('ResourcesTable');
     this.resultsCount = baseSelector.find('.results-count');
+    this.resultEntry = baseSelector.findReact('ResourcesRow');
     this.firstServiceName = baseSelector.find('.entry-organization');
     this.firstServiceDesc = baseSelector.find('.entry-description');
     this.firstResultName = baseSelector.find('.entry-headline');
