@@ -1,19 +1,18 @@
-import config from './config';
 import ResourcePage from './pages/ResourcePage';
-import EditPage from './pages/EditPage';
+import EditResourcePage from './pages/EditResourcePage';
 
 const resourcePage = new ResourcePage();
-const editPage = new EditPage();
+const editResourcePage = new EditResourcePage();
 
 fixture `Edit Resource`
-  .page `${config.baseUrl}/resource?id=1`;
+  .page(EditResourcePage.url(1));
 
 test('Edit resource name', async (t) => {
   const newName = 'New Resource Name';
   await t
     .click(resourcePage.editButton)
-    .typeText(editPage.name, newName, { replace: true })
-    .click(editPage.saveButton)
+    .typeText(editResourcePage.name, newName, { replace: true })
+    .click(editResourcePage.saveButton)
     .expect(resourcePage.resourceName.textContent)
     .contains(newName)
     ;
@@ -38,9 +37,9 @@ test('Edit resource address', async (t) => {
   await t.click(resourcePage.editButton);
   await Promise.all(
     Object.keys(newProps)
-    .map(prop => t.typeText(editPage.address[prop], newProps[prop], { replace: true })),
+    .map(prop => t.typeText(editResourcePage.address[prop], newProps[prop], { replace: true })),
   );
-  await t.click(editPage.saveButton);
+  await t.click(editResourcePage.saveButton);
 
   // Check visibility of edits on show page
   await Promise.all(
@@ -52,7 +51,7 @@ test('Edit resource address', async (t) => {
   // Check visibility of edits on edit page
   await t.click(resourcePage.editButton);
   await Promise.all(Object.keys(newProps).map(
-    prop => t.expect(editPage.address[prop].value).eql(newProps[prop]),
+    prop => t.expect(editResourcePage.address[prop].value).eql(newProps[prop]),
   ));
 });
 
@@ -64,11 +63,11 @@ test('Edit resource phone number', async (t) => {
 
   // Make edits
   await t.click(resourcePage.editButton);
-  const phone = EditPage.getPhone(0);
+  const phone = EditResourcePage.getPhone(0);
   await t
     .typeText(phone.number, newNumber, { replace: true })
     .typeText(phone.serviceType, newServiceType, { replace: true })
-    .click(editPage.saveButton)
+    .click(editResourcePage.saveButton)
     ;
 
   // Check visibility of edits on show page
@@ -91,13 +90,13 @@ test('Add resource phone number', async (t) => {
   // Make edits
   await t
     .click(resourcePage.editButton)
-    .click(editPage.addPhoneButton)
+    .click(editResourcePage.addPhoneButton)
     ;
-  const phone = EditPage.getPhone(-1);
+  const phone = EditResourcePage.getPhone(-1);
   await t
     .typeText(phone.number, newNumber, { replace: true })
     .typeText(phone.serviceType, newServiceType, { replace: true })
-    .click(editPage.saveButton)
+    .click(editResourcePage.saveButton)
     ;
 
   // Check visibility of edits on show page
@@ -115,8 +114,8 @@ test('Delete resource phone number', async (t) => {
 
   await t
     .click(resourcePage.editButton)
-    .click(editPage.deletePhoneButton)
-    .click(editPage.saveButton)
+    .click(editResourcePage.deletePhoneButton)
+    .click(editResourcePage.saveButton)
     ;
 
   await t
