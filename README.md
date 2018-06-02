@@ -67,7 +67,7 @@ npm run dev
 ```
 ## Configuration
 ### Algolia
-[Algolia](https://www.algolia.com/doc/guides/getting-started/what-is-algolia/) is used as our search engine and in order for it to operate properly for everyone, we each need our [index](https://www.algolia.com/doc/guides/indexing/indexing-overview/).
+[Algolia](https://www.algolia.com/doc/guides/getting-started/what-is-algolia/) is used as our search engine and in order for it to operate properly for everyone, we each need our own [index](https://www.algolia.com/doc/guides/indexing/indexing-overview/).
 
 In `app/utils/config.example.js`, change the index to match the index name you configured on the backend:
  - ALGOLIA_INDEX_PREFIX: process.env.ALGOLIA_INDEX_PREFIX || '[your GH handle]'
