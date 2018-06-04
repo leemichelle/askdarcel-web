@@ -13,8 +13,9 @@ export default class ResourcePage {
     // testcafe-react-selectors plugin is currently unable to mix CSS selectors
     // in between React component names.
     // https://github.com/DevExpress/testcafe-react-selectors/issues/51
-    this.phones = baseSelector.find('..listing--main--left--info');
-    this.editButton = baseSelector.find('.listing--aside-edit');
+    this.editButton = baseSelector.find('.listing--aside--edit');
+    this.printButton = baseSelector.find('.listing--aside--print');
+    this.directionsButton = baseSelector.find('.listing--aside--directions');
     this.url = serviceId => `${config.baseUrl}/services/${serviceId}`;
   }
 
