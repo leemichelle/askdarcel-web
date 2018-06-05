@@ -22,7 +22,7 @@ class ListPageSidebar extends React.Component {
               action.to || action.handler
                 ? <Link to={action.to} onClick={action.handler} className={`listing--aside--${action.name.toLowerCase()}`}>
                   { this.renderButtonContent(action) }
-                </Link >
+                </Link>
                 : <a href={action.link} target="_blank" className={`listing--aside--${action.name.toLowerCase()}`}>
                   { this.renderButtonContent(action) }
                 </a>
