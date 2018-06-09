@@ -2,17 +2,16 @@
 
 [![Sauce Test Status](https://saucelabs.com/browser-matrix/askdarcel-web-master.svg)](https://saucelabs.com/u/askdarcel-web-master)
 
-## Docker-based Development Set-up Instructions (Recommended)
+## Option 1: Docker-based Development Set-up Instructions (Recommended)
 
 ### Requirements
 
 Docker Community Edition (CE) >= 17.06
 Docker Compose >= 1.18
 
-Follow the [Docker installation instructions](https://www.docker.com/products/overview) for your OS.
+Follow the [Docker installation instructions](https://www.docker.com/community-edition#/download) for your OS.
 
-### Set up the project
-
+### Docker Setup
 This is not a full guide to Docker and Docker Compose, so please consult other
 guides to learn more about those tools.
 
@@ -38,7 +37,7 @@ the Docker setup instructions and that the API server is running. If you want to
 target a different instance of askdarcel-api, you can modify the `API_URL`
 environment variable in docker-compose.yml.
 
-## Non-Docker Set-up Instructions
+## Option 2: Non-Docker Set-up Instructions
 
 ### Installing Node.js and npm
 We recommend using [nvm](https://github.com/creationix/nvm) (Node Version
@@ -57,15 +56,21 @@ $ npm install -g npm@5.2.0  # Make sure this matches .travis.yml
 To install the dependencies, from the top directory run
 ```sh
 npm install
-``` 
-To build the bundled script with webpack run 
+```
+To build the bundled script with webpack run
 ```sh
 npm run build
-``` 
-And to run the dev server, run 
+```
+And to run the dev server, run
 ```sh
 npm run dev
-``` 
+```
+## Configuration
+### Algolia
+[Algolia](https://www.algolia.com/doc/guides/getting-started/what-is-algolia/) is used as our search engine and in order for it to operate properly for everyone, we each need our own [index](https://www.algolia.com/doc/guides/indexing/indexing-overview/).
+
+In `app/utils/config.example.js`, change the index to match the index name you configured on the backend:
+ - ALGOLIA_INDEX_PREFIX: process.env.ALGOLIA_INDEX_PREFIX || '[your GH handle]'
 
 ## End to end testing
 #### Quick summary of what TestCafe is and how it works

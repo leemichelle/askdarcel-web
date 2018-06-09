@@ -1,4 +1,4 @@
-import ReactSelector from 'testcafe-react-selectors';
+import { ReactSelector } from 'testcafe-react-selectors';
 
 class EditAddress {
   constructor() {
