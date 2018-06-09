@@ -89,10 +89,9 @@
   },
   "scripts": {
     "testserver": "cross-env NODE_ENV=test karma start internals/testing/karma.conf.js",
-    "test": "mocha --reporter spec --inspect testing/mocha.js app/**/*.spec.js*",
+    "test": "mocha --reporter spec testing/mocha.js app/**/*.spec.js*",
     "test:coverage": "nyc --reporter=text npm run test",
-    "test:watch": "npm run test -- --watch --watch-extensions jsx",
-    "test:debug": "mocha --reporter=markdown --inspect testing/mocha.js app/**/*.spec.js* --watch --watch-extensions jsx",
+    "test:watch": "npm run test -- --watch --watch-extensions jsx --inspect",
     "lint": "eslint app/ testcafe/",
     "lint:fix": "eslint --fix app/ testcafe/",
     "postinstall": "npm run build",
