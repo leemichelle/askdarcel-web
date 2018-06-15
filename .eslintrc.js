@@ -5,6 +5,8 @@ module.exports = {
   ],
   "globals": {
     "google": true,
+    "describe": true,
+    "it": true
   },
   "plugins": [
     "react",
