@@ -140,3 +140,27 @@ textarea, input{
     color: $color-brand;
   }
 }
+
+////////////////////////////////////////////////////////////////////////////////////////
+// MARKDOWN COMPONENT OVERRIDES
+
+.org--main--header--description h1,
+.service--description h1 {
+  @extend %font-size-medium;
+  font-weight: 700;
+  color: $color-grey5;
+}
+
+.org--main--header--description h2,
+.service--description h2 {
+  @extend %font-size-small;
+  font-weight: 700;
+  color: $color-grey5;
+}
+
+.org--main--header--description h3,
+.service--description h3 {
+  @extend %font-size-small;
+  font-weight: 400;
+  color: $color-grey5;
+}

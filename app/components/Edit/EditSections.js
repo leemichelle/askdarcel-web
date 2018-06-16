@@ -652,6 +652,7 @@ class EditSections extends React.Component {
 
           <li key="long_description" className="edit--section--list--item">
             <label htmlFor="edit-description-input">Description</label>
+            <p>If you'd like to add formatting to descriptions, we support <a href="https://github.github.com/gfm/" target="_blank">Github flavored markdown</a>.</p>
             <textarea
               id="edit-description-input"
               className="input"
