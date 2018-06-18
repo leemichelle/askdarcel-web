@@ -144,29 +144,26 @@ textarea, input{
 ////////////////////////////////////////////////////////////////////////////////////////
 // MARKDOWN COMPONENT OVERRIDES
 
-.org--main--header--description h1,
-.service--description h1 {
-  @extend %font-size-medium;
-  font-weight: 700;
-  color: $color-grey5;
-}
+.org--main--header--description,
+.service--description {
+  h1 {
+    @extend %font-size-medium;
+    font-weight: 700;
+    color: $color-grey5;
+  }
 
-.org--main--header--description h2,
-.service--description h2 {
-  @extend %font-size-small;
-  font-weight: 700;
-  color: $color-grey5;
-}
+  h2 {
+    @extend %font-size-small;
+    font-weight: 700;
+    color: $color-grey5;
+  }
 
-.org--main--header--description h3,
-.service--description h3,
-.org--main--header--description h4,
-.service--description h4,
-.org--main--header--description h5,
-.service--description h5,
-.org--main--header--description h6,
-.service--description h6 {
-  @extend %font-size-small;
-  font-weight: 400;
-  color: $color-grey5;
+  h3,
+  h4,
+  h5,
+  h6 {
+    @extend %font-size-small;
+    font-weight: 400;
+    color: $color-grey5;
+  }
 }

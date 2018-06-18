@@ -6,7 +6,6 @@ import { round } from '../utils/index';
 import 'react-select/dist/react-select.css';
 import { connect } from 'react-redux';
 import userActions from '../actions/userActions';
-import ReactMarkdown from 'react-markdown';
 
 
 class App extends Component {
