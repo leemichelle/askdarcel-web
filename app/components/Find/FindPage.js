@@ -3,6 +3,7 @@ import Footer from '../ui/Footer';
 import Navigation from '../ui/Navigation';
 import FindHeader from './FindHeader';
 import CategoryItem from './CategoryItem';
+import ListCategoryItem from './ListCategoryItem'
 
 var categories = [];
 
@@ -43,19 +44,25 @@ class CategoryBox extends React.Component {
 class CategoryList extends React.Component {
   render() {
 
-    var categoryNodes = this.props.categories.map(function(category) {
+    var categoryNodes = this.props.categories.slice(0,3).map(function(category) {
       return (
         <CategoryItem name={category.name} key={category.id} categoryid={category.id} />
       );
     });
 
+    var listCategoryNodes = this.props.categories.slice(3).map(function(category) {
+      return (
+        <ListCategoryItem name={category.name} key={category.id} categoryid={category.id} />
+      );
+    });
+
     return (
       <section className="category-list" role="main">
-        <header>
-          <h2>Most used resources</h2>
-        </header>
         <ul className="category-items">
           {categoryNodes}
+        </ul>
+        <ul className="list-category-items">
+          {listCategoryNodes}
         </ul>
       </section>
     );
