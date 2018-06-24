@@ -4,12 +4,14 @@ function Footer() {
   return (
     <footer className="site-footer" role="contentinfo">
       <div className="footer-content">
-        <ul>
-          <li><a href="#">Privacy Policy</a></li>
+        <div className="footer-text">
+            ©{ new Date().getFullYear() } Shelter Tech
+        </div>
+        <ul className="footer-links">
+          <li><a href="#">Contact Us</a></li>
           <li><a href="#">Terms of Service</a></li>
-          <li className="footer_text">
-            © 2016-{ new Date().getFullYear() } Shelter Tech, a 501(c)(3) nonprofit
-          </li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">API Policy</a></li>
         </ul>
       </div>
     </footer>

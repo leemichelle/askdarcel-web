@@ -33,7 +33,7 @@ class CategoryBox extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="find-content-container">
         <FindHeader />
         <CategoryList categories={categories} />
       </div>
@@ -75,6 +75,7 @@ class ContentPage extends React.Component {
       <div className="find-page">
       <Navigation />
       <CategoryBox />
+      <Footer />
       </div>
     );
   }
