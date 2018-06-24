@@ -75,7 +75,6 @@ class ContentPage extends React.Component {
       <div className="find-page">
       <Navigation />
       <CategoryBox />
-      <Footer />
       </div>
     );
   }
