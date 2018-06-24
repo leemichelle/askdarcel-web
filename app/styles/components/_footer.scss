@@ -12,18 +12,6 @@
   a {
     color: $color-white;
   }
-  ul {
-    display: inline-block;
-    > li {
-      text-align: left;
-      display :inline-block;
-      margin: 0 calc-em(15px) calc-em(10px) 0;
-      @include r_max($break-tablet-p) {
-        display: block;
-        text-align: center;
-      }
-    }
-  }
 
   .footer-content {
     width: $max-container-width;
@@ -45,9 +33,28 @@
     }
     .footer-links {
       float: right;
+      display: inline-block;
       padding-right: calc-em(170px);
       @include r_max($break-tablet-p) {
         padding-right: 0;
+        display: block;
+        float: none;
+      }
+      & > li {
+        text-align: left;
+        display :inline-block;
+        margin: 0 0 calc-em(10px) 0;
+        &:not(:last-child) {
+          padding-right: calc-em(40px);
+        }
+
+        @include r_max($break-tablet-p) {
+          display: block;
+          text-align: center;
+          &:not(:last-child) {
+            padding-right: 0;
+          }
+        }
       }
     }
   }
