@@ -1,6 +1,7 @@
 import React from 'react';
 import Footer from '../ui/Footer';
 import Navigation from '../ui/Navigation';
+import WhiteLabel from '../ui/WhiteLabel';
 import FindHeader from './FindHeader';
 import CategoryItem from './CategoryItem';
 import ListCategoryItem from './ListCategoryItem'
@@ -43,17 +44,19 @@ class CategoryBox extends React.Component {
 
 class CategoryList extends React.Component {
   render() {
+    let categoryNodes = [];
+    let listCategoryNodes = [];
 
-    var categoryNodes = this.props.categories.slice(0,3).map(function(category) {
-      return (
-        <CategoryItem name={category.name} key={category.id} categoryid={category.id} />
-      );
-    });
-
-    var listCategoryNodes = this.props.categories.slice(3).map(function(category) {
-      return (
-        <ListCategoryItem name={category.name} key={category.id} categoryid={category.id} />
-      );
+    this.props.categories.forEach(category => {
+      if(category.featured) {
+        if(category.name === 'MOHCD Funded Services') {
+          categoryNodes.unshift(<CategoryItem name={category.name} key={category.id} categoryid={category.id} />);
+        } else {
+          categoryNodes.push(<CategoryItem name={category.name} key={category.id} categoryid={category.id} />);
+        }
+      } else {
+        listCategoryNodes.push(<ListCategoryItem name={category.name} key={category.id} categoryid={category.id} />);
+      }
     });
 
     return (
@@ -73,9 +76,10 @@ class ContentPage extends React.Component {
   render() {
     return (
       <div className="find-page">
-      <Navigation />
-      <CategoryBox />
-      <Footer />
+        <Navigation />
+        <CategoryBox />
+        <WhiteLabel />
+        <Footer />
       </div>
     );
   }

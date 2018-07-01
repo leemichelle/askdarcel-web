@@ -4,4 +4,5 @@ module.exports = {
   ALGOLIA_INDEX_PREFIX: process.env.ALGOLIA_INDEX_PREFIX || 'twolfe2',
   ALGOLIA_APPLICATION_ID: process.env.ALGOLIA_APPLICATION_ID || 'J8TVT53HPZ',
   ALGOLIA_READ_ONLY_API_KEY: process.env.ALGOLIA_READ_ONLY_API_KEY || 'fdf77b152ff7ce0ea4e4221ff3d17d85',
+  MOHCD_SUBDOMAIN: process.env.MOHCD_SUBDOMAIN || 'testing',
 };

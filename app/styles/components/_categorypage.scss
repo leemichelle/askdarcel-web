@@ -94,8 +94,10 @@
   @extend %flex-grid;
   margin: 0 auto;
   max-width: calc-em(661px);
+  margin-bottom: 100px;
   @include r_max($break-tablet-s) {
     flex-direction: column;
+    margin-bottom: 50px;
     margin-top: calc-em(-60px);
     align-items: stretch;
   }
@@ -109,9 +111,6 @@
   width: 100%;
   height: calc-em(60px);
   margin: 0 0 calc-em(10px) 0;
-  &:not(:last-child) {
-    margin-right: calc-em(23px);
-  }
   &:active, &:hover, &:focus {
     box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.2);
   }
