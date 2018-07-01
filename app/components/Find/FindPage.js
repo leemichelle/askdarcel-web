@@ -7,6 +7,7 @@ import CategoryItem from './CategoryItem';
 import ListCategoryItem from './ListCategoryItem'
 
 var categories = [];
+const subDomain = window.location.host.split('.')[0];
 
 class CategoryBox extends React.Component {
   componentDidMount() {
@@ -78,7 +79,7 @@ class ContentPage extends React.Component {
       <div className="find-page">
         <Navigation />
         <CategoryBox />
-        <WhiteLabel />
+        {subDomain === CONFIG.MOHCD_SUBDOMAIN ? <WhiteLabel /> :null}
         <Footer />
       </div>
     );
