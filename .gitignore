@@ -6,5 +6,4 @@ node_modules
 ncp-debug.log
 npm-debug.log
 app/utils/config.js
-app/utils/config.example.js
 .env
