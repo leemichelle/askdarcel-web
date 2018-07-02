@@ -44,14 +44,14 @@ class ServiceEntry extends Component {
     } else {
       timeInfo = 'Closed';
     }
-
+    // debugger;
     return (
       <li className="results-table-entry resource-entry">
         <header>
           <div className="entry-details">
             <h4 className="entry-headline">{hit.name}</h4>
             <div className="entry-subhead">
-              <p>{`${hit.address ? hit.address.address_1 : 'No address found'} • ${timeInfo}`}</p>
+              <p>{`${hit.address.address_1 ? hit.address.address_1 : 'No address found'} • ${timeInfo}`}</p>
             </div>
           </div>
           {hit.is_mohcd_funded ?
@@ -77,7 +77,7 @@ class ServiceEntry extends Component {
             <li className="action-button"><Link to={{ pathname: '/resource', query: { id: hit.resource_id } }}>Details</Link></li>
             <li className="action-button">
               <a
-                href={`https://maps.google.com?saddr=Current+Location&daddr=${hit._geoloc.lat},${hit._geoloc.lng}&dirflg=w`}
+                href={`https://maps.google.com?saddr=Current+Location&daddr=${hit._geoloc ? hit._geoloc.lat : 0},${hit._geoloc ? hit._geoloc.lng : 0}&dirflg=w`}
                 target="_blank"
                 rel="noopener noreferrer"
               >

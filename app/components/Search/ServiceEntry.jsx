@@ -56,14 +56,14 @@ class ServiceEntry extends Component {
               <p>{`${hit.addresses ? hit.addresses.address_1 : 'No address found'} • ${timeInfo}`}</p>
             </div>
           </div>
-          {hit.is_mohcd_funded ?
-            <div className="mohcd-funded">
-              <img src={images.mohcdSeal} alt="MOHCD seal" />
-              <p>Funded by MOHCD</p>
-            </div>
-            :
-            null
-          }
+            {hit.is_mohcd_funded ?
+              <div className="mohcd-funded">
+                <img src={images.mohcdSeal} alt="MOHCD seal" />
+                <p>Funded by MOHCD</p>
+              </div>
+              :
+              null
+            }
         </header>
         <div className="line-break" />
 
@@ -74,7 +74,7 @@ class ServiceEntry extends Component {
             <li className="action-button"><Link to={{ pathname: `/services/${hit.service_id}` }}>Details</Link></li>
             <li className="action-button">
               <a
-                href={`https://maps.google.com?saddr=Current+Location&daddr=${hit._geoloc.lat},${hit._geoloc.lng}&dirflg=w`}
+                href={`https://maps.google.com?saddr=Current+Location&daddr=${hit._geoloc ? hit._geoloc.lat : 0},${hit._geoloc ? hit._geoloc.lng : 0}&dirflg=w`}
                 target="_blank"
                 rel="noopener noreferrer"
               >
