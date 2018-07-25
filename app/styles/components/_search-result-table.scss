@@ -61,13 +61,13 @@
 
 @mixin result-body {
   p {
-    font-size: calc-em(15px);  
+    font-size: calc-em(15px);
     line-height: calc-em(19px);
     color: $color-grey6;
     display: -webkit-box;
     -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical; 
-  } 
+    -webkit-box-orient: vertical;
+  }
   margin-right: calc-em(20px);
   height: calc-em(60px);
   padding-bottom: calc-em(6px);
@@ -172,26 +172,31 @@
   padding-right: calc-em(20px);
 }
 
-.entry-headline {
-  color: $color-black;
-  font-weight: 400;
+.entry-headline a {
+  color: $color-grey8;
+  font-size: calc-em(19px);
+  font-weight: 700;
   margin-bottom: calc-em(6px);
+  display: block;
+  &:hover {
+    color: $color-brand;
+  }
 }
 
 .entry-additional-info {
   height: calc-em(102px);
   margin: calc-em(20px) 0 0 calc-em(28px);
   & > .entry-tabs {
-    margin-bottom: calc-em(10px); 
+    margin-bottom: calc-em(10px);
 
     & > p {
-      color: $color-brand; 
+      color: $color-brand;
       text-transform: uppercase;
       font-size: calc-em(13px);
-      font-weight: bold;  
+      font-weight: bold;
       line-height: calc-em(16px);
     }
-    
+
   }
   & > .entry-body {
     @include result-body;
@@ -230,10 +235,18 @@
   .action-button {
     flex: 1 1 100px;
     text-align: center;
-    color: $color-grey10;
+    color: $color-grey9;
+    display: flex;
+    align-items: stretch;
     & > a {
       text-decoration: none;
-      color: $color-grey10;
+      color: $color-grey9;
+      display: block;
+      flex: 1 1 auto;
+      text-align: center;
+      &:hover {
+        color: $color-brand;
+      }
     }
   }
 }
@@ -277,13 +290,13 @@
   margin: calc-em(20px) 0 0 calc-em(28px);
 
   .service-entry-tabs {
-    margin-bottom: calc-em(10px); 
+    margin-bottom: calc-em(10px);
 
      div {
-      color: $color-grey10; 
+      color: $color-grey9;
       text-transform: uppercase;
       font-size: calc-em(13px);
-      font-weight: bold;  
+      font-weight: bold;
       line-height: calc-em(16px);
       display: inline-block;
       margin-right: calc-em(25px);
@@ -291,7 +304,7 @@
     div:hover {
       color: $color-brand;
       cursor: pointer;
-    } 
+    }
   }
 
   .service-entry-tabs-active {

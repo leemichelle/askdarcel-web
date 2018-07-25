@@ -6,6 +6,8 @@ import FindHeader from './FindHeader';
 import CategoryItem from './CategoryItem';
 import ListCategoryItem from './ListCategoryItem'
 
+import './FindPage.scss';
+
 var categories = [];
 const subDomain = window.location.host.split('.')[0];
 
