@@ -207,7 +207,7 @@ class ProvidedService extends Component {
               disabled={this.state.submitting}
               onClick={() => this.props.handleDeactivation('service', this.props.service.id)}
             >
-              Deactivate
+              Remove Service
               </button>
           </li>
         </ul>

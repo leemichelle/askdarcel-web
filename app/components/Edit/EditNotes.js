@@ -50,9 +50,9 @@ class EditNotes extends Component {
     if (key < 0) {
       delete notes[key];
     } else {
-      notes[key] = { isRemoved: true }; 
+      notes[key] = { isRemoved: true };
     }
-    
+
     this.setState({
       notes: notes,
       existingNotes: existingNotes,
@@ -78,7 +78,7 @@ class EditNotes extends Component {
     return (
       <li className="edit--section--list--item edit--notes">
 				<label>Notes <button className="edit--section--list--item--button" onClick={this.addNote}><i className="material-icons">add_box</i>Add Note</button> </label>
-				<p><a href="https://github.github.com/gfm/" target="_blank">Markdown</a> is also supported for notes.</p>
+				<p style={{margin: '0 0 15px 0'}}><a href="https://guides.github.com/features/mastering-markdown/" target="_blank">Markdown</a> is also supported for notes.</p>
 
         <ul className="edit--section--list--item--sublist">
 					{this.renderNotes()}
@@ -112,7 +112,11 @@ class EditNote extends Component {
       note = (
         <li>
           <label>Note {this.props.index+1}</label>
-          <textarea className="large-input input" placeholder='Note' defaultValue={currentNote.note} onChange={this.handleFieldChange} />
+          <textarea
+            className="large-input input"
+            placeholder='ex. open only for seniors from 4:00-5:00 PM on Mondays' 
+            defaultValue={currentNote.note}
+            onChange={this.handleFieldChange} />
           <button className="delete-note" onClick={() => this.props.removeNote(this.props.index)}><i className="material-icons">&#xE872;</i></button>
         </li>
       )
