@@ -6,13 +6,9 @@
 .sidebar {
 	width: calc-em(250px);
 	background-color: $color-grey1;
-  top: #{$navigation-height};
-  left: 0;
-  bottom: 0;
   display: flex;
 	justify-content: space-between;
 	flex-direction: column;
-	position: fixed;
 }
 
 .sidebar--content {

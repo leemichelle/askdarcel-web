@@ -587,9 +587,6 @@ class EditSections extends React.Component {
     const resource = this.state.resource;
     return (
       <section id="info" className="edit--section">
-        <header className="edit--section--header">
-          <h4>Organization Info</h4>
-        </header>
         <ul className="edit--section--list">
 
           <li key="name" className="edit--section--list--item">
@@ -606,7 +603,7 @@ class EditSections extends React.Component {
           </li>
 
           <li key="alternate_name" className="edit--section--list--item">
-            <label htmlFor="edit-alternate-name-input">Nick Name</label>
+            <label htmlFor="edit-alternate-name-input">Nickname</label>
             <input
               id="edit-alternate-name-input"
               type="text"
@@ -724,20 +721,20 @@ class EditSections extends React.Component {
       />
       <div className="edit--main">
         <header className="edit--main--header">
-          <h1 className="edit--main--header--title">{resource.name}</h1>
+          <h1 className="edit--main--header--title">Let's start with the basics</h1>
         </header>
         <div className="edit--sections">
           {this.renderSectionFields()}
         </div>
+        {this.state.newResource ? null : (<div className="edit--services">
+          <header className="edit--main--header">
+            <h1 className="edit--main--header--title">Services</h1>
+          </header>
+          <div className="edit--sections">
+             {this.renderServices()}
+          </div>
+        </div>)}
       </div>
-      {this.state.newResource ? null : (<div className="edit--main">
-        <header className="edit--main--header">
-          <h1 className="edit--main--header--title">Services</h1>
-        </header>
-        <div className="edit--sections">
-           {this.renderServices()}
-        </div>
-      </div>)}
     </div>
     );
   }
