@@ -56,7 +56,7 @@ class Resource extends Component {
 
   isMOHCDFunded() {
     let { resource } = this.state;
-    let isMOHCDFunded = true;
+    let isMOHCDFunded = false;
 
     resource && resource.categories.map(category => {
       if( category.name === "MOHCD Funded" ) {
