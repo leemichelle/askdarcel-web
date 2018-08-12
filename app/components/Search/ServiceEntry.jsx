@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 import { getTimes, timeToString } from '../../utils/index';
 import { images } from '../../assets';
 import SearchTabView from './SearchTabView';
+import RelativeOpeningTime from '../listing/RelativeOpeningTime';
 
 // TODO: create a shared component for Resource and Service entries
 class ServiceEntry extends Component {
@@ -34,7 +35,8 @@ class ServiceEntry extends Component {
     const { hit } = this.props;
     const { isOpen, openUntil, is24hour } = this.state;
     const description = hit.long_description || 'No description, yet...';
-    const sched = hit.schedule;
+    const applicationProcess = hit.application_process;
+    const schedule = hit.schedule ? { schedule_days: hit.schedule } : null;
     let timeInfo = null;
     if (isOpen) {
       if (is24hour) {
@@ -53,21 +55,25 @@ class ServiceEntry extends Component {
             <h4 className="entry-headline">{hit.name}</h4>
             <div className="entry-subhead">
               <p className="entry-affiliated-resource">a service offered by <Link to={{ pathname: '/resource', query: { id: hit.resource_id } }}>{hit.service_of}</Link></p>
-              <p>{`${hit.addresses ? hit.addresses.address_1 : 'No address found'} • ${timeInfo}`}</p>
+              <p>
+                { hit.address && hit.address.address_1 ? hit.address.address_1 : 'No address found' }
+                { schedule ? ' • ' : null }
+                { schedule ? <RelativeOpeningTime schedule={schedule} /> : null }
+              </p>
             </div>
           </div>
-            {hit.is_mohcd_funded ?
-              <div className="mohcd-funded">
-                <img src={images.mohcdSeal} alt="MOHCD seal" />
-                <p>Funded by MOHCD</p>
-              </div>
-              :
-              null
-            }
+          {hit.is_mohcd_funded ?
+            <div className="mohcd-funded">
+              <img src={images.mohcdSeal} alt="MOHCD seal" />
+              <p>Funded by MOHCD</p>
+            </div>
+            :
+            null
+          }
         </header>
         <div className="line-break" />
 
-        <SearchTabView description={description} schedule={sched}/>
+        <SearchTabView applicationProcess={applicationProcess} description={description} schedule={hit.schedule} />
 
         <div className="entry-action-buttons">
           <ul className="action-buttons">
