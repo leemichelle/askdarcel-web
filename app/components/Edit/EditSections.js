@@ -286,6 +286,9 @@ class EditSections extends React.Component {
     // let newServices = this.prepServicesData(services.services);
 
     this.setState({ submitting: true });
+    const setNotSubmitting = () => {
+      this.setState({ submitting: false });
+    }
     dataService.post(requestString, { resources: [newResource] })
       .then((response) => {
         if (response.ok) {
@@ -298,6 +301,7 @@ class EditSections extends React.Component {
       .catch((error) => {
         alert('Issue creating resource, please try again.');
         console.log(error);
+        setNotSubmitting();
       });
   }
 
