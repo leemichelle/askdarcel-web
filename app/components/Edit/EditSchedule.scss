@@ -17,7 +17,7 @@
 
   .remove-time {
     position: absolute;
-    right: calc-em(173px);
+    right: calc-em(-67px);
     background-color: white;
     color: $color-red;
   }
@@ -48,7 +48,7 @@
 
 .open-24-label {
   text-align: right;
-  width: 103%;
+  width: 100%;
 }
 
 .edit-hours-list {
@@ -70,6 +70,7 @@
       align-items: center;
       display: flex;
       width: 100%;
+      position: relative;
     }
     input {
       flex: 1 1 auto;

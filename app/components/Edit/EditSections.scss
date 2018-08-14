@@ -162,38 +162,40 @@
   }
 }
 
-.icon-button {
-  background: transparent !important;
-  border: none !important;
-  color: $color-grey6 !important;
+.edit--section--list--item button.icon-button {
+  background: transparent;
+  border: none;
+  color: $color-grey6;
   &:hover {
-    color: $color-white !important;
-    background: $color-brand !important;
-    border: none !important;
-    box-shadow: none !important;
+    color: $color-white;
+    background: $color-brand;
+    border: none;
+    box-shadow: none;
   }
 }
 
-.icon-button i {
-  margin-right: 0 !important;
+.edit--section--list--item button.icon-button i {
+  margin-right: 0;
   font-size: calc-em(20px);
 }
 
-.trash-button, .remove-time, .delete-note {
-  color: $color-red !important;
-  border: none !important;
+.edit--section--list--item button.trash-button,
+.edit--section--list--item button.remove-time,
+.edit--section--list--item button.delete-note {
+  color: $color-red;
+  border: none;
   &:hover {
-    background: $color-red !important;
-    color: $color-white !important;
-    border: none !important;
+    background: $color-red;
+    color: $color-white;
+    border: none;
   }
 }
 
-.remove-item {
-  color: $color-red !important;
-  border: 1px solid $color-red !important;
+.edit--section--list--item button.remove-item {
+  color: $color-red;
+  border: 1px solid $color-red;
   &:hover {
-    background: $color-red !important;
-    color: $color-white !important;
+    background: $color-red;
+    color: $color-white;
   }
 }

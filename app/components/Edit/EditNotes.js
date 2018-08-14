@@ -119,7 +119,7 @@ class EditNote extends Component {
             placeholder='ex. open only for seniors from 4:00-5:00 PM on Mondays'
             defaultValue={currentNote.note}
             onChange={this.handleFieldChange} />
-          <button className="delete-note icon-button" onClick={() => this.props.removeNote(this.props.index)}><i className="material-icons">&#xE872;</i></button>
+          <button className="delete-note icon-button" onClick={() => this.props.removeNote(this.props.index)}><i className="material-icons">delete</i></button>
         </li>
       )
     }

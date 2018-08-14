@@ -18,11 +18,6 @@ class EditSidebar extends React.Component {
         disabled={this.props.submitting}
         onClick={this.props.handleSubmit}
       >Save Changes</button>,
-      // <button
-      //   className="sidebar--actions--button cancel"
-      //   key="cancel"
-      //   onClick={this.props.handleCancel}
-      // >Discard Changes</button>,
       <button
         className="sidebar--actions--button deactivate"
         key="deactive"

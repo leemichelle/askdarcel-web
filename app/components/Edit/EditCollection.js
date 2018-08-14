@@ -62,7 +62,7 @@ export default function editCollectionHOC(ResourceObjectItem,
                                 item = {collection[i]}
                                 handleChange = {this.handleChange}
                             />
-                            <button className='trash-button icon-button' onClick={() => this.removeItem(i, collection[i])}><i className="material-icons">&#xE872;</i></button>
+                            <button className='trash-button icon-button' onClick={() => this.removeItem(i, collection[i])}><i className="material-icons">delete</i></button>
                         </div>
                     );
                 }
