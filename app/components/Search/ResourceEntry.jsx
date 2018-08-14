@@ -53,7 +53,7 @@ class ServiceEntry extends Component {
       <li className="results-table-entry resource-entry">
         <header>
           <div className="entry-details">
-            <h4 className="entry-headline">{hit.name}</h4>
+            <h4 className="entry-headline"><Link to={{ pathname: '/resource', query: { id: hit.resource_id } }}>{hit.name}</Link></h4>
             <div className="entry-subhead">
               <p>
                 { hit.address && hit.address.address_1 ? hit.address.address_1 : 'No address found' }
