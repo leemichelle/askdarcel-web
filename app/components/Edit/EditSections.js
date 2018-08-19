@@ -12,6 +12,8 @@ import EditPhones from './EditPhones';
 import EditSidebar from './EditSidebar';
 import * as dataService from '../../utils/DataService';
 
+import './EditSections.scss';
+
 function getDiffObject(curr, orig) {
   return Object.entries(curr).reduce((acc, [key, value]) => {
     if (!_.isEqual(orig[key], value)) {
@@ -589,18 +591,15 @@ class EditSections extends React.Component {
     const resource = this.state.resource;
     return (
       <section id="info" className="edit--section">
-        <header className="edit--section--header">
-          <h4>Info</h4>
-        </header>
         <ul className="edit--section--list">
 
           <li key="name" className="edit--section--list--item">
-            <label htmlFor="edit-name-input">Name</label>
+            <label htmlFor="edit-name-input">Name of the Organization</label>
             <input
               id="edit-name-input"
               type="text"
               className="input"
-              placeholder="Name"
+              placeholder="Organization Name"
               data-field="name"
               defaultValue={resource.name}
               onChange={this.handleResourceFieldChange}
@@ -608,12 +607,12 @@ class EditSections extends React.Component {
           </li>
 
           <li key="alternate_name" className="edit--section--list--item">
-            <label htmlFor="edit-alternate-name-input">Alternate Name</label>
+            <label htmlFor="edit-alternate-name-input">Nickname</label>
             <input
               id="edit-alternate-name-input"
               type="text"
               className="input"
-              placeholder="Alternate Name"
+              placeholder="What it's known as in the community"
               data-field="alternate_name"
               defaultValue={resource.alternate_name}
               onChange={this.handleResourceFieldChange}
@@ -636,6 +635,7 @@ class EditSections extends React.Component {
               id="edit-website-input"
               type="url"
               className="input"
+              placeholder="http://"
               defaultValue={resource.website}
               data-field="website"
               onChange={this.handleResourceFieldChange}
@@ -656,10 +656,11 @@ class EditSections extends React.Component {
 
           <li key="long_description" className="edit--section--list--item">
             <label htmlFor="edit-description-input">Description</label>
-            <p>If you'd like to add formatting to descriptions, we support <a href="https://github.github.com/gfm/" target="_blank">Github flavored markdown</a>.</p>
+            <p style={{margin: '0 0 15px 0'}}>If you'd like to add formatting to descriptions, we support <a href="https://guides.github.com/features/mastering-markdown/" target="_blank">Github flavored markdown</a>.</p>
             <textarea
               id="edit-description-input"
               className="input"
+              placeholder="Describe the organization in 1-2 sentences. Avoid listing the services it provides and instead explaint the organization's mission."
               defaultValue={resource.long_description}
               data-field="long_description"
               onChange={this.handleResourceFieldChange}
@@ -672,6 +673,7 @@ class EditSections extends React.Component {
               id="edit-legal-status-input"
               type="text"
               className="input"
+              placeholder="ex. non-profit, government, business"
               defaultValue={resource.legal_status}
               data-field="legal_status"
               onChange={this.handleResourceFieldChange}
@@ -695,18 +697,13 @@ class EditSections extends React.Component {
 
   renderServices() {
     return (
-      <section id="services" className="edit--section">
-        <header className="edit--section--header">
-          <h4>Services</h4>
-        </header>
-        <ul className="edit--section--list">
-          <EditServices
-            services={this.state.resource.services}
-            handleServiceChange={this.handleServiceChange}
-            handleDeactivation={this.handleDeactivation}
-          />
-        </ul>
-      </section>
+      <ul className="edit--section--list">
+        <EditServices
+          services={this.state.resource.services}
+          handleServiceChange={this.handleServiceChange}
+          handleDeactivation={this.handleDeactivation}
+        />
+      </ul>
     );
   }
 
@@ -728,12 +725,19 @@ class EditSections extends React.Component {
       />
       <div className="edit--main">
         <header className="edit--main--header">
-          <h1 className="edit--main--header--title">{resource.name}</h1>
+          <h1 className="edit--main--header--title">Let's start with the basics</h1>
         </header>
         <div className="edit--sections">
           {this.renderSectionFields()}
-          {this.state.newResource ? null : this.renderServices()}
         </div>
+        {this.state.newResource ? null : (<div className="edit--services">
+          <header className="edit--main--header">
+            <h1 className="edit--main--header--title">Services</h1>
+          </header>
+          <div className="edit--sections">
+             {this.renderServices()}
+          </div>
+        </div>)}
       </div>
     </div>
     );
