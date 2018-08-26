@@ -1,13 +1,26 @@
-var path = require('path');
-var webpack = require('webpack');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var ExtendedDefinePlugin = require('extended-define-webpack-plugin');
+const { readFileSync } = require('fs');
+const yaml = require('js-yaml');
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtendedDefinePlugin = require('extended-define-webpack-plugin');
 
-//Change this to config.js and add a key to the config file
-var config = require(path.resolve(__dirname, 'app/utils/config.example.js'));
+// Take the user config from the file, and override keys with environment variables if they exist
+const userConfig = yaml.safeLoad(readFileSync('./config.yml', 'utf8'));
+const environmentConfig = [
+  'GOOGLE_API_KEY',
+  'ALGOLIA_INDEX_PREFIX',
+  'ALGOLIA_APPLICATION_ID',
+  'ALGOLIA_READ_ONLY_API_KEY',
+  'MOHCD_SUBDOMAIN',
+];
 
-var appRoot = path.resolve(__dirname, 'app/');
-var buildDir = path.resolve(__dirname, 'build');
+const config = environmentConfig.reduce((acc, key) => {
+  if (process.env[key] !== undefined) { acc[key] = process.env[key]; }
+  return acc;
+}, userConfig);
+
+const appRoot = path.resolve(__dirname, 'app/');
+const buildDir = path.resolve(__dirname, 'build');
 
 module.exports = {
   context: __dirname,
@@ -76,19 +89,19 @@ module.exports = {
             loader: 'file-loader',
             options: {
               name: '[name]-[sha512:hash:hex:8].[ext]',
-            }
+            },
           },
           {
             loader: 'image-webpack-loader',
             options: {
               bypassOnDebug: true,
               optimizationLevel: 7,
-              interlaced: false
-            }
-          }
-        ]
-      }
-    ]
+              interlaced: false,
+            },
+          },
+        ],
+      },
+    ],
   },
   devServer: {
     contentBase: buildDir,
@@ -98,10 +111,10 @@ module.exports = {
     proxy: {
       '/api/*': {
         target: process.env.API_URL || 'http://localhost:3000',
-        rewrite: function(req) {
+        rewrite(req) {
           req.url = req.url.replace(/^\/api/, '');
-        }
-      }
-    }
-  }
+        },
+      },
+    },
+  },
 };
