@@ -106,14 +106,10 @@ module.exports = {
   devServer: {
     contentBase: buildDir,
     historyApiFallback: true,
-    devtool: 'source-map',
-    colors: true,
     proxy: {
-      '/api/*': {
+      '/api': {
         target: process.env.API_URL || 'http://localhost:3000',
-        rewrite(req) {
-          req.url = req.url.replace(/^\/api/, '');
-        },
+        pathRewrite: { '^\/api': '' },
       },
     },
   },
