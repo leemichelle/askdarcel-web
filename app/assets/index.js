@@ -2,7 +2,7 @@ import config from '../config';
 
 const icons = require.context('../assets/img', true, /ic-.*\.(png|svg)$/i);
 const iconPathMap = {};
-icons.keys().forEach((key) => {
+icons.keys().forEach(key => {
   iconPathMap[key.match(/ic-([^@]*)(?:@3x)?.(?:svg|png)/)[1]] = icons(key);
 });
 
