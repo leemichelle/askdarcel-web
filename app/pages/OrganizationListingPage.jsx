@@ -1,16 +1,17 @@
-import React, { Component } from 'react';
+import React from 'react';
+import ReactMarkdown from 'react-markdown';
 import { Link } from 'react-router';
 import PropTypes from 'prop-types';
-import { AddressInfo, TodaysHours, PhoneNumber, ResourceCategories, Website, Email, StreetView } from './ResourceInfos';
-import DetailedHours from './DetailedHours';
-import Services from './Services';
-import Notes from './Notes';
+import { AddressInfo, TodaysHours, PhoneNumber, ResourceCategories, Website, Email, StreetView } from '../components/listing/ResourceInfos';
+import DetailedHours from '../components/listing/DetailedHours';
+import Services from '../components/listing/Services';
+import Notes from '../components/listing/Notes';
 import Loader from 'components/ui/Loader';
-import HAPcertified from '../../assets/img/ic-hap.png';
-import MOHCDFunded from '../../assets/img/ic-mohcd-funded-services.png';
-import ResourceMap from './ResourceMap';
-import * as dataService from '../../utils/DataService';
-import ReactMarkdown from 'react-markdown';
+import HAPcertified from '../assets/img/ic-hap.png';
+import MOHCDFunded from '../assets/img/ic-mohcd-funded-services.png';
+import ResourceMap from '../components/listing/ResourceMap';
+import * as dataService from '../utils/DataService';
+
 
 function scrollToElement(selector) {
   const elem = document.getElementById(selector);
@@ -19,7 +20,7 @@ function scrollToElement(selector) {
   }
 }
 
-class Resource extends Component {
+export class OrganizationListingPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = { resource: null };
@@ -203,11 +204,11 @@ class Resource extends Component {
   }
 }
 
-Resource.defaultProps = {
+OrganizationListingPage.defaultProps = {
   userLocation: null,
 };
 
-Resource.propTypes = {
+OrganizationListingPage.propTypes = {
   location: PropTypes.shape({
     query: PropTypes.shape({
       resourceid: PropTypes.string,
@@ -219,5 +220,3 @@ Resource.propTypes = {
     lng: PropTypes.number.isRequired,
   }),
 };
-
-export default Resource;

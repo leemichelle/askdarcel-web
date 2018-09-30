@@ -4,15 +4,15 @@ import { withRouter, browserHistory } from 'react-router';
 import _ from 'lodash';
 
 import { Loader } from 'components/ui';
-import EditAddress from './EditAddress';
-import EditServices from './EditServices';
-import EditNotes from './EditNotes';
-import EditSchedule from './EditSchedule';
-import EditPhones from './EditPhones';
-import EditSidebar from './EditSidebar';
-import * as dataService from '../../utils/DataService';
+import EditAddress from '../components/edit/EditAddress';
+import EditServices from '../components/edit/EditServices';
+import EditNotes from '../components/edit/EditNotes';
+import EditSchedule from '../components/edit/EditSchedule';
+import EditPhones from '../components/edit/EditPhones';
+import EditSidebar from '../components/edit/EditSidebar';
+import * as dataService from '../utils/DataService';
 
-import './EditSections.scss';
+import './OrganizationEditPage.scss';
 
 function getDiffObject(curr, orig) {
   return Object.entries(curr).reduce((acc, [key, value]) => {
@@ -169,7 +169,7 @@ function createFullSchedule(scheduleObj) {
   return { schedule_days: [] };
 }
 
-class EditSections extends React.Component {
+export class OrganizationEditPage extends React.Component {
 
   constructor(props) {
     super(props);
@@ -753,7 +753,7 @@ function isEmpty(map) {
   return true;
 }
 
-EditSections.propTypes = {
+OrganizationEditPage.propTypes = {
   // TODO: location is only ever used to get the resourceid; we should just pass
   // in the resourceid directly as a prop
   location: PropTypes.shape({
@@ -765,4 +765,4 @@ EditSections.propTypes = {
   router: PropTypes.instanceOf(Object).isRequired,
 };
 
-export default withRouter(EditSections);
+export default withRouter(OrganizationEditPage);

@@ -22,6 +22,7 @@ module.exports = {
   "rules": {
     "camelcase": 0,
     "import/no-extraneous-dependencies": 0,
+    "import/no-default-export": 1,
     "no-plusplus": 0,
     "no-prototype-builtins": 0,
     "no-underscore-dangle": 0,
