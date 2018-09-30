@@ -5,14 +5,14 @@ import {
   Configure,
   SearchBox,
   RefinementList,
-  } from 'react-instantsearch/dom';
+} from 'react-instantsearch/dom';
 import { isEqual } from 'lodash';
 import qs from 'qs';
 import SearchResultsContainer from '../components/search/SearchResultsContainer';
 import config from '../config';
 
 
-class Search extends Component {
+class SearchPage extends Component {
   constructor(props) {
     super(props);
 
@@ -87,4 +87,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(Search);
+export const SearchResultsPage = connect(mapStateToProps)(SearchPage);
