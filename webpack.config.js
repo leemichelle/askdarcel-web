@@ -4,8 +4,10 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtendedDefinePlugin = require('extended-define-webpack-plugin');
 
+const CONFIG_YAML = process.env.CONFIG_YAML || 'config.yml';
+
 // Take the user config from the file, and override keys with environment variables if they exist
-const userConfig = yaml.safeLoad(readFileSync('./config.yml', 'utf8'));
+const userConfig = yaml.safeLoad(readFileSync(CONFIG_YAML, 'utf8'));
 const environmentConfig = [
   'GOOGLE_API_KEY',
   'ALGOLIA_INDEX_PREFIX',
@@ -23,6 +25,7 @@ const appRoot = path.resolve(__dirname, 'app/');
 const buildDir = path.resolve(__dirname, 'build');
 
 module.exports = {
+  mode: process.env.NODE_ENV || 'production',
   context: __dirname,
   entry: ['whatwg-fetch', 'babel-polyfill', path.resolve(appRoot, 'init.jsx')],
   output: {
@@ -94,9 +97,13 @@ module.exports = {
           {
             loader: 'image-webpack-loader',
             options: {
-              bypassOnDebug: true,
-              optimizationLevel: 7,
-              interlaced: false,
+              gifsicle: {
+                interlaced: false,
+              },
+              optipng: {
+                optimizationLevel: 7,
+              },
+              disable: true,
             },
           },
         ],
@@ -106,14 +113,10 @@ module.exports = {
   devServer: {
     contentBase: buildDir,
     historyApiFallback: true,
-    devtool: 'source-map',
-    colors: true,
     proxy: {
-      '/api/*': {
+      '/api': {
         target: process.env.API_URL || 'http://localhost:3000',
-        rewrite(req) {
-          req.url = req.url.replace(/^\/api/, '');
-        },
+        pathRewrite: { '^/api': '' },
       },
     },
   },
