@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Navigation from './ui/Navigation';
-import CategoryPage from './find/FindPage';
-import ResourcesTable from './search/ResourcesTable';
+// import CategoryPage from './find/FindPage';
+// import ResourcesTable from './search/ResourcesTable';
 import { round } from '../utils/index';
 import 'react-select/dist/react-select.css';
 import { connect } from 'react-redux';
