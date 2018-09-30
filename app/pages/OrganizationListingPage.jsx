@@ -2,14 +2,14 @@ import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import { Link } from 'react-router';
 import PropTypes from 'prop-types';
-import { AddressInfo, TodaysHours, PhoneNumber, ResourceCategories, Website, Email, StreetView } from '../components/listing/ResourceInfos';
-import DetailedHours from '../components/listing/DetailedHours';
-import Services from '../components/listing/Services';
-import Notes from '../components/listing/Notes';
+import { AddressInfo, TodaysHours, PhoneNumber, ResourceCategories, Website, Email, StreetView } from 'components/listing/ResourceInfos';
+import DetailedHours from 'components/listing/DetailedHours';
+import Services from 'components/listing/Services';
+import Notes from 'components/listing/Notes';
 import Loader from 'components/ui/Loader';
+import ResourceMap from 'components/listing/ResourceMap';
 import HAPcertified from '../assets/img/ic-hap.png';
 import MOHCDFunded from '../assets/img/ic-mohcd-funded-services.png';
-import ResourceMap from '../components/listing/ResourceMap';
 import * as dataService from '../utils/DataService';
 
 
@@ -56,11 +56,12 @@ export class OrganizationListingPage extends React.Component {
   }
 
   isMOHCDFunded() {
-    let { resource } = this.state;
+    const { resource } = this.state;
     let isMOHCDFunded = false;
 
-    resource && resource.categories.map(category => {
-      if( category.name === "MOHCD Funded" ) {
+    // eslint-disable-next-line
+    resource && resource.categories.forEach(category => {
+      if (category.name === 'MOHCD Funded') {
         isMOHCDFunded = true;
       }
     });

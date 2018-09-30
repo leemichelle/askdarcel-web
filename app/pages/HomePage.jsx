@@ -44,7 +44,7 @@ class HomePage extends React.Component {
           <FindHeader />
           <CategoryList categories={categories} />
         </div>
-          { subDomain === config.MOHCD_SUBDOMAIN ? <WhiteLabel /> : null}
+        {subDomain === config.MOHCD_SUBDOMAIN ? <WhiteLabel /> : null}
         <Footer />
       </div>
     );
