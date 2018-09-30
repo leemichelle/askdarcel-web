@@ -133,8 +133,6 @@ class ResourcesRow extends Component {
     let schedule = this.props.resource.schedule ? this.props.resource.schedule.schedule_days : [];
     let { open, time } = this.getOpenTime(schedule);
 
-    console.log(this.props)
-
     return (
         <li className="results-table-entry">
           <Link to={{ pathname: "resource", query: { id: this.props.resource.id, time: this.state.walkTime } }}>
