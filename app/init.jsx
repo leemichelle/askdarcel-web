@@ -6,9 +6,13 @@ import { Provider } from 'react-redux';
 import { syncHistoryWithStore } from 'react-router-redux';
 import configureStore from './store/configureStore';
 import routes from './routes';
+import * as Sentry from '@sentry/browser';
+import config from './config';
 
 require('instantsearch.css/themes/reset.css');
 require('./styles/main.scss');
+
+Sentry.init({ dsn: `https://${config.SENTRY_PUBLIC_KEY}@sentry.io/${config.SENTRY_PROJECT_ID}` });
 
 const store = configureStore();
 const history = syncHistoryWithStore(browserHistory, store);
