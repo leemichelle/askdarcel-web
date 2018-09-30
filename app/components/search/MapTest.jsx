@@ -1,5 +1,6 @@
 import React from 'react';
 import GoogleMap from 'google-map-react';
+import config from '../../config';
 
 
 
@@ -9,7 +10,7 @@ const MapTest = ({hit}) => {
 return (
     <div style={{ height: '100vh', width: '100%' }}>
         <GoogleMap
-          bootstrapURLKeys={{ key: CONFIG.GOOGLE_API_KEY }}
+          bootstrapURLKeys={{ key: config.GOOGLE_API_KEY }}
           defaultCenter={{lat: 37.7749, lng: -122.4194}}
           defaultZoom={11}
         >

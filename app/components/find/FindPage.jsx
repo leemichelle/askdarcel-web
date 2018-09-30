@@ -5,6 +5,7 @@ import WhiteLabel from '../ui/WhiteLabel';
 import FindHeader from './FindHeader';
 import CategoryItem from './CategoryItem';
 import ListCategoryItem from './ListCategoryItem'
+import config from '../../config';
 
 import './FindPage.scss';
 
@@ -85,7 +86,7 @@ class ContentPage extends React.Component {
       <div className="find-page">
         <Navigation />
         <CategoryBox />
-          { subDomain === CONFIG.MOHCD_SUBDOMAIN ? <WhiteLabel /> : null}
+          { subDomain === config.MOHCD_SUBDOMAIN ? <WhiteLabel /> : null}
         <Footer />
       </div>
     );
