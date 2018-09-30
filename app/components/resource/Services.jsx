@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactMarkdown from 'react-markdown';
 import DetailedHours from './DetailedHours';
+import Notes from './Notes';
 
 class Services extends Component {
   constructor(props) {

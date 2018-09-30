@@ -133,7 +133,7 @@ class Resource extends Component {
               <Services description={resource.long_description} services={resource.services} />
             </section>
 
-            {/* <Notes notes={this.state.resource.notes} /> */}
+            <Notes notes={this.state.resource.notes} id="notes" />
 
             <section className="info--section" id="info">
               <header className="service--section--header">
