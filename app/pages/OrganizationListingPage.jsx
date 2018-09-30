@@ -16,7 +16,7 @@ import * as dataService from '../utils/DataService';
 function scrollToElement(selector) {
   const elem = document.getElementById(selector);
   if (elem) {
-    elem.scrollIntoView({ block: 'start', behaviour: 'smooth' });
+    elem.scrollIntoView({ block: 'center', behaviour: 'smooth' });
   }
 }
 
@@ -132,12 +132,10 @@ export class OrganizationListingPage extends React.Component {
               <header className="service--section--header">
                 <h4>Services</h4>
               </header>
-              <ul className="service--section--list">
-                <Services description={resource.long_description} services={resource.services} />
-              </ul>
+              <Services description={resource.long_description} services={resource.services} />
             </section>
 
-            <Notes notes={this.state.resource.notes} />
+            <Notes notes={this.state.resource.notes} id="notes" />
 
             <section className="info--section" id="info">
               <header className="service--section--header">
