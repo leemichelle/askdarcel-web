@@ -34,12 +34,14 @@ export class OrganizationListingPage extends React.Component {
 
   loadResourceFromServer() {
     const { query } = this.props.location;
-    const resourceID = query.id;
-    const url = `/api/resources/${resourceID}`;
-    fetch(url, { credentials: 'include' }).then(r => r.json())
-    .then((data) => {
-      this.setState({ resource: data.resource });
-    });
+    const { id } = query;
+    const url = `/api/resources/${id}`;
+    fetch(url, { credentials: 'include' })
+      .then(r => r.json())
+      .then((data) => {
+        console.log(data)
+        this.setState({ resource: data.resource });
+      });
   }
 
   verifyResource() {
@@ -72,6 +74,7 @@ export class OrganizationListingPage extends React.Component {
   render() {
     const { resource } = this.state;
     const isMOHCDFunded = this.isMOHCDFunded();
+    console.log(resource, window.google);
     return (!resource || !window.google ? <Loader /> :
     <div className="org-container">
       <article className="org" id="resource">

@@ -7,7 +7,7 @@ import ProposedService from '../../components/admin/ProposedService';
 import * as DataService from '../../utils/DataService';
 import { getAuthRequestHeaders } from '../../utils/index';
 
-class ChangeRequestsPage extends React.Component {
+export class ChangeRequestsPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -266,5 +266,3 @@ class ChangeRequestsPage extends React.Component {
     );
   }
 }
-
-export default ChangeRequestsPage;
