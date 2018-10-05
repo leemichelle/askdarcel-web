@@ -5,7 +5,7 @@ REPO=sheltertechsf/askdarcel-web
 docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
 
 if [[ -n "$TRAVIS_TAG" ]]; then
-    TAG="dev-$TRAVIS_TAG"
+    TAG="$TRAVIS_TAG"
 else
     if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then
         TAG="pull-request-$TRAVIS_PULL_REQUEST"
