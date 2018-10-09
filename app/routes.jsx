@@ -1,20 +1,22 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
+import './utils/google';
 
 import App from './components/App';
 import { RequireAuth } from './components/auth/RequireAuth';
 // import configureStore from './store/configureStore';
 
-import AdminPage from './pages/admin/Admin';
-import HomePage from './pages/HomePage';
-import ChangeRequestsPage from './pages/admin/ChangeRequests';
+import { HomePage } from './pages/HomePage';
 import { OrganizationEditPage } from './pages/OrganizationEditPage';
-import LoginPage from './pages/admin/Login';
-import PrivacyPolicyPage from './pages/legal/PrivacyPolicy';
 import { OrganizationListingPage } from './pages/OrganizationListingPage';
 import { SearchResultsPage } from './pages/SearchPage';
 import { ServiceListingPage } from './pages/ServiceListingPage';
-import TermsOfServicePage from './pages/legal/TermsOfService';
+
+import { AdminPage } from './pages/admin/Admin';
+import { ChangeRequestsPage } from './pages/admin/ChangeRequests';
+import { LoginPage } from './pages/admin/Login';
+import { PrivacyPolicyPage } from './pages/legal/PrivacyPolicy';
+import { TermsOfServicePage } from './pages/legal/TermsOfService';
 
 function redirectToRoot(nextState, replace) {
   replace({

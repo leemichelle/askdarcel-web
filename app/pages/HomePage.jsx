@@ -11,7 +11,7 @@ import './HomePage.scss';
 let categories = [];
 const subDomain = window.location.host.split('.')[0];
 
-class HomePage extends React.Component {
+export class HomePage extends React.Component {
   componentDidMount() {
     this.loadCategoriesFromServer();
   }
@@ -50,5 +50,3 @@ class HomePage extends React.Component {
     );
   }
 }
-
-export default HomePage;
