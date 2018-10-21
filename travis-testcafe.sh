@@ -32,6 +32,9 @@ docker run -d \
   -e DATABASE_URL=postgres://postgres@db/askdarcel_development \
   -e TEST_DATABASE_URL=postgres://postgres@db/askdarcel_test \
   -e SECRET_KEY_BASE=notasecret \
+  -e ALGOLIA_APPLICATION_ID=$ALGOLIA_APPLICATION_ID \
+  -e ALGOLIA_API_KEY=$ALGOLIA_API_KEY \
+  -e ALGOLIA_INDEX_PREFIX=$ALGOLIA_INDEX_PREFIX \
   -e RAILS_ENV=development \
   --network=askdarcel \
   --name=api \
