@@ -2,7 +2,12 @@
 # Environment variables will override this config if they exist
 # You need to create a config.yml file with your own values to run locally
 
-GOOGLE_API_KEY: 'AIzaSyCZxTONKtTHyz3qp-x4tJlH4c6VUKn9sd4'
+# This key needs access to the following APIs:
+# - Maps JavaScript API
+# - Street View API
+# Note that the settings for this key are in Google Cloud Platform under the
+# AskDarcel Staging project
+GOOGLE_API_KEY: 'AIzaSyBeryKXoJ8TRlRCC4NLM5tBi0vZWB-Ft5c'
 
 ALGOLIA_INDEX_PREFIX: '<ENTER_YOUR_GITHUB_USERNAME_HERE>'
 ALGOLIA_APPLICATION_ID: 'J8TVT53HPZ'

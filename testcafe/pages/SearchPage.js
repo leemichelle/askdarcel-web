@@ -2,16 +2,18 @@ import { ReactSelector } from 'testcafe-react-selectors';
 
 export default class SearchPage {
   constructor() {
-    const baseSelector = ReactSelector('ResourcesTable');
-    this.resultsCount = baseSelector.find('.results-count');
-    this.resultEntry = baseSelector.findReact('ResourcesRow');
-    this.firstServiceName = baseSelector.find('.entry-organization');
-    this.firstServiceDesc = baseSelector.find('.entry-description');
-    this.firstResultName = baseSelector.find('.entry-headline');
-    this.firstResultAddress = baseSelector.find('.entry-distance');
+    const baseSelector = ReactSelector('SearchTable');
+    this.searchRows = baseSelector.findReact('SearchRow');
+
+    this.firstOrganization = baseSelector.findReact('ResourceEntry');
+    this.firstOrganizationName = this.firstOrganization.find('.entry-headline');
+    this.firstOrganizationDesc = this.firstOrganization.find('.entry-body');
+
+    this.firstService = baseSelector.findReact('ServiceEntry');
+    this.firstServiceName = this.firstService.find('.entry-headline');
+    this.firstServiceDesc = this.firstService.find('.service-entry-body');
+
     this.openHours = baseSelector.find('.entry-hours');
     this.pagination = ReactSelector('InstantSearch').find('.ais-Pagination');
-    this.serviceEntry = ReactSelector('Hits ServiceEntry');
-    this.resourceEntry = ReactSelector('Hits ResourceEntry');
   }
 }

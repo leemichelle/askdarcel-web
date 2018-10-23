@@ -24,7 +24,7 @@ class EditPhone {
 
 export default class EditPage {
   constructor() {
-    const baseSelectorName = 'EditSections';
+    const baseSelectorName = 'OrganizationEditPage';
     const baseSelector = ReactSelector(baseSelectorName);
     this.name = baseSelector.find('#edit-name-input');
     this.address = new EditAddress();

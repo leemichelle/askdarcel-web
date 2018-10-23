@@ -11,6 +11,8 @@ addons:
     - ubuntu-toolchain-r-test
     packages:
     - g++-4.8
+env:
+  - ALGOLIA_INDEX_PREFIX=travisci
 before_install:
 - cp config.example.yml config.yml
 - export CHROME_BIN=chromium-browser

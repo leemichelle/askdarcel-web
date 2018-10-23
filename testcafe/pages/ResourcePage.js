@@ -3,7 +3,7 @@ import config from '../config';
 
 export default class ResourcePage {
   constructor() {
-    const baseSelectorName = 'Resource';
+    const baseSelectorName = 'OrganizationListingPage';
     const baseSelector = ReactSelector(baseSelectorName);
     this.resourceName = baseSelector.find('.org--main--header--title');
     this.description = baseSelector.find('.org--main--header--description');
