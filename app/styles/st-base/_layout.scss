@@ -278,3 +278,28 @@ ul.actions {
     }
   }
 }
+
+.pad-inline {
+  padding: 0 6px;
+}
+
+.float-right {
+  float: right;
+}
+
+.relative-opening-time {
+  font-weight: bold;
+  // padding: 0 6px;
+
+  &.status-red {
+    color: #C4243A;
+  }
+
+  &.status-green {
+    color: #5BBA81
+  }
+
+  &.status-amber {
+    color: #FFB646;
+  }
+}

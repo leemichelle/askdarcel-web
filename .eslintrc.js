@@ -21,6 +21,8 @@ module.exports = {
   },
   "rules": {
     "camelcase": 0,
+    "indent": ["error", 2],
+    "no-console": 1,
     "import/no-extraneous-dependencies": 0,
     "import/default": 0,
     "import/prefer-default-export": 0,

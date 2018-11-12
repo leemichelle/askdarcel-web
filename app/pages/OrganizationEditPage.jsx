@@ -659,7 +659,7 @@ export class OrganizationEditPage extends React.Component {
           <li key="long_description" className="edit--section--list--item">
             <label htmlFor="edit-description-input">Description</label>
 
-            <p style={{ margin: '0 0 15px 0' }}>If you'd like to add formatting to descriptions, we support <a href="https://guides.github.com/features/mastering-markdown/" target="_blank" rel="noopener noreferrer">Github flavored markdown</a>.</p>
+            {/* <p style={{ margin: '0 0 15px 0' }}>If you'd like to add formatting to descriptions, we support <a href="https://guides.github.com/features/mastering-markdown/" target="_blank" rel="noopener noreferrer">Github flavored markdown</a>.</p> */}
             <textarea
               id="edit-description-input"
               className="input"

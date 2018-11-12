@@ -58,7 +58,7 @@ class ServiceEntry extends Component {
               <p>
                 { hit.addresses && hit.addresses.address_1 ? hit.addresses.address_1 : 'No address found' }
                 {/* { schedule ? ' • ' : null } */}
-                {/* { schedule ? <RelativeOpeningTime schedule={schedule} /> : null } */}
+                { schedule ? <span className="float-right"><RelativeOpeningTime schedule={schedule} /></span> : null }
               </p>
             </div>
           </div>
