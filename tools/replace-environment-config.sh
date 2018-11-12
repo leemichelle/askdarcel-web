@@ -9,6 +9,7 @@ set -euo pipefail
 js_bundle=$1
 shift
 
+SANITIZED_BRANCH=$(echo $TRAVIS_BRANCH|sed 's|/|-|g')
 env_vars='GOOGLE_API_KEY ALGOLIA_INDEX_PREFIX ALGOLIA_APPLICATION_ID ALGOLIA_READ_ONLY_API_KEY MOHCD_SUBDOMAIN'
 
 for env_var in $env_vars; do
@@ -16,7 +17,7 @@ for env_var in $env_vars; do
 
   if [ ${env_var_value} == "travisci" ]
   then
-    if [ ${TRAVIS_BRANCH}  == "master" ]
+    if [ ${SANITIZED_BRANCH}  == "master" ]
     then
         env_var_value="staging"
     else
