@@ -2,7 +2,7 @@ import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import { Link } from 'react-router';
 import PropTypes from 'prop-types';
-import { AddressInfo, TodaysHours, PhoneNumber, ResourceCategories, Website, Email, StreetView } from 'components/listing/ResourceInfos';
+import { AddressInfo, PhoneNumber, ResourceCategories, Website, Email, StreetView } from 'components/listing/ResourceInfos';
 import DetailedHours from 'components/listing/DetailedHours';
 import Services from 'components/listing/Services';
 import Notes from 'components/listing/Notes';
@@ -11,7 +11,7 @@ import ResourceMap from 'components/listing/ResourceMap';
 import HAPcertified from '../assets/img/ic-hap.png';
 import MOHCDFunded from '../assets/img/ic-mohcd-funded-services.png';
 import * as dataService from '../utils/DataService';
-import RelativeOpeningTime from '../components/listing/RelativeOpeningTime';
+import { RelativeOpeningTime } from '../components/listing/RelativeOpeningTime';
 
 
 function scrollToElement(selector) {
@@ -40,7 +40,6 @@ export class OrganizationListingPage extends React.Component {
     fetch(url, { credentials: 'include' })
       .then(r => r.json())
       .then((data) => {
-        console.log(data)
         this.setState({ resource: data.resource });
       });
   }
@@ -75,7 +74,7 @@ export class OrganizationListingPage extends React.Component {
   render() {
     const { resource } = this.state;
     const isMOHCDFunded = this.isMOHCDFunded();
-    console.log(resource, window.google);
+    // console.log(resource, window.google);
     return (!resource || !window.google ? <Loader /> :
     <div className="org-container">
       <article className="org" id="resource">

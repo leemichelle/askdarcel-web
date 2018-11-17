@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 import { getTimes, timeToString } from '../../utils/index';
 import { images } from '../../assets';
 import SearchTabView from './SearchTabView';
-import RelativeOpeningTime from '../listing/RelativeOpeningTime';
+import { RelativeOpeningTime } from '../listing/RelativeOpeningTime';
 
 // TODO: create a shared component for Resource and Service entries
 class ServiceEntry extends Component {
@@ -33,20 +33,9 @@ class ServiceEntry extends Component {
 
   render() {
     const { hit, index } = this.props;
-    const { isOpen, openUntil, is24hour } = this.state;
     const description = hit.long_description || 'No description, yet...';
     const applicationProcess = hit.application_process;
     const schedule = hit.schedule ? { schedule_days: hit.schedule } : null;
-    let timeInfo = null;
-    if (isOpen) {
-      if (is24hour) {
-        timeInfo = 'Open 24 hours';
-      } else {
-        timeInfo = `Open Until ${timeToString(openUntil)}`;
-      }
-    } else {
-      timeInfo = 'Closed';
-    }
 
     return (
       <li className="results-table-entry service-entry">

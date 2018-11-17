@@ -9,7 +9,7 @@ const parseAsDate = (fourOrThreeDigitNumber) => {
   return new Date(hour + mins);
 };
 
-class RelativeOpeningTime extends React.Component {
+export class RelativeOpeningTime extends React.Component {
   static parseSchedule(schedule_days) {
     if (!schedule_days) return { text: '', classes: '' };
 
@@ -79,12 +79,7 @@ class RelativeOpeningTime extends React.Component {
   }
 
   render() {
-    // const classes = 'relativeTime';
-    // const text = buildHoursText(this.props.schedule.schedule_days);
     const relative = RelativeOpeningTime.parseSchedule(this.props.schedule.schedule_days);
-
-    // console.log(relative);
-
     return (
       <span className={`relative-opening-time ${relative.classes}`}>
         { relative.text }
@@ -98,5 +93,3 @@ RelativeOpeningTime.daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 
 RelativeOpeningTime.propTypes = {
   schedule: PropTypes.object.isRequired,
 };
-
-export default RelativeOpeningTime;

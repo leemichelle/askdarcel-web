@@ -4,8 +4,7 @@ import { Link } from 'react-router';
 import ReactMarkdown from 'react-markdown';
 import { getTimes } from '../../utils/index'; // timeToString
 import { images } from '../../assets';
-import RelativeOpeningTime from '../listing/RelativeOpeningTime';
-// import RelativeOpeningTime from '../listing/RelativeOpeningTime';
+import { RelativeOpeningTime } from '../listing/RelativeOpeningTime';
 
 // TODO: create a shared component for Resource and Service entries
 class ResourceEntry extends Component {
