@@ -1,29 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { buildHoursText } from '../../utils';
 
-const parseAsDate = (fourDigitNumber) => {
+const parseAsDate = (fourOrThreeDigitNumber) => {
+  const fourDigitNumber = `0000000${fourOrThreeDigitNumber}`.slice(-4);
   const hour = Number(`${fourDigitNumber}`.slice(0, 2)) * 1000 * 60 * 60;
   const mins = Number(`${fourDigitNumber}`.slice(2, 4)) * 1000 * 60;
-  // console.log('time:', hour, mins);
+  // console.log(fourOrThreeDigitNumber, '->', fourDigitNumber, '->', [hour, mins]);
   return new Date(hour + mins);
 };
 
 class RelativeOpeningTime extends React.Component {
-  constructor(...args) {
-    super(...args);
-    this.tick = null;
-    this.state = {};
-  }
-
-  componentWillMount() {
-    this.tick = setInterval(() => this.setState(this.state), 60000);
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.tick);
-  }
-
   static parseSchedule(schedule_days) {
     if (!schedule_days) return { text: '', classes: '' };
 
@@ -32,12 +18,13 @@ class RelativeOpeningTime extends React.Component {
     const STATUS_CAUTION = 'status-amber';
 
     const currentDate = new Date();
-    const currentDay = currentDate.getDay();
-    const currentDayString = RelativeOpeningTime.daysOfWeek[currentDay];
+    const currentDay = currentDate.getDay(); // Take 1 away for actual index
+    const currentDayString = RelativeOpeningTime.daysOfWeek[currentDay - 1];
+    const tomorrowDayString = RelativeOpeningTime.daysOfWeek[currentDay > 6 ? 0 : currentDay];
 
     const todayHours = schedule_days.filter(hours => hours.day === currentDayString);
-    const tomorrowHours = schedule_days.filter(hours => hours.day === RelativeOpeningTime.daysOfWeek[currentDay + 1 > 6 ? 0 : currentDay + 1]);
-    const daysOpen24Hours = schedule_days.filter(hours => hours.opens_at === 0 && hours.closes_at === 2359)
+    const tomorrowHours = schedule_days.filter(hours => hours.day === tomorrowDayString);
+    const daysOpen24Hours = schedule_days.filter(hours => hours.opens_at === 0 && hours.closes_at === 2359);
 
     if (todayHours.length === 0) return { text: 'Closed Today', classes: STATUS_CLOSED };
     if (daysOpen24Hours.length === 7) return { text: 'Open 24/7', classes: STATUS_OPEN };
@@ -46,7 +33,7 @@ class RelativeOpeningTime extends React.Component {
 
     // This won't catch weird data cases like multiple overlapping opening times if the user inputs badly
     for (const hours of todayHours) {
-      if (hours.opens_at === 0 && hours.closes_at === 2359) return { text: 'Open 24 hours today', classes: STATUS_OPEN };
+      if (hours.opens_at === 0 && hours.closes_at === 2359) return { text: 'Open 24h today', classes: STATUS_OPEN };
 
       const opens = parseAsDate(hours.opens_at);
       const closes = parseAsDate(hours.closes_at);
@@ -63,16 +50,32 @@ class RelativeOpeningTime extends React.Component {
     }
 
     if (tomorrowHours.length) {
-      const earliestOpeningTomorrow = tomorrowHours.reduce((earliest, time) => {
-        if (!earliest) return time;
-        return time.opens_at < earliest.opens_at ? time : earliest;
-      });
+      // const earliestOpeningTomorrow = tomorrowHours.reduce((earliest, time) => {
+      //   if (!earliest) return time;
+      //   return time.opens_at < earliest.opens_at ? time : earliest;
+      // });
 
-      if (earliestOpeningTomorrow.opens_at === 0 && earliestOpeningTomorrow.closes_at === 2359) return { text: 'Open 24 hours tomorrow', classes: STATUS_CLOSED };
-      // return { text: `Opens Tomorrow at ${parseAsDate(earliestOpeningTomorrow.opens_at).getTime()}`, classes: STATUS_CLOSED };
+      // if (earliestOpeningTomorrow.opens_at === 0 && earliestOpeningTomorrow.closes_at === 2359) return { text: 'Open 24h tomorrow', classes: STATUS_CLOSED };
+      return { text: 'Closed Until Tomorrow', classes: STATUS_CLOSED };
+      // const openingTimeTomorrow = parseAsDate(earliestOpeningTomorrow.opens_at).getTime()
+      // return { text: `Opens Tomorrow at ${moment(openingTimeTomorrow).tz().format('h:mm a')}`, classes: STATUS_CLOSED };
     }
 
     return { text: 'Closed Now', classes: STATUS_CLOSED };
+  }
+
+  constructor(...args) {
+    super(...args);
+    this.tick = null;
+    this.state = {};
+  }
+
+  componentWillMount() {
+    this.tick = setInterval(() => this.setState(this.state), 60000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.tick);
   }
 
   render() {

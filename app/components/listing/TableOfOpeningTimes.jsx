@@ -14,7 +14,7 @@ class TableOfOpeningTimes extends React.Component {
       <table className="compact">
         <tbody>
           { schedule.schedule_days.map(sched => (
-            <tr key={sched.day}>
+            <tr key={sched.id}>
               <th>{ sched.day }</th>
               <td>{ sched.opens_at }-{ sched.closes_at }</td>
             </tr>
