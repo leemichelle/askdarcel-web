@@ -50,6 +50,7 @@ export class RelativeOpeningTime extends React.Component {
     }
 
     if (tomorrowHours.length) {
+      // TODO This is overkill for now and not sure it improves the UX much. Can address later if desired
       // const earliestOpeningTomorrow = tomorrowHours.reduce((earliest, time) => {
       //   if (!earliest) return time;
       //   return time.opens_at < earliest.opens_at ? time : earliest;
