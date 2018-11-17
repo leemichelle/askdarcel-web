@@ -3,6 +3,7 @@ import ReactMarkdown from 'react-markdown';
 import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import { AddressInfo, PhoneNumber, ResourceCategories, Website, Email, StreetView } from 'components/listing/ResourceInfos';
+import { RelativeOpeningTime } from '../components/listing/RelativeOpeningTime';
 import DetailedHours from 'components/listing/DetailedHours';
 import Services from 'components/listing/Services';
 import Notes from 'components/listing/Notes';
@@ -11,7 +12,6 @@ import ResourceMap from 'components/listing/ResourceMap';
 import HAPcertified from '../assets/img/ic-hap.png';
 import MOHCDFunded from '../assets/img/ic-mohcd-funded-services.png';
 import * as dataService from '../utils/DataService';
-import { RelativeOpeningTime } from '../components/listing/RelativeOpeningTime';
 
 
 function scrollToElement(selector) {
