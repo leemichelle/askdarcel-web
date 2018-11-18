@@ -10,22 +10,20 @@ const parseAsDate = (fourOrThreeDigitNumber) => {
 };
 
 export class RelativeOpeningTime extends React.Component {
-  static parseSchedule(schedule_days) {
+  static parseSchedule(schedule_days, currentDate = new Date()) {
     if (!schedule_days) return { text: '', classes: '' };
 
     const STATUS_CLOSED = 'status-red';
     const STATUS_OPEN = 'status-green';
     const STATUS_CAUTION = 'status-amber';
 
-    const currentDate = new Date();
     const currentDay = currentDate.getDay(); // Take 1 away for actual index
-    const currentDayString = RelativeOpeningTime.daysOfWeek[currentDay - 1];
+    const currentDayString = RelativeOpeningTime.daysOfWeek[currentDay];
     const tomorrowDayString = RelativeOpeningTime.daysOfWeek[currentDay > 6 ? 0 : currentDay];
 
     const todayHours = schedule_days.filter(hours => hours.day === currentDayString);
     const tomorrowHours = schedule_days.filter(hours => hours.day === tomorrowDayString);
     const daysOpen24Hours = schedule_days.filter(hours => hours.opens_at === 0 && hours.closes_at === 2359);
-
     if (todayHours.length === 0) return { text: 'Closed Today', classes: STATUS_CLOSED };
     if (daysOpen24Hours.length === 7) return { text: 'Open 24/7', classes: STATUS_OPEN };
 
@@ -80,7 +78,7 @@ export class RelativeOpeningTime extends React.Component {
   }
 
   render() {
-    const relative = RelativeOpeningTime.parseSchedule(this.props.schedule.schedule_days);
+    const relative = RelativeOpeningTime.parseSchedule(this.props.schedule.schedule_days, this.props.currentDate);
     return (
       <span className={`relative-opening-time ${relative.classes}`}>
         { relative.text }
@@ -89,8 +87,13 @@ export class RelativeOpeningTime extends React.Component {
   }
 }
 
-RelativeOpeningTime.daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+RelativeOpeningTime.daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
 RelativeOpeningTime.propTypes = {
   schedule: PropTypes.object.isRequired,
+  currentDate: PropTypes.object,
+};
+
+RelativeOpeningTime.defaultProps = {
+  currentDate: new Date(),
 };
