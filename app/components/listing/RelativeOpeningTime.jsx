@@ -78,10 +78,10 @@ export class RelativeOpeningTime extends React.Component {
   }
 
   render() {
-    const relative = RelativeOpeningTime.parseSchedule(this.props.schedule.schedule_days, this.props.currentDate);
+    const { text, classes } = RelativeOpeningTime.parseSchedule(this.props.schedule.schedule_days, this.props.currentDate);
     return (
-      <span className={`relative-opening-time ${relative.classes}`}>
-        { relative.text }
+      <span className={`relative-opening-time ${classes}`}>
+        { text }
       </span>
     );
   }
