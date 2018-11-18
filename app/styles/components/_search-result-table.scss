@@ -172,6 +172,7 @@
   @extend %flex-column;
   margin: calc-em(30px) 0 0 calc-em(28px);
   padding-right: calc-em(20px);
+  width: 100%;
 }
 
 .entry-headline a {

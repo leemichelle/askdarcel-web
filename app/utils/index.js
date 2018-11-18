@@ -100,49 +100,6 @@ export function createTemplateSchedule() {
   return daysTemplate;
 }
 
-export function buildHoursText(scheduleDays) {
-  if (!scheduleDays) {
-    return '';
-  }
-
-  let hours = '';
-  const styles = {
-    cell: true,
-  };
-  const currentDate = new Date();
-  const currentHour = currentDate.getHours();
-  const currentMinutes = currentDate.getMinutes();
-  const currentTime = (currentHour * 100) + currentMinutes;
-
-  const days = scheduleDays.filter(scheduleDay =>
-    scheduleDay &&
-    scheduleDay.day.replace(/,/g, '') === daysOfTheWeek()[currentDate.getDay()] &&
-    currentTime >= scheduleDay.opens_at &&
-    currentTime < scheduleDay.closes_at,
-  );
-
-  if (days.length && days.length > 0) {
-    for (let i = 0; i < days.length; i += 1) {
-      const day = days[i];
-      if (day.opens_at === 0 && day.closes_at >= 2359) {
-        hours = 'Open 24 Hours';
-      } else {
-        const openStr = timeToString(day.opens_at);
-        const closeStr = timeToString(day.closes_at);
-        hours = `Open Now: ${openStr.slice(0, openStr.length - 3)}-${closeStr.slice(0, closeStr.length - 3)}`;
-      }
-      if (i !== days.length - 1) {
-        hours += ', ';
-      }
-    }
-  } else {
-    hours = 'Closed Now';
-    styles.closed = true;
-  }
-
-  return hours;
-}
-
 export function sortScheduleDays(scheduleDays) {
   const days = daysOfTheWeek();
   return scheduleDays.sort((a, b) => (

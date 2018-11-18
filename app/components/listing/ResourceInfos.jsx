@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import Hours from './Hours';
 import config from '../../config';
+import { RelativeOpeningTime } from './RelativeOpeningTime';
 
 function Cat(props) {
   return <p>{props.category}</p>;
@@ -86,27 +86,6 @@ AddressInfo.propTypes = {
 AddressInfo.defaultProps = {
   address: null,
 };
-
-
-function TodaysHours(props) {
-  return (
-    <Hours schedule={props.schedule_days} />
-  );
-}
-
-TodaysHours.propTypes = {
-  schedule_days: PropTypes.arrayOf(PropTypes.shape({
-    closes_at: PropTypes.number.isRequired,
-    day: PropTypes.string.isRequired,
-    id: PropTypes.number.isRequired,
-    opens_at: PropTypes.number.isRequired,
-  })),
-};
-
-TodaysHours.defaultProps = {
-  schedule_days: null,
-};
-
 
 function buildPhoneNumber(phones) {
   if (!phones) {
@@ -224,7 +203,6 @@ StreetView.defaultProps = {
 export {
   Cat,
   AddressInfo,
-  TodaysHours,
   PhoneNumber,
   ResourceCategories,
   Website,

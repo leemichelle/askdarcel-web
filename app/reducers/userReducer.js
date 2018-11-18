@@ -10,12 +10,12 @@ const initialState = {
 
 export default function resourceReducer(state = initialState, action) {
   switch (action.type) {
-    case types.SET_USER_LOCATION:
-      return (Object.assign({}, state, { location:
+  case types.SET_USER_LOCATION:
+    return (Object.assign({}, state, { location:
         Object.assign({}, state.location,
           { lat: action.location.lat, lng: action.location.lng }) })
-      );
-    default:
-      return state;
+    );
+  default:
+    return state;
   }
 }
