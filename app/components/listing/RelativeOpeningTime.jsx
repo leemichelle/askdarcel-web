@@ -16,7 +16,6 @@ export class RelativeOpeningTime extends React.Component {
     const STATUS_CLOSED = 'status-red';
     const STATUS_OPEN = 'status-green';
     const STATUS_CAUTION = 'status-amber';
-
     const currentDay = currentDate.getDay(); // Take 1 away for actual index
     const currentDayString = RelativeOpeningTime.daysOfWeek[currentDay];
     const tomorrowDayString = RelativeOpeningTime.daysOfWeek[currentDay > 6 ? 0 : currentDay];
@@ -76,6 +75,7 @@ export class RelativeOpeningTime extends React.Component {
   componentWillUnmount() {
     clearInterval(this.tick);
   }
+
 
   render() {
     const { text, classes } = RelativeOpeningTime.parseSchedule(this.props.schedule.schedule_days, this.props.currentDate);

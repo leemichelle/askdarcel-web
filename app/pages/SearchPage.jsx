@@ -6,6 +6,7 @@ import {
   SearchBox,
   RefinementList,
 } from 'react-instantsearch/dom';
+import Filtering from '../components/search/Filtering';
 import { isEqual } from 'lodash';
 import qs from 'qs';
 import SearchResultsContainer from '../components/search/SearchResultsContainer';
@@ -56,6 +57,7 @@ class SearchPage extends Component {
     /* eslint-disable no-undef */
     return (
       <div className="search-page-container">
+        <Filtering />
         <InstantSearch
           appId={config.ALGOLIA_APPLICATION_ID}
           apiKey={config.ALGOLIA_READ_ONLY_API_KEY}
@@ -70,6 +72,7 @@ class SearchPage extends Component {
           </div>
           <div className="refinement-list">
             <RefinementList attribute="categories" />
+            <RefinementList attribute="open_times" />
           </div>
           <div>
             <SearchResultsContainer />

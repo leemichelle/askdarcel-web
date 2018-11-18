@@ -43,7 +43,6 @@
   max-width: calc-em(2280px);
   margin-right: auto;
   margin-left: auto;
-  margin-top: #{$navigation-height};
   align-items: flex-start;
   @include r_max($break-tablet-s) {
     margin-top: 0;

@@ -44,6 +44,28 @@ button {
   }
 }
 
+button.filter-chip {
+  border-radius: 3px;
+  border: 1px solid #E0E0E0;
+  padding: 5px 10px 5px 10px;
+  background: $color-white;
+  color: #666666;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 20px;
+  height: 32px;
+
+  &.active {
+    background-color: $color-brand;
+    color: $color-white;
+    font-weight: 600;
+  }
+
+  &:active, &:hover, &:focus {
+    box-shadow: none;
+  }
+}
+
 .search {
   @include r_max($break-tablet-s) {
     span {

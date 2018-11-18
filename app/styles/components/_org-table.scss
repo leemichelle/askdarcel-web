@@ -4,7 +4,6 @@
 .results {
   @extend %flex-row;
   width: 100%;
-  margin-top: #{$navigation-height};
   align-items: flex-start;
   @include r_max($break-tablet-s) {
     margin-top: 0;

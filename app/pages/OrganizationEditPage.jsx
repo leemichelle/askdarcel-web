@@ -658,7 +658,6 @@ export class OrganizationEditPage extends React.Component {
 
           <li key="long_description" className="edit--section--list--item">
             <label htmlFor="edit-description-input">Description</label>
-
             <textarea
               id="edit-description-input"
               className="input"
