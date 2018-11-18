@@ -1,15 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const parseAsDate = (fourOrThreeDigitNumber) => {
-  const fourDigitNumber = `0000000${fourOrThreeDigitNumber}`.slice(-4);
-  const hour = Number(`${fourDigitNumber}`.slice(0, 2)) * 1000 * 60 * 60;
-  const mins = Number(`${fourDigitNumber}`.slice(2, 4)) * 1000 * 60;
-  // console.log(fourOrThreeDigitNumber, '->', fourDigitNumber, '->', [hour, mins]);
-  return new Date(hour + mins);
-};
-
 export class RelativeOpeningTime extends React.Component {
+  static parseAsDate(fourOrThreeDigitNumber) {
+    const fourDigitNumber = `0000000${fourOrThreeDigitNumber}`.slice(-4);
+    const hour = Number(`${fourDigitNumber}`.slice(0, 2)) * 1000 * 60 * 60;
+    const mins = Number(`${fourDigitNumber}`.slice(2, 4)) * 1000 * 60;
+    // console.log(fourOrThreeDigitNumber, '->', fourDigitNumber, '->', [hour, mins]);
+    return new Date(hour + mins);
+  }
+
   static parseSchedule(schedule_days, currentDate = new Date()) {
     if (!schedule_days) return { text: '', classes: '' };
 
@@ -33,9 +33,9 @@ export class RelativeOpeningTime extends React.Component {
     for (const hours of todayHours) {
       if (hours.opens_at === 0 && hours.closes_at === 2359) return { text: 'Open 24h today', classes: STATUS_OPEN };
 
-      const opens = parseAsDate(hours.opens_at);
-      const closes = parseAsDate(hours.closes_at);
-      const now = parseAsDate(todayTime);
+      const opens = RelativeOpeningTime.parseAsDate(hours.opens_at);
+      const closes = RelativeOpeningTime.parseAsDate(hours.closes_at);
+      const now = RelativeOpeningTime.parseAsDate(todayTime);
 
       if (todayTime > hours.opens_at && todayTime < hours.closes_at) {
         const minutesUntilClosing = (closes - now) / 1000 / 60;
