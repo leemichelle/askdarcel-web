@@ -48,7 +48,7 @@ class Service extends Component {
           <p>updated {service.updated_date}</p>
         </div>
         <h2 className="service--header">{service.name}</h2>
-        <ReactMarkdown className="service--description" source={service.long_description} />
+        <ReactMarkdown className="rendered-markdown" className="service--description" source={service.long_description} />
         <div
           className="service--details-toggle"
           onClick={this.toggleVisible}

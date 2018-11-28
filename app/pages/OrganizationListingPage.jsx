@@ -130,7 +130,7 @@ export class OrganizationListingPage extends React.Component {
               </div>
               <div className="org--main--header--description">
                 <header>About this resource</header>
-                <ReactMarkdown source={resource.long_description || resource.short_description || 'No Description available'} />
+                <ReactMarkdown className="rendered-markdown" source={resource.long_description || resource.short_description || 'No Description available'} />
               </div>
             </header>
 

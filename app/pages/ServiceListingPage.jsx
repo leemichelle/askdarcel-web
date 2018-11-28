@@ -38,7 +38,7 @@ class ServicePage extends React.Component {
       // ['Funding Sources', ] // TODO Doesn't exist
       [
         'Notes',
-        <ReactMarkdown>
+        <ReactMarkdown className="rendered-markdown">
           {service.notes.map(d => d.note).join('\n')}
         </ReactMarkdown>
       ]
@@ -127,7 +127,7 @@ class ServicePage extends React.Component {
 
               <section className="listing--main--left--about">
                 <h2>About This Service</h2>
-                <ReactMarkdown source={service.long_description} />
+                <ReactMarkdown className="rendered-markdown" source={service.long_description} />
               </section>
 
               {details.length ? (
