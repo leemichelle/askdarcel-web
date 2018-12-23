@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
 
@@ -33,9 +34,7 @@ describe('<RelativeOpeningTimes />', () => {
   });
 
   it('should display "Closed until tomorrow" for a schedule that is closed until tomorrow', () => {
-    const date = new Date();
-    date.setHours(18);
-    date.setMinutes(15);
+    const date = moment().startOf('day').add(18, 'hours').add(15, 'minutes');
     const schedule = getNamedSchedule('nine_to_six');
     const comp = shallow(<RelativeOpeningTime schedule={schedule} currentDate={date} />);
     expect(comp.find('.relative-opening-time').text()).to.equal('Closed Until Tomorrow');
@@ -43,9 +42,7 @@ describe('<RelativeOpeningTimes />', () => {
   })
 
   it('should display "Opens in 5 minutes" for a schedule that is just about to open', () => {
-    const date = new Date();
-    date.setHours(8);
-    date.setMinutes(55);
+    const date = moment().startOf('day').add(8, 'hours').add(55, 'minutes');
     const schedule = getNamedSchedule('nine_to_six');
     const comp = shallow(<RelativeOpeningTime schedule={schedule} currentDate={date} />);
     expect(comp.find('.relative-opening-time').text()).to.equal('Opens in 5 mins');
@@ -53,12 +50,26 @@ describe('<RelativeOpeningTimes />', () => {
   });
 
   it('should display "Closes in 10 minutes" for a schedule that is just about to close', () => {
-    const date = new Date();
-    date.setHours(17);
-    date.setMinutes(50);
+    const date = moment().startOf('day').add(17, 'hours').add(50, 'minutes');
     const schedule = getNamedSchedule('nine_to_six');
     const comp = shallow(<RelativeOpeningTime schedule={schedule} currentDate={date} />);
     expect(comp.find('.relative-opening-time').text()).to.equal('Closes in 10 mins');
     expect(comp.find('.relative-opening-time').hasClass('status-amber')).to.be.true;
+  });
+
+  it('should display "Closed until tomorrow" for a schedule that was open today, but has closed until tomorrow', () => {
+    const date = moment().startOf('day').add(18, 'hours').add(30, 'minutes');
+    const schedule = getNamedSchedule('nine_to_six');
+    const comp = shallow(<RelativeOpeningTime schedule={schedule} currentDate={date} />);
+    expect(comp.find('.relative-opening-time').text()).to.equal('Closed Until Tomorrow');
+    expect(comp.find('.relative-opening-time').hasClass('status-red')).to.be.true;
+  });
+
+  it('should display "Open now" for a schedule is open now, and has a closing time before open (tomorrow)', () => {
+    const date = moment().startOf('day').add(18, 'hours').add(30, 'minutes');
+    const schedule = getNamedSchedule('closes_tomorrow');
+    const comp = shallow(<RelativeOpeningTime schedule={schedule} currentDate={date} />);
+    expect(comp.find('.relative-opening-time').text()).to.equal('Open Now');
+    expect(comp.find('.relative-opening-time').hasClass('status-green')).to.be.true;
   });
 });
