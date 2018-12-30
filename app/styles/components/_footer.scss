@@ -4,7 +4,7 @@
 .site-footer {
   @extend %flex-row;
   width: 100%;
-  flex-shrink: 0;
+  flex: 1 0 30vh;
   color: $color-white;
   min-height: calc-em(98px);
   background-color: $color-grey8;
@@ -13,17 +13,25 @@
     color: $color-white;
   }
 
+  .footer-service-guide {
+    text-align: center;
+    font-weight: 1000;
+  }
+
   .footer-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
     width: $max-container-width;
     margin: 0 auto;
-    @include r_max($break-tablet-p) {
+    @include r_max($break-tablet-s) {
       width: auto;
     }
 
     .footer-text {
-      display: inline-block;
-      padding-left: calc-em(170px);
-      @include r_max($break-tablet-p) {
+      text-align: center;
+      @include r_max($break-tablet-s) {
         display: block;
         padding-left: 0;
         text-align: center;
@@ -31,28 +39,35 @@
         padding-bottom: 23px;
       }
     }
-    .footer-links {
-      float: right;
-      display: inline-block;
-      padding-right: calc-em(170px);
-      @include r_max($break-tablet-p) {
-        padding-right: 0;
-        display: block;
-        float: none;
-      }
-      & > li {
-        text-align: left;
-        display :inline-block;
-        margin: 0 0 calc-em(10px) 0;
-        &:not(:last-child) {
-          padding-right: calc-em(40px);
-        }
 
-        @include r_max($break-tablet-p) {
-          display: block;
-          text-align: center;
-          &:not(:last-child) {
-            padding-right: 0;
+    .footer-top {
+      display: flex;
+    }
+
+    .footer-service-guide {
+      flex: 2 2 0vw;
+    }
+
+    .footer-links {
+      flex: 1 1 60vw;
+      display: flex;
+      justify-content: space-evenly;
+      @include r_max($break-tablet-p) {
+        display: none;
+      }
+
+      & > ul {
+        li:first-child {
+          font-weight: 1000;
+        }
+        li {
+          padding-bottom: 5px;
+          @include r_max($break-tablet-p) {
+            display: none;
+            text-align: center;
+            &:not(:last-child) {
+              padding-right: 0;
+            }
           }
         }
       }
