@@ -1,0 +1,23 @@
+.landing-page-card {
+  flex: 1 0 26%;
+  margin: 5px;
+  height: 305px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  z-index: 1;
+}
+
+.landing-page-card__title {
+  font-size: 18px;
+  color: black;
+  padding-left: 5%;
+  padding-top: 3%;
+}
+
+.langing-page-card__image {
+  background-repeat: no-repeat;
+  height: 50%;
+  width: 100%;
+}

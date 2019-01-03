@@ -1,0 +1,87 @@
+.legal-block__hammer {
+  background-image: url(../assets/img/legal-block-hammer.png);
+  position: relative;
+  height: 180px;
+  width: 180px;
+  background-repeat: no-repeat;
+  left: 8%;
+  top: 202px;
+  opacity: 0.2;
+}
+
+.legal-block__resources {
+  background-color: #F7F7F7;
+  padding: 50px 0;
+}
+
+.legal-block__resources-title {
+  display: inline-block;
+  font-size: 21px;
+  padding: 0px 5px 15px 5px;
+  z-index: 1;
+
+  &.first-word {
+    padding-left: 15.2%;
+  }
+
+  &.blue-word {
+    color: blue;
+  }
+}
+
+// Card CSS explained
+// https://stackoverflow.com/questions/29546550/flexbox-4-items-per-row
+.legal-block__cards {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 15%;
+}
+
+.legal-block-housing {
+  background-image: url(../assets/img/legal-block-housing.png);
+}
+
+.legal-block-immigration {
+  background-image: url(../assets/img/legal-block-immigration.png);
+}
+
+.legal-block-family {
+  background-image: url(../assets/img/legal-block-family.png);
+}
+
+.legal-block-criminal {
+  background-image: url(../assets/img/legal-block-criminal.png);
+}
+
+.legal-block-work {
+  background-image: url(../assets/img/legal-block-work.png);
+}
+
+.legal-block-benefits {
+  background-image: url(../assets/img/legal-block-benefits.png);
+}
+
+.landing-page-card__content {
+  padding-bottom: 5%;
+  padding-left: 5%;
+}
+
+.legal-block__sponsors {
+  display: flex;
+  justify-content: space-around;
+  padding: 50px 25%;
+}
+
+.legal-block__sponsors-bar {
+  background-image: url(../assets/img/legal-block-bar.png);
+  height: 50px;
+  width: 200px;
+  background-repeat: no-repeat;
+}
+
+.legal-block__sponsors-mayor {
+  background-image: url(../assets/img/legal-block-mayor.png);
+  height: 55px;
+  width: 210px;
+  background-repeat: no-repeat;
+}

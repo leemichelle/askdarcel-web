@@ -1,5 +1,6 @@
 import React from 'react';
 import Footer from 'components/ui/Footer';
+import Legal from 'components/ui/Legal';
 import WhiteLabel from 'components/ui/WhiteLabel';
 import FindHeader from 'components/layout/FindHeader';
 import { CategoryList } from 'components/layout/CategoryList';
@@ -41,6 +42,7 @@ export class HomePage extends React.Component {
           <CategoryList categories={categories} />
         </div>
         {subDomain === config.MOHCD_SUBDOMAIN ? <WhiteLabel /> : null}
+        <Legal />
         <Footer />
       </div>
     );
