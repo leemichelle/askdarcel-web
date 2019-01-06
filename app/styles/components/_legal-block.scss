@@ -7,6 +7,9 @@
   left: 8%;
   top: 202px;
   opacity: 0.2;
+  @include r_max($break-tablet-p) {
+    display: none;
+  }
 }
 
 .legal-block__resources {
@@ -22,6 +25,9 @@
 
   &.first-word {
     padding-left: 15.2%;
+    @include r_max($break-tablet-p) {
+      padding: 0;
+    }
   }
 
   &.blue-word {
@@ -29,12 +35,17 @@
   }
 }
 
-// Card CSS explained
-// https://stackoverflow.com/questions/29546550/flexbox-4-items-per-row
 .legal-block__cards {
   display: flex;
   flex-wrap: wrap;
   padding: 0 15%;
+  @include r_max($break-tablet-p) {
+    padding: 0;
+  }
+}
+
+.legal-block__cards-first-row, .legal-block__cards-second-row {
+  display: flex;
 }
 
 .legal-block-housing {
@@ -70,6 +81,10 @@
   display: flex;
   justify-content: space-around;
   padding: 50px 25%;
+  @include r_max($break-tablet-p) {
+    flex-direction: column;
+    align-items: center;
+  }
 }
 
 .legal-block__sponsors-bar {
@@ -77,6 +92,9 @@
   height: 50px;
   width: 200px;
   background-repeat: no-repeat;
+  @include r_max($break-tablet-p) {
+    margin-bottom: 25px;
+  }
 }
 
 .legal-block__sponsors-mayor {

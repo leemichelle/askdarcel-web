@@ -1,11 +1,11 @@
 .landing-page-card {
-  flex: 1 0 26%;
   margin: 5px;
   height: 305px;
   background-color: white;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  width: 305px;
   z-index: 1;
 }
 
