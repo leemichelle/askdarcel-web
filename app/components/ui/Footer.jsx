@@ -19,11 +19,11 @@ function Footer() {
               <li><a href="sheltertech.org/volunteer">Volunteer</a></li>
               <li><a href="sheltertech.org/donate">Donate</a></li>
             </ul>
-            <ul>
+            {/* <ul>
               <h1>Help</h1>
               <li><a href="#">FAQ</a></li>
               <li><a href="#">Digital Literacy</a></li>
-            </ul>
+            </ul> */}
             <ul>
               <h1>Connect</h1>
               <li><a href="info@sheltertech.org">Email</a></li>
@@ -35,7 +35,7 @@ function Footer() {
               <h1>Legal</h1>
               <li><Link to="/terms-of-service">Terms of Service</Link></li>
               <li><Link to="/privacy-policy">Privacy Policy</Link></li>
-              <li><a href="#">API Policy</a></li>
+              {/* <li><a href="#">API Policy</a></li> */}
             </ul>
           </section>
         </div>
