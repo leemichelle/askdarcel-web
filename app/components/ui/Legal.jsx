@@ -79,10 +79,6 @@ class Legal extends Component {
             </div>
           </div>
         </div>
-        <div className="legal-block__sponsors">
-          <div className="legal-block__sponsors-bar" />
-          <div className="legal-block__sponsors-mayor" />
-        </div>
       </div>
     );
   }

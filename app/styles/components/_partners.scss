@@ -1,0 +1,32 @@
+.partners {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 100px 25%;
+  @include r_max($break-tablet-p) {
+    display: block;
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
+}
+
+.partners__bar {
+  background-image: url(../assets/img/legal-block-bar.png);
+  height: 50px;
+  width: 200px;
+  background-repeat: no-repeat;
+  @include r_max($break-tablet-p) {
+    margin: auto;
+    margin-bottom: 25px;
+  }
+}
+
+.partners__mayor {
+  background-image: url(../assets/img/legal-block-mayor.png);
+  height: 55px;
+  width: 210px;
+  background-repeat: no-repeat;
+  @include r_max($break-tablet-p) {
+    margin: auto;
+  }
+}
