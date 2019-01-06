@@ -23,6 +23,7 @@
     "react": "^15.6.2",
     "react-autosize-textarea": "^0.4.3",
     "react-autosuggest": "^9.3.4",
+    "react-burger-menu": "^2.6.0",
     "react-dom": "^15.1.0",
     "react-ga": "^2.4.1",
     "react-instantsearch": "^5.0.1",
