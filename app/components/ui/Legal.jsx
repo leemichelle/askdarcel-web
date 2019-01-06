@@ -49,11 +49,13 @@ class Legal extends Component {
   render() {
     return (
       <div className="legal-block">
-        <div className="legal-block__hammer" />
         <div className="legal-block__resources">
-          <h1 className="legal-block__resources-title first-word">Discover</h1>
-          <h1 className="legal-block__resources-title blue-word">Legal</h1>
-          <h1 className="legal-block__resources-title">Resources</h1>
+          <div className="legal-block__resources-hammer" />
+          <div className="legal-block__resources-title">
+            <h1>Discover</h1>
+            <h1 className="blue-word">Legal</h1>
+            <h1>Resources</h1>
+          </div>
           <div className="legal-block__cards">
             <div className="legal-block__cards-first-row">
               { CATEGORIES_LEGAL.FIRST_ROW.map(category => (
