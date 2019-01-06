@@ -109,10 +109,6 @@ body, html {
   display: none !important;
 }
 
-.container {
-  margin-top: #{$navigation-height}
-}
-
 $max-content-width: 1200px;
 
 %base-max-width {
