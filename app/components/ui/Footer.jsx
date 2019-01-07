@@ -1,5 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router';
+import config from '../../config';
+
+const subDomain = window.location.host.split('.')[0];
 
 function Footer() {
   return (
@@ -9,7 +12,7 @@ function Footer() {
           <section className="service-guide">
             <div className="service-guide__icon" />
             <h1 className="service-guide__text">
-              SF Service Guide
+              {subDomain === config.MOHCD_SUBDOMAIN ? 'SF Service Guide' : 'Ask Darcel'}
             </h1>
           </section>
           <section className="site-footer__links">
@@ -17,7 +20,7 @@ function Footer() {
               <h1>About Us</h1>
               <li><a href="sheltertech.org">Our Story</a></li>
               <li><a href="sheltertech.org/volunteer">Volunteer</a></li>
-              <li><a href="sheltertech.org/donate">Donate</a></li>
+              {/* <li><a href="sheltertech.org/donate">Donate</a></li> */}
             </ul>
             {/* <ul>
               <h1>Help</h1>

@@ -79,9 +79,9 @@
 
 .site-footer__disclosure {
   text-align: center;
+  padding-top: 100px;
   @include r_max($break-tablet-s) {
     display: block;
-    padding-left: 0;
     text-align: center;
     padding-left: 0;
     padding-bottom: 23px;
