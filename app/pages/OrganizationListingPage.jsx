@@ -3,8 +3,7 @@ import ReactMarkdown from 'react-markdown';
 import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import { AddressInfo, PhoneNumber, ResourceCategories, Website, Email, StreetView } from 'components/listing/ResourceInfos';
-import { RelativeOpeningTime } from '../components/listing/RelativeOpeningTime';
-import DetailedHours from 'components/listing/DetailedHours';
+import { RelativeOpeningTime } from 'components/listing/RelativeOpeningTime';
 import Services from 'components/listing/Services';
 import Notes from 'components/listing/Notes';
 import Loader from 'components/ui/Loader';
@@ -12,6 +11,8 @@ import ResourceMap from 'components/listing/ResourceMap';
 import HAPcertified from '../assets/img/ic-hap.png';
 import MOHCDFunded from '../assets/img/ic-mohcd-funded-services.png';
 import * as dataService from '../utils/DataService';
+// import ServiceCard from '../components/layout/ServiceCard';
+import { TableOfOpeningTimes } from '../components/listing/TableOfOpeningTimes';
 
 
 function scrollToElement(selector) {
@@ -138,6 +139,7 @@ export class OrganizationListingPage extends React.Component {
               <header className="service--section--header">
                 <h4>Services</h4>
               </header>
+              {/* { resource.services.map(service => <ServiceCard key={service.id} service={service} />) } */}
               <Services description={resource.long_description} services={resource.services} />
             </section>
 
@@ -159,7 +161,7 @@ export class OrganizationListingPage extends React.Component {
                   <Email email={resource.email} />
                 </div>
                 <div className="info--column">
-                  <DetailedHours schedule={resource.schedule.schedule_days} />
+                  <TableOfOpeningTimes schedule={resource.schedule} />
                 </div>
               </ul>
             </section>

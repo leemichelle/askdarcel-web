@@ -12,11 +12,11 @@ class Services extends Component {
   renderServicesSection() {
     return this.props.services && this.props.services.length > 0
       ? (
-          <ul className="service--section--list">
-            {this.props.services.map((service, i) => (
-              <Service service={service} key={i} />
-            ))}
-          </ul>
+        <ul className="service--section--list">
+          {this.props.services.map((service, i) => (
+            <Service service={service} key={i} />
+          ))}
+        </ul>
       ) : null;
   }
 
@@ -48,7 +48,7 @@ class Service extends Component {
           <p>updated {service.updated_date}</p>
         </div>
         <h2 className="service--header">{service.name}</h2>
-        <ReactMarkdown className="rendered-markdown" className="service--description" source={service.long_description} />
+        <ReactMarkdown className="rendered-markdown service--description" source={service.long_description} />
         <div
           className="service--details-toggle"
           onClick={this.toggleVisible}

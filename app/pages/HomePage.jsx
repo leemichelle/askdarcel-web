@@ -39,7 +39,7 @@ export class HomePage extends React.Component {
   render() {
     return (
       <div className="find-page">
-        <Navigation />
+        {/* <Navigation /> */}
         <div className="find-content-container">
           <FindHeader />
           <CategoryList categories={categories} />

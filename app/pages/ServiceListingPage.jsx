@@ -10,7 +10,7 @@ import {
   ActionSidebar,
   TableOfContactInfo,
   TableOfOpeningTimes,
-  CategoryTag
+  CategoryTag,
 } from 'components/listing';
 import { MapOfLocations } from 'components/maps';
 import ReactMarkdown from 'react-markdown';
@@ -20,7 +20,7 @@ import 'react-tippy/dist/tippy.css';
 class ServicePage extends React.Component {
   componentWillMount() {
     const {
-      routeParams: { service }
+      routeParams: { service },
     } = this.props;
     this.props.fetchService(service);
   }
@@ -40,8 +40,8 @@ class ServicePage extends React.Component {
         'Notes',
         <ReactMarkdown className="rendered-markdown">
           {service.notes.map(d => d.note).join('\n')}
-        </ReactMarkdown>
-      ]
+        </ReactMarkdown>,
+      ],
     ];
     return rows
       .filter(row => row[1])
@@ -54,15 +54,15 @@ class ServicePage extends React.Component {
       {
         name: 'Edit',
         icon: 'edit',
-        to: `/resource/edit?resourceid=${resource.id}`
+        to: `/resource/edit?resourceid=${resource.id}`,
       }, // TODO Update with path to /resource/:id
       {
         name: 'Print',
         icon: 'print',
         handler: () => {
           window.print();
-        }
-      }
+        },
+      },
       // TODO Integrate with mobile share, how to handle shares
       // { name: 'Share', icon: 'share' },
       // { name: 'Save', icon: 'save' }, TODO We have no save mechanism yet
@@ -75,8 +75,8 @@ class ServicePage extends React.Component {
           icon: 'directions',
           link: `http://google.com/maps/dir/?api=1&destination=${
             resource.address.latitude
-          },${resource.address.longitude}`
-        }
+          },${resource.address.longitude}`,
+        },
       );
     }
     return sidebarActions;
@@ -86,19 +86,19 @@ class ServicePage extends React.Component {
     // TODO This should be serviceAtLocation
     return resource.address
       ? [resource.address].map(address => ({
-          id: address.id,
-          address,
-          name: service.name,
-          schedule
-        }))
+        id: address.id,
+        address,
+        name: service.name,
+        schedule: schedule || resource.schedule,
+         // Just to make it clear this is inherited from the resource
+        inherited: !schedule && resource.schedule,
+      }))
       : [];
   }
 
   render() {
     const { activeService: service } = this.props;
-    if (!service) {
-      return <Loader />;
-    }
+    if (!service) { return <Loader />; }
 
     const { resource, program, schedule } = service;
     const details = this.generateDetailsRows();
@@ -159,7 +159,7 @@ class ServicePage extends React.Component {
                 <MapOfLocations
                   locations={locations}
                   locationRenderer={location => (
-                    <TableOfOpeningTimes schedule={location.schedule} />
+                    <TableOfOpeningTimes schedule={location.schedule} inherited={location.inherited} />
                   )}
                 />
                 {/* TODO Transport Options */}
@@ -195,10 +195,10 @@ class ServicePage extends React.Component {
 }
 
 ServicePage.propTypes = {
-  routeParams: PropTypes.object.isRequired
+  routeParams: PropTypes.object.isRequired,
 };
 
 export const ServiceListingPage = connect(
   state => ({ ...state.services }),
-  dispatch => bindActionCreators({ fetchService }, dispatch)
+  dispatch => bindActionCreators({ fetchService }, dispatch),
 )(ServicePage);
