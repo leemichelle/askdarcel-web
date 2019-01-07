@@ -26,20 +26,22 @@ class Navigation extends React.Component {
           <Link className="nav-logo" to={'/'}>
             <img src={images.logoSmall} alt="Ask Darcel" />
           </Link>
-          <form
-            onSubmit={this.submitSearch}
-            className="nav-search search-container form-row"
-            role="search"
-          >
-            <input
-              ref={(c) => { this.searchComponent = c; }}
-              type="text"
-              className="search-field"
-              placeholder="Search for a service or organization"
-              name="srch-term"
-              id="srch-term"
-            />
-          </form>
+          {this.props.showSearch &&
+            <form
+              onSubmit={this.submitSearch}
+              className="nav-search search-container form-row"
+              role="search"
+            >
+              <input
+                ref={(c) => { this.searchComponent = c; }}
+                type="text"
+                className="search-field"
+                placeholder="Search for a service or organization"
+                name="srch-term"
+                id="srch-term"
+              />
+            </form>
+          }
         </div>
         <ul className="nav-list disabled-feature">
           <li><a className="find">Find</a></li>
