@@ -77,7 +77,7 @@ class ResourceEntry extends Component {
             <p>Description</p>
           </div>
           <div className="entry-body">
-            <ReactMarkdown source={description} />
+            <ReactMarkdown className="rendered-markdown" source={description} />
           </div>
         </div>
         <div className="entry-action-buttons">
