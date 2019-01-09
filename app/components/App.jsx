@@ -132,7 +132,7 @@ class App extends Component {
 
     return (
       <div>
-        <Navigation />
+        <Navigation showSearch={ this.props.location.pathname != '/' }/>
         <div className="container">
           {childrenWithProps}
         </div>

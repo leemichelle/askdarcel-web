@@ -1,12 +1,9 @@
 import React from 'react';
 import Footer from 'components/ui/Footer';
-import Navigation from 'components/ui/Navigation';
 import WhiteLabel from 'components/ui/WhiteLabel';
 import FindHeader from 'components/layout/FindHeader';
 import { CategoryList } from 'components/layout/CategoryList';
 import config from '../config';
-
-import './HomePage.scss';
 
 let categories = [];
 const subDomain = window.location.host.split('.')[0];
@@ -39,7 +36,6 @@ export class HomePage extends React.Component {
   render() {
     return (
       <div className="find-page">
-        {/* <Navigation /> */}
         <div className="find-content-container">
           <FindHeader />
           <CategoryList categories={categories} />
