@@ -89,7 +89,7 @@ class ServicePage extends React.Component {
         id: address.id,
         address,
         name: service.name,
-        schedule: schedule || resource.schedule,
+        schedule: schedule && schedule.schedule_days.length ? schedule : resource.schedule,
          // Just to make it clear this is inherited from the resource
         inherited: !schedule && resource.schedule,
       }))
