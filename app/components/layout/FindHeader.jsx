@@ -22,8 +22,17 @@ class FindHeader extends React.Component {
   render() {
     return (
       <header className="hero header-large" role="banner">
-        <h1>Hello, what can we help you find?</h1>
-        <h3>Search 1,138 housing and homelessness related services in San Francisco</h3>
+        <div className="header-container">
+          <div className="header-text">
+            <p>Welcome to the SF Service Guide</p>
+            <h1>Find food, housing, health<br />resources and more<br />in San Francisco</h1>
+          </div>
+          <div className="location-pins">
+            <span className="location-pin pin-1" />
+            <span className="location-pin pin-2" />
+            <span className="location-pin pin-3" />
+          </div>
+        </div>
         <form
           onSubmit={this.submitSearch}
           className="search-container form-row"
@@ -33,7 +42,7 @@ class FindHeader extends React.Component {
             ref={(c) => { this.searchComponent = c; }}
             type="text"
             className="search-field"
-            placeholder='try "rental assistance" or "Compass Family Shelter"'
+            placeholder="Search 1,768 resources in San Francisco"
             name="srch-term"
             id="srch-term"
           />

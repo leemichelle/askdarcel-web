@@ -125,7 +125,7 @@ $max-content-width: 1200px;
 }
 
 %search-max-width {
-  max-width: calc-em(660px);
+  max-width: calc-em(950px);
   width: 90%;
   margin: 0 auto;
   @include r_max($break-tablet-s) {
@@ -217,11 +217,11 @@ $font-family-base: 'Lato', 'Open Sans', 'Helvetica Neue', 'Arial', sans-serif;
 // FONT SIZES
 
 %font-size-hero {
-  font-size: calc-em(32px);
+  font-size: calc-em(36px);
   line-height: calc-em(43px);
   @include r_max($break-tablet-s) {
-    font-size: calc-em(28px);
-    line-height: calc-em(28px);
+    font-size: calc-em(21px);
+    line-height: calc-em(30px);
   }
 }
 
