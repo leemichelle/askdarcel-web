@@ -3,6 +3,7 @@ import Footer from 'components/ui/Footer';
 import WhiteLabel from 'components/ui/WhiteLabel';
 import FindHeader from 'components/layout/FindHeader';
 import { CategoryList } from 'components/layout/CategoryList';
+import { TopResources } from 'components/topResources/TopResourceList';
 import config from '../config';
 
 let categories = [];
