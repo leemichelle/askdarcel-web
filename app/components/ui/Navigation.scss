@@ -3,8 +3,6 @@
 ////////////////////////////////////////////////////////////////////////////////////////
 // NAVIGATION
 
-$navigation-height: calc-em(80px);
-
 .site-nav {
   @extend %flex-row;
   justify-content: space-between;

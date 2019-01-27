@@ -82,7 +82,7 @@ PLEASE READ THE FOLLOWING TERMS OF USE (“TERMS”) CAREFULLY BEFORE USING ASKD
       <div className="listing-container">
         <article className="text-page listing" id="privacyPolict">
           <div className="listing--main">
-            <ReactMarkdown source={this.constructor.content} />
+            <ReactMarkdown className="rendered-markdown" source={this.constructor.content} />
           </div>
         </article>
         <Footer />

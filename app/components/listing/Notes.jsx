@@ -25,7 +25,7 @@ function renderNotes(notes) {
     return notes.map((noteObj) => {
         return (
             <li className="service">
-                <div className="service--description"><ReactMarkdown source={noteObj.note} /></div>
+                <div className="service--description"><ReactMarkdown className="rendered-markdown" source={noteObj.note} /></div>
             </li>    
         );
     });
