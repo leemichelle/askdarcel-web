@@ -1,8 +1,11 @@
 import React from 'react';
 import Footer from 'components/ui/Footer';
+import LandingPageResourceBlock from 'components/ui/LandingPageResourceBlock';
+import Partners from 'components/ui/Partners';
 import WhiteLabel from 'components/ui/WhiteLabel';
 import FindHeader from 'components/layout/FindHeader';
 import { CategoryList } from 'components/layout/CategoryList';
+import LegalBlockConfig from 'components/ui/LegalBlockConfig';
 import config from '../config';
 
 let categories = [];
@@ -41,6 +44,10 @@ export class HomePage extends React.Component {
           <CategoryList categories={categories} />
         </div>
         {subDomain === config.MOHCD_SUBDOMAIN ? <WhiteLabel /> : null}
+        <LandingPageResourceBlock config={LegalBlockConfig}>
+          <div className="legal-block__resources-hammer" />
+        </LandingPageResourceBlock>
+        <Partners />
         <Footer />
       </div>
     );

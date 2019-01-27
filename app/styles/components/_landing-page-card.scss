@@ -1,0 +1,29 @@
+$card-width: 305px;
+
+.landing-page-card {
+  margin: 5px;
+  height: 305px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  z-index: 1;
+}
+
+.landing-page-card__title {
+  font-size: 18px;
+  color: #000;
+  padding-left: 5%;
+  padding-top: 3%;
+}
+
+.langing-page-card__image {
+  background-repeat: no-repeat;
+  height: 50%;
+  width: 305px;
+}
+
+.landing-page-card__content {
+  padding-bottom: 5%;
+  padding-left: 5%;
+}
