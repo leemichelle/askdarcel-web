@@ -174,6 +174,12 @@ test('Add new service', async t => {
     .eql(originalServiceCount + 1);
 
   // Save and check resource page
+  // Normally TestCafe will automatically scroll to an element that it needs to
+  // interact with, but when it scrolls *up*, it won't scroll up far enough and
+  // the sticky nav will end up obscuring the element. We force TestCafe to
+  // scroll to the top of the page before asking it to enter text into the new
+  // service name field so that it scrolls *down*.
+  await t.eval(() => window.scrollTo(0, 0));
   await t
     .typeText(editResourcePage.newServiceName, 'Test Service', { replace: true })
     .click(editResourcePage.saveButton)
