@@ -16,9 +16,9 @@ test('Add new resource, basic', async t => {
     postalCode: '94110',
   };
   await t.typeText(newResourcePage.name, newName, { replace: true });
-  await Promise.all(
-    Object.keys(newAddress)
-    .map(prop => t.typeText(newResourcePage.address[prop], newAddress[prop], { replace: true })),
+  await Object.keys(newAddress).reduce(
+    (_t, prop) => _t.typeText(newResourcePage.address[prop], newAddress[prop], { replace: true }),
+    t,
   );
 
   function dialogHandler(type, text) {

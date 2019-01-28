@@ -39,24 +39,26 @@ test('Edit resource address', async t => {
 
   // Make edits
   await t.click(resourcePage.editButton);
-  await Promise.all(
-    Object.keys(newProps)
-    .map(prop => t.typeText(editResourcePage.address[prop], newProps[prop], { replace: true })),
+  await Object.keys(newProps).reduce(
+    (_t, prop) => _t.typeText(editResourcePage.address[prop], newProps[prop], { replace: true }),
+    t,
   );
   await t.click(editResourcePage.saveButton);
 
   // Check visibility of edits on show page
-  await Promise.all(
-    Object.keys(newProps)
+  await Object.keys(newProps)
     .filter(prop => !notVisibleOnShowPage.includes(prop))
-    .map(prop => t.expect(resourcePage.address.textContent).contains(newProps[prop])),
-  );
+    .reduce(
+      (_t, prop) => _t.expect(resourcePage.address.textContent).contains(newProps[prop]),
+      t,
+    );
 
   // Check visibility of edits on edit page
   await t.click(resourcePage.editButton);
-  await Promise.all(Object.keys(newProps).map(
-    prop => t.expect(editResourcePage.address[prop].value).eql(newProps[prop]),
-  ));
+  await Object.keys(newProps).reduce(
+    (_t, prop) => _t.expect(editResourcePage.address[prop].value).eql(newProps[prop]),
+    t,
+  );
 });
 
 
