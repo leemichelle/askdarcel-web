@@ -9,8 +9,8 @@ fixture `Edit Resource`
 
 
 async function testEditTextProperty(t, showPageSelector, editPageSelector, newValue) {
+  await resourcePage.clickEditButton(t);
   await t
-    .click(resourcePage.editButton)
     .typeText(editPageSelector, newValue, { replace: true })
     .click(editResourcePage.saveButton)
     .expect(showPageSelector.textContent)
@@ -38,7 +38,7 @@ test('Edit resource address', async t => {
   const notVisibleOnShowPage = ['address3', 'address4', 'country'];
 
   // Make edits
-  await t.click(resourcePage.editButton);
+  await resourcePage.clickEditButton(t);
   await Object.keys(newProps).reduce(
     (_t, prop) => _t.typeText(editResourcePage.address[prop], newProps[prop], { replace: true }),
     t,
@@ -54,7 +54,7 @@ test('Edit resource address', async t => {
     );
 
   // Check visibility of edits on edit page
-  await t.click(resourcePage.editButton);
+  await resourcePage.clickEditButton(t);
   await Object.keys(newProps).reduce(
     (_t, prop) => _t.expect(editResourcePage.address[prop].value).eql(newProps[prop]),
     t,
@@ -68,7 +68,7 @@ test('Edit resource phone number', async t => {
   const newServiceType = 'Main number';
 
   // Make edits
-  await t.click(resourcePage.editButton);
+  await resourcePage.clickEditButton(t);
   const phone = EditResourcePage.getPhone(0);
   await t
     .typeText(phone.number, newNumber, { replace: true })
@@ -94,10 +94,8 @@ test('Add resource phone number', async t => {
   const originalCount = await resourcePage.phones.with({ boundTestRun: t }).count;
 
   // Make edits
-  await t
-    .click(resourcePage.editButton)
-    .click(editResourcePage.addPhoneButton)
-    ;
+  await resourcePage.clickEditButton(t);
+  await t.click(editResourcePage.addPhoneButton);
   const phone = EditResourcePage.getPhone(-1);
   await t
     .typeText(phone.number, newNumber, { replace: true })
@@ -118,8 +116,8 @@ test('Delete resource phone number', async t => {
   await t.hover(resourcePage.phones);
   const originalCount = await resourcePage.phones.with({ boundTestRun: t }).count;
 
+  await resourcePage.clickEditButton(t);
   await t
-    .click(resourcePage.editButton)
     .click(editResourcePage.deletePhoneButton)
     .click(editResourcePage.saveButton)
     ;
@@ -159,8 +157,7 @@ test('Edit resource description', async t => {
 
 test('Add new service', async t => {
   // Navigate to edit page
-  await t
-    .click(resourcePage.editButton);
+  await resourcePage.clickEditButton(t);
 
   // Wait for page to load before counting services by using hover action.
   await t.hover(editResourcePage.addServiceButton);
@@ -193,8 +190,8 @@ test('Delete a service', async t => {
   const originalServiceCount = await resourcePage.services.with({ boundTestRun: t }).count;
 
   // Navigate to edit page and delete the last service
+  await resourcePage.clickEditButton(t);
   await t
-    .click(resourcePage.editButton)
     .setNativeDialogHandler(() => true)
     .click(editResourcePage.removeFirstServiceButton);
 
