@@ -4,13 +4,6 @@
 .listing-container {
   background: $color-grey1;
   padding: 0;
-  min-height: calc(100vh - #{$navigation-height});
-  margin: #{$navigation-height} 0 calc-em(30px);
-  @include r_max($break-tablet-s) {
-    margin-top: 0;
-    margin-bottom: #{$navigation-height};
-    padding: 0;
-  }
 }
 
 .listing {

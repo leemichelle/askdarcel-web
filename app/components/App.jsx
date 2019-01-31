@@ -7,6 +7,7 @@ import 'react-select/dist/react-select.css';
 import { connect } from 'react-redux';
 import userActions from '../actions/userActions';
 import config from '../config';
+import HamburgerMenu from './ui/HamburgerMenu';
 
 
 class App extends Component {
@@ -107,7 +108,11 @@ class App extends Component {
     super(props);
     this.state = {
       userLocation: null,
+      userLocation: null,
+      hamburgerMenuIsOpen: false,
     };
+    this.toggleHamburgerMenu = this.toggleHamburgerMenu.bind(this);
+    this.onHamburgerMenuStateChange = this.onHamburgerMenuStateChange.bind(this);
   }
 
   componentDidMount() {
@@ -123,6 +128,14 @@ class App extends Component {
     });
   }
 
+  toggleHamburgerMenu() {
+    this.setState((state, props) => ({hamburgerMenuIsOpen: !state.hamburgerMenuIsOpen}));
+  }
+
+  onHamburgerMenuStateChange(state) {
+    this.setState({hamburgerMenuIsOpen: state.isOpen});
+  }
+
   render() {
     const childrenWithProps = React.Children.map(this.props.children, (child) => {
       return React.cloneElement(child, {
@@ -130,11 +143,23 @@ class App extends Component {
       });
     });
 
+    const outerContainerId = 'outer-container';
+    const pageWrapId = 'page-wrap';
     return (
-      <div>
-        <Navigation showSearch={ this.props.location.pathname != '/' }/>
-        <div className="container">
-          {childrenWithProps}
+      <div id={outerContainerId}>
+        <HamburgerMenu
+          isOpen={this.state.hamburgerMenuIsOpen}
+          location={this.props.location}
+          outerContainerId={outerContainerId}
+          onStateChange={this.onHamburgerMenuStateChange}
+          pageWrapId={pageWrapId}
+          toggleHamburgerMenu={this.toggleHamburgerMenu}
+        />
+        <div id={pageWrapId}>
+          <Navigation showSearch={this.props.location.pathname != '/'} toggleHamburgerMenu={this.toggleHamburgerMenu} />
+          <div className="container">
+            {childrenWithProps}
+          </div>
         </div>
       </div>
     );

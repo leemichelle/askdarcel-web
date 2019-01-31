@@ -46,7 +46,6 @@ $padding-large: 16px;
 $padding-xlarge: 26px;
 $padding-xxlarge: 36px;
 $max-container-width: 1280px;
-$navigation-height: calc-em(80px);
 
 
 %flex-row {
@@ -107,10 +106,6 @@ body, html {
 
 .disabled-feature {
   display: none !important;
-}
-
-.container {
-  margin-top: #{$navigation-height}
 }
 
 $max-content-width: 1200px;

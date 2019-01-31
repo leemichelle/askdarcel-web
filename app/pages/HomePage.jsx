@@ -8,6 +8,8 @@ import { CategoryList } from 'components/layout/CategoryList';
 import LegalBlockConfig from 'components/ui/LegalBlockConfig';
 import config from '../config';
 
+import './HomePage.scss';
+
 let categories = [];
 const subDomain = window.location.host.split('.')[0];
 
