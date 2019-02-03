@@ -47,7 +47,6 @@
   @include r_max($break-tablet-s) {
     margin-top: 0;
     flex-direction: column;
-    margin-bottom: #{$navigation-height};
   }
 
   .add-resource {

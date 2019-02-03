@@ -20,6 +20,17 @@ export default class ResourcePage {
     this.services = baseSelector.find('#services.service--section .service');
   }
 
+  // There's a bug in TestCafe where if you are partially scrolled down the
+  // Resource Page, where the edit button is still visible yet its center is
+  // covered by the nav bar (which uses position: sticky), then TestCafe will
+  // attempt to click it and will not notice that the nav bar is obscuring it.
+  // This is a workaround to scroll to the top of the page, ensuring that the
+  // edit button is completely unobscured, before clicking.
+  async clickEditButton(t) {
+    await t.eval(() => window.scrollTo(0, 0));
+    return t.click(this.editButton);
+  }
+
   static url(resourceId) {
     return `${config.baseUrl}/resource?id=${resourceId}`;
   }

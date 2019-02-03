@@ -9,8 +9,8 @@ fixture `Edit Resource`
 
 
 async function testEditTextProperty(t, showPageSelector, editPageSelector, newValue) {
+  await resourcePage.clickEditButton(t);
   await t
-    .click(resourcePage.editButton)
     .typeText(editPageSelector, newValue, { replace: true })
     .click(editResourcePage.saveButton)
     .expect(showPageSelector.textContent)
@@ -38,25 +38,27 @@ test('Edit resource address', async t => {
   const notVisibleOnShowPage = ['address3', 'address4', 'country'];
 
   // Make edits
-  await t.click(resourcePage.editButton);
-  await Promise.all(
-    Object.keys(newProps)
-    .map(prop => t.typeText(editResourcePage.address[prop], newProps[prop], { replace: true })),
+  await resourcePage.clickEditButton(t);
+  await Object.keys(newProps).reduce(
+    (_t, prop) => _t.typeText(editResourcePage.address[prop], newProps[prop], { replace: true }),
+    t,
   );
   await t.click(editResourcePage.saveButton);
 
   // Check visibility of edits on show page
-  await Promise.all(
-    Object.keys(newProps)
+  await Object.keys(newProps)
     .filter(prop => !notVisibleOnShowPage.includes(prop))
-    .map(prop => t.expect(resourcePage.address.textContent).contains(newProps[prop])),
-  );
+    .reduce(
+      (_t, prop) => _t.expect(resourcePage.address.textContent).contains(newProps[prop]),
+      t,
+    );
 
   // Check visibility of edits on edit page
-  await t.click(resourcePage.editButton);
-  await Promise.all(Object.keys(newProps).map(
-    prop => t.expect(editResourcePage.address[prop].value).eql(newProps[prop]),
-  ));
+  await resourcePage.clickEditButton(t);
+  await Object.keys(newProps).reduce(
+    (_t, prop) => _t.expect(editResourcePage.address[prop].value).eql(newProps[prop]),
+    t,
+  );
 });
 
 
@@ -66,7 +68,7 @@ test('Edit resource phone number', async t => {
   const newServiceType = 'Main number';
 
   // Make edits
-  await t.click(resourcePage.editButton);
+  await resourcePage.clickEditButton(t);
   const phone = EditResourcePage.getPhone(0);
   await t
     .typeText(phone.number, newNumber, { replace: true })
@@ -92,10 +94,8 @@ test('Add resource phone number', async t => {
   const originalCount = await resourcePage.phones.with({ boundTestRun: t }).count;
 
   // Make edits
-  await t
-    .click(resourcePage.editButton)
-    .click(editResourcePage.addPhoneButton)
-    ;
+  await resourcePage.clickEditButton(t);
+  await t.click(editResourcePage.addPhoneButton);
   const phone = EditResourcePage.getPhone(-1);
   await t
     .typeText(phone.number, newNumber, { replace: true })
@@ -116,8 +116,8 @@ test('Delete resource phone number', async t => {
   await t.hover(resourcePage.phones);
   const originalCount = await resourcePage.phones.with({ boundTestRun: t }).count;
 
+  await resourcePage.clickEditButton(t);
   await t
-    .click(resourcePage.editButton)
     .click(editResourcePage.deletePhoneButton)
     .click(editResourcePage.saveButton)
     ;
@@ -157,8 +157,7 @@ test('Edit resource description', async t => {
 
 test('Add new service', async t => {
   // Navigate to edit page
-  await t
-    .click(resourcePage.editButton);
+  await resourcePage.clickEditButton(t);
 
   // Wait for page to load before counting services by using hover action.
   await t.hover(editResourcePage.addServiceButton);
@@ -175,6 +174,12 @@ test('Add new service', async t => {
     .eql(originalServiceCount + 1);
 
   // Save and check resource page
+  // Normally TestCafe will automatically scroll to an element that it needs to
+  // interact with, but when it scrolls *up*, it won't scroll up far enough and
+  // the sticky nav will end up obscuring the element. We force TestCafe to
+  // scroll to the top of the page before asking it to enter text into the new
+  // service name field so that it scrolls *down*.
+  await t.eval(() => window.scrollTo(0, 0));
   await t
     .typeText(editResourcePage.newServiceName, 'Test Service', { replace: true })
     .click(editResourcePage.saveButton)
@@ -191,8 +196,8 @@ test('Delete a service', async t => {
   const originalServiceCount = await resourcePage.services.with({ boundTestRun: t }).count;
 
   // Navigate to edit page and delete the last service
+  await resourcePage.clickEditButton(t);
   await t
-    .click(resourcePage.editButton)
     .setNativeDialogHandler(() => true)
     .click(editResourcePage.removeFirstServiceButton);
 
