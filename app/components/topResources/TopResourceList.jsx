@@ -5,17 +5,16 @@ import ResourceItem from './TopResourceItem';
 export class TopResourceList extends React.Component {
   render() {
     const resourceNodes = [];
-
-    this.props.resources.forEach((resource) => {
-      if (resource.featured) {
-          resourceNodes.push(
-            <ResourceItem name={resource.name} key={resource.id} resourceid={resource.id} />
-          );
-      }
+    console.log('bye')
+    this.props.resources.forEach(resource => {
+      // <ResourceItem name={resource.name} key={resource.id} resourceid={resource.id} />
+      resourceNodes.push(
+        <li>hi world</li>
+      );
     });
 
     return (
-        <ul className="resource-items"> {resourceNodes} </ul>
+      <ul className="resource-items"> {resourceNodes} </ul>
     );
   }
 }
