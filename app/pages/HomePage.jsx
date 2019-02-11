@@ -1,6 +1,7 @@
 import React from 'react';
 import Footer from 'components/ui/Footer';
 import LandingPageResourceBlock from 'components/ui/LandingPageResourceBlock';
+import LandingPageEligibilityBlock from 'components/ui/LandingPageEligibilityBlock';
 import Partners from 'components/ui/Partners';
 import WhiteLabel from 'components/ui/WhiteLabel';
 import FindHeader from 'components/layout/FindHeader';
@@ -8,35 +9,37 @@ import { CategoryList } from 'components/layout/CategoryList';
 import BasicNeedsBlockConfig from 'components/ui/BasicNeedsBlockConfig';
 import LegalBlockConfig from 'components/ui/LegalBlockConfig';
 import config from '../config';
+import * as ax from 'axios';
 
 import './HomePage.scss';
 
-let categories = [];
 const subDomain = window.location.host.split('.')[0];
 
 export class HomePage extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      categories: [],
+      eligibilities: [],
+    };
+  }
+
   componentDidMount() {
     this.loadCategoriesFromServer();
+    this.loadEligibilitiesFromServer();
   }
 
   loadCategoriesFromServer() {
-    const httpRequest = new XMLHttpRequest();
-    const tempUrl = '/api/categories?top_level=true';
+    ax.get('/api/categories?top_level=true').then(resp => {
+      this.setState({ categories: resp.data.categories });
+    });
+  }
 
-    const callback = function callback() {
-      if (httpRequest.readyState === XMLHttpRequest.DONE) {
-        if (httpRequest.status === 200) {
-          categories = JSON.parse(httpRequest.responseText).categories;
-          this.setState({ categories });
-        } else {
-          console.log('error...');
-        }
-      }
-    }.bind(this);
-
-    httpRequest.open('GET', tempUrl, true);
-    httpRequest.onreadystatechange = callback;
-    httpRequest.send(null);
+  loadEligibilitiesFromServer() {
+    // TODO Should probably move this and above into redux
+    ax.get('/api/eligibilities/featured').then(resp => {
+      this.setState({ eligibilities: resp.data.eligibilities });
+    });
   }
 
   render() {
@@ -44,9 +47,10 @@ export class HomePage extends React.Component {
       <div className="find-page">
         <div className="find-content-container">
           <FindHeader />
-          <CategoryList categories={categories} />
+          <CategoryList categories={this.state.categories} />
         </div>
         {subDomain === config.MOHCD_SUBDOMAIN ? <WhiteLabel /> : null}
+        <LandingPageEligibilityBlock eligibilities={this.state.eligibilities} />
         <LandingPageResourceBlock config={BasicNeedsBlockConfig} />
         <LandingPageResourceBlock config={LegalBlockConfig}>
           <div className="legal-block__resources-hammer" />

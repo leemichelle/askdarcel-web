@@ -6,9 +6,9 @@ import {
   SearchBox,
   RefinementList,
 } from 'react-instantsearch/dom';
-import Filtering from '../components/search/Filtering';
 import { isEqual } from 'lodash';
 import qs from 'qs';
+import Filtering from '../components/search/Filtering';
 import SearchResultsContainer from '../components/search/SearchResultsContainer';
 import config from '../config';
 
@@ -19,6 +19,7 @@ class SearchPage extends Component {
 
     this.state = { searchState: { ...qs.parse(props.router.location.query) } };
     this.onSearchStateChange = this.onSearchStateChange.bind(this);
+    console.log(this)
   }
   componentWillReceiveProps() {
     this.setState({ searchState: qs.parse(this.props.router.location.query) });
@@ -29,6 +30,7 @@ class SearchPage extends Component {
   }
 
   onSearchStateChange(nextSearchState) {
+    console.log('updating searchState', nextSearchState)
     const THRESHOLD = 700;
     const newPush = Date.now();
     this.setState({ lastPush: newPush, searchState: nextSearchState });
@@ -42,6 +44,7 @@ class SearchPage extends Component {
       );
     }
   }
+
   // eslint-disable-next-line class-methods-use-this
   createURL(state) {
     return `search?${qs.stringify(state)}`;
@@ -73,6 +76,7 @@ class SearchPage extends Component {
           <div className="refinement-list">
             <RefinementList attribute="categories" />
             <RefinementList attribute="open_times" />
+            <RefinementList attribute="eligibilities" />
           </div>
           <div>
             <SearchResultsContainer />
