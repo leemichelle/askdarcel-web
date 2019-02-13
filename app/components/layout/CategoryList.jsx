@@ -1,35 +1,19 @@
 import React from 'react';
 import CategoryItem from './CategoryItem';
-import ListCategoryItem from './ListCategoryItem';
 
 /* eslint-disable react/no-multi-comp */
 export class CategoryList extends React.Component {
   render() {
-    const categoryNodes = [];
-    const listCategoryNodes = [];
-
-    this.props.categories.forEach((category) => {
-      if (category.featured) {
-        if (category.name === 'MOHCD Funded Services') {
-          categoryNodes.unshift(
-            <CategoryItem name={category.name} key={category.id} categoryid={category.id} />
-          );
-        } else {
-          categoryNodes.push(
-            <CategoryItem name={category.name} key={category.id} categoryid={category.id} />
-          );
-        }
-      } else {
-        listCategoryNodes.push(
-          <ListCategoryItem name={category.name} key={category.id} categoryid={category.id} />
-        );
-      }
-    });
+    const categoryNodes = this.props.categories.map(category => (
+      <CategoryItem name={category.name} key={category.id} categoryid={category.id} />
+    ));
 
     return (
       <section className="category-list" role="main">
-        <ul className="category-items"> {categoryNodes} </ul>
-        <ul className="list-category-items"> {listCategoryNodes} </ul>
+        <div className="featured-categories">
+          <h2 className="featured-categories__title">Discover resources by category</h2>
+          <ul className="category-items"> {categoryNodes} </ul>
+        </div>
       </section>
     );
   }
