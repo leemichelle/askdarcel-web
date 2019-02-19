@@ -1,6 +1,6 @@
 import React from 'react';
 
-class ResourceItem extends React.Component {
+class TopResourceItem extends React.Component {
   render() {
     return (
       <li className="resource-item">
@@ -12,4 +12,4 @@ class ResourceItem extends React.Component {
   }
 }
 
-export default ResourceItem;
+export default TopResourceItem;

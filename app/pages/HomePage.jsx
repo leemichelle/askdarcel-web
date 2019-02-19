@@ -5,7 +5,7 @@ import Partners from 'components/ui/Partners';
 import WhiteLabel from 'components/ui/WhiteLabel';
 import FindHeader from 'components/layout/FindHeader';
 import { CategoryList } from 'components/layout/CategoryList';
-import { TopResources } from 'components/layout/TopResourceList';
+import { TopResourceList } from 'components/topResources/TopResourceList';
 import LegalBlockConfig from 'components/ui/LegalBlockConfig';
 import config from '../config';
 
@@ -17,7 +17,7 @@ const subDomain = window.location.host.split('.')[0];
 
 export class HomePage extends React.Component {
   componentDidMount() {
-    // this.loadCategoriesFromServer();
+    this.loadCategoriesFromServer();
     this.loadResourceFromServer();
   }
 
@@ -48,26 +48,25 @@ export class HomePage extends React.Component {
     fetch(url, { credentials: 'include' })
       .then(r => r.json())
       .then(data => {
-        console.log(data)
-        resources = data;
-        // this.setState({ resources: data });
+        console.log(data);
+        resources = data.services;
+        this.setState({ resources: data.services });
       // <TopResources resources={resources} />
       });
   }
 
   render() {
-    console.log('hi')
     return (
       <div className="find-page">
         <div className="find-content-container">
           <FindHeader />
-          <CategoryList categories={categories} />
+          <CategoryList resources={categories} />
         </div>
         {subDomain === config.MOHCD_SUBDOMAIN ? <WhiteLabel /> : null}
         <LandingPageResourceBlock config={LegalBlockConfig}>
           <div className="legal-block__resources-hammer" />
         </LandingPageResourceBlock>
-        <TopResources resources={resources} />
+        <TopResourceList resources={resources} />
         <Partners />
         <Footer />
       </div>
