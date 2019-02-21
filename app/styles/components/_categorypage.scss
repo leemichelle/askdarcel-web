@@ -41,6 +41,7 @@
   @include transition(all 200ms ease-in-out);
   display: flex;
   align-items: center;
+  justify-content: center;
   min-width: calc-em(150px);
   width: calc-em(150px);
   height: calc-em(150px);
