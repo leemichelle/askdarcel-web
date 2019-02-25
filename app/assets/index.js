@@ -18,8 +18,8 @@ if (subDomain === config.MOHCD_SUBDOMAIN) {
     /* eslint-disable global-require */
   appImages = {
     background: require('../assets/img/bg.png'),
-    logoLarge: require('../assets/img/help-sfgov.svg'),
-    logoSmall: require('../assets/img/help-sfgov.svg'),
+    logoLarge: require('../assets/img/sf-service.svg'),
+    logoSmall: require('../assets/img/sf-service.svg'),
     algolia: require('../assets/img/search-by-algolia.png'),
     mohcdSeal: require('../assets/img/sf-seal.png'),
     icon,
