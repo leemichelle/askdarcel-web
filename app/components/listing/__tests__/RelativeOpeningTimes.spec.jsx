@@ -9,7 +9,7 @@ import { ListingDebugPage, simpleScheduleLookup } from '../../../pages/debug/Lis
 // console.log(ListingDebugPage.createScheduleFromShorthand(simpleSchedules));
 
 describe('<RelativeOpeningTimes />', () => {
-  const getNamedSchedule = (name) => ListingDebugPage
+  const getNamedSchedule = name => ListingDebugPage
     .createScheduleFromShorthand([simpleScheduleLookup[name]])[0];
 
   it('should display "open 24/7" for a schedule with every day open', () => {
@@ -39,7 +39,7 @@ describe('<RelativeOpeningTimes />', () => {
     const comp = shallow(<RelativeOpeningTime schedule={schedule} currentDate={date} />);
     expect(comp.find('.relative-opening-time').text()).to.equal('Closed Until Tomorrow');
     expect(comp.find('.relative-opening-time').hasClass('status-red')).to.be.true;
-  })
+  });
 
   it('should display "Opens in 5 minutes" for a schedule that is just about to open', () => {
     const date = moment().startOf('day').add(8, 'hours').add(55, 'minutes');

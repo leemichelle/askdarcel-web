@@ -39,7 +39,13 @@ class FindHeader extends React.Component {
         <div className="header-container">
           <div className="header-text">
             <p>Welcome to the SF Service Guide</p>
-            <h1>Find food, housing, health<br />resources and more<br />in San Francisco</h1>
+            <h1>
+Find food, housing, health
+              <br />
+resources and more
+              <br />
+in San Francisco
+            </h1>
           </div>
           <div className="location-pins">
             <span className="location-pin pin-1" />

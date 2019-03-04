@@ -20,6 +20,7 @@ class SearchPage extends Component {
     this.state = { searchState: { ...qs.parse(props.router.location.query) } };
     this.onSearchStateChange = this.onSearchStateChange.bind(this);
   }
+
   componentWillReceiveProps() {
     this.setState({ searchState: qs.parse(this.props.router.location.query) });
   }

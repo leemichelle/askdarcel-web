@@ -33,7 +33,7 @@ function getTimes(scheduleDays) {
   // Logic to determine if the current resource is open
   // includes special logic for when a resource is open past midnight
   // on the previous day
-  scheduleDays.forEach((scheduleDay) => {
+  scheduleDays.forEach(scheduleDay => {
     const day = scheduleDay ? scheduleDay.day.replace(/,/g, '') : null;
     const opensAt = scheduleDay.opens_at;
     const closesAt = scheduleDay.closes_at;
@@ -60,9 +60,9 @@ function getTimes(scheduleDays) {
 }
 
 function getMapMarkers(resources, userLoc) {
-  const processAddress = (resource) => {
+  const processAddress = resource => {
     if (resource) {
-      const address = resource.address;
+      const { address } = resource;
       if (!address) {
         return null;
       }
@@ -83,7 +83,7 @@ function getMapMarkers(resources, userLoc) {
 function prepOpenResources(resources) {
   const preparedOpenResources = [];
 
-  resources.forEach((r) => {
+  resources.forEach(r => {
     const resource = r;
     const { openUntil, isOpen } = getTimes(resource.schedule.schedule_days);
     resource.openUntil = openUntil;
@@ -97,7 +97,6 @@ function prepOpenResources(resources) {
 }
 
 class ResourcesTable extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -191,7 +190,7 @@ class ResourcesTable extends Component {
     }
     const url = `${path}?${queryString.stringify(params)}`;
     fetch(url, { credentials: 'include' }).then(r => r.json())
-      .then((data) => {
+      .then(data => {
         const openResources = prepOpenResources(data.resources);
 
         this.setState({
@@ -205,76 +204,93 @@ class ResourcesTable extends Component {
 
   render() {
     const resultsRangeBegin = (this.state.page * resultsPerPage) + 1;
-    const resultsRangeEnd = (this.state.resources && this.state.resources.length) ?
-       Math.min(
+    const resultsRangeEnd = (this.state.resources && this.state.resources.length)
+      ? Math.min(
         this.state.resources.length,
         (this.state.page + 1) * resultsPerPage,
       ) : null;
     const showPreviousButton = this.state.page !== 0;
-    const showNextButton = Math.floor(this.state.currentPage.length / resultsPerPage) !== 0 &&
-      this.state.allResources.length !== (this.state.page + 1) * resultsPerPage;
-    return (!this.state.resources ? <Loader /> :
-    <div className="results">
-      <div className="results-table">
-        <header>
-          <h1 className="results-title">{this.state.categoryName}</h1>
-          <span className="results-count">{this.state.resources.length} Total Results</span>
-        </header>
-        <div className="results-filters">
-          <ul>
-            <li>Filter:</li>
-            <li><a className="filters-button" onClick={this.filterResources} role="button" tabIndex="0">{this.state.openFilter ? 'All' : 'Open Now'}</a></li>
-          </ul>
-        </div>
-        <div className="results-table-body">
-          <ResourcesList
-            resources={this.state.currentPage}
-            location={this.props.userLocation}
-            page={this.state.page}
-            resultsPerPage={resultsPerPage}
-            categoryId={this.state.categoryId}
-          />
-          <div className="add-resource">
-            <li className="results-table-entry">
-              <Link to={'/resource/new'}>
-                <h4 className="entry-headline">
-                  <i className="material-icons">add_circle</i> Add a new resource
-                </h4>
-              </Link>
-            </li>
-          </div>
-          <div className="pagination">
-            <div className="pagination-count">
-              {this.state.resources && this.state.resources.length ?
-                <p>
-                  {resultsRangeBegin} — {resultsRangeEnd} of {this.state.resources.length} Results
-                </p>
-                :
-                <p>No results found</p>
-              }
+    const showNextButton = Math.floor(this.state.currentPage.length / resultsPerPage) !== 0
+      && this.state.allResources.length !== (this.state.page + 1) * resultsPerPage;
+    return (!this.state.resources ? <Loader />
+      : (
+        <div className="results">
+          <div className="results-table">
+            <header>
+              <h1 className="results-title">{this.state.categoryName}</h1>
+              <span className="results-count">
+                {this.state.resources.length}
+                {' '}
+Total Results
+              </span>
+            </header>
+            <div className="results-filters">
+              <ul>
+                <li>Filter:</li>
+                <li><a className="filters-button" onClick={this.filterResources} role="button" tabIndex="0">{this.state.openFilter ? 'All' : 'Open Now'}</a></li>
+              </ul>
             </div>
-            {showPreviousButton &&
-              <button className="btn btn-link" onClick={this.getPreviousResources}>Previous</button>
-            }
-            {showNextButton &&
-              <button className="btn btn-link" onClick={this.getNextResources}>Next</button>
-            }
-            <div className="results-algolia-logo-wrapper">
-              <a href="https://algolia.com">
-                <img
-                  className="results-algolia-logo"
-                  src={images.algolia}
-                  alt="Powered by Algolia"
-                />
-              </a>
+            <div className="results-table-body">
+              <ResourcesList
+                resources={this.state.currentPage}
+                location={this.props.userLocation}
+                page={this.state.page}
+                resultsPerPage={resultsPerPage}
+                categoryId={this.state.categoryId}
+              />
+              <div className="add-resource">
+                <li className="results-table-entry">
+                  <Link to="/resource/new">
+                    <h4 className="entry-headline">
+                      <i className="material-icons">add_circle</i>
+                      {' '}
+Add a new resource
+                    </h4>
+                  </Link>
+                </li>
+              </div>
+              <div className="pagination">
+                <div className="pagination-count">
+                  {this.state.resources && this.state.resources.length
+                    ? (
+                      <p>
+                        {resultsRangeBegin}
+                        {' '}
+—
+                        {resultsRangeEnd}
+                        {' '}
+of
+                        {this.state.resources.length}
+                        {' '}
+Results
+                      </p>
+                    )
+                    : <p>No results found</p>
+                  }
+                </div>
+                {showPreviousButton
+              && <button className="btn btn-link" onClick={this.getPreviousResources}>Previous</button>
+                }
+                {showNextButton
+              && <button className="btn btn-link" onClick={this.getNextResources}>Next</button>
+                }
+                <div className="results-algolia-logo-wrapper">
+                  <a href="https://algolia.com">
+                    <img
+                      className="results-algolia-logo"
+                      src={images.algolia}
+                      alt="Powered by Algolia"
+                    />
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
+          <div className="results-map">
+            <Gmap markers={getMapMarkers(this.state.currentPage, this.props.userLocation)} />
+          </div>
         </div>
-      </div>
-      <div className="results-map">
-        <Gmap markers={getMapMarkers(this.state.currentPage, this.props.userLocation)} />
-      </div>
-    </div>
+      )
     );
   }
 }

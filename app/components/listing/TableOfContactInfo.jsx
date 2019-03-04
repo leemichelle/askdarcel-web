@@ -32,38 +32,46 @@ class ContactInfoTable extends React.Component {
       <table>
         <tbody>
           { website
-              ? <tr>
+            ? (
+              <tr>
                 <th>Website</th>
                 <td>
                   <a href={website}>{website}</a>
                 </td>
-              </tr> : null
+              </tr>
+            ) : null
           }
 
           { email
-              ? <tr>
+            ? (
+              <tr>
                 <th>Email</th>
                 <td>
                   <a href={`mailto:${email}`}>{email}</a>
                 </td>
-              </tr> : null
+              </tr>
+            ) : null
           }
 
           { phones.length
-              ? <tr>
+            ? (
+              <tr>
                 <th>Phone</th>
                 <td>
                   <ul>
                     {
                       phones.map(phone => (
                         <li key={phone.number}>
-                          {phone.number} {phone.service_type && `(${phone.service_type})`}
+                          {phone.number}
+                          {' '}
+                          {phone.service_type && `(${phone.service_type})`}
                         </li>
                       ))
                     }
                   </ul>
                 </td>
-              </tr> : null
+              </tr>
+            ) : null
           }
 
           {/* TODO Contact Person */}

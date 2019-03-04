@@ -31,7 +31,7 @@ function buildSchedule(schedule) {
   };
 
   if (schedule) {
-    schedule.schedule_days.forEach((curr) => {
+    schedule.schedule_days.forEach(curr => {
       const schedule = curr;
       currDay = schedule.day;
       if (!is24Hours[currDay]) {
@@ -170,20 +170,20 @@ class EditSchedule extends Component {
         <label className="open-24-label">24 hrs?</label>
         <ul className="edit-hours-list">
           {
-              Object.keys(schedule).map((day, i) => (
-                <EditScheduleDay
-                  day={day}
-                  dayAbbrev={daysOfWeek[day]}
-                  dayHours={schedule[day]}
-                  key={i}
-                  handleScheduleChange={this.handleScheduleChange}
-                  toggle24Hours={this.toggle24Hours}
-                  getDayHours={this.getDayHours}
-                  addTime={this.addTime}
-                  removeTime={this.removeTime}
-                />
-                ))
-            }
+            Object.keys(schedule).map((day, i) => (
+              <EditScheduleDay
+                day={day}
+                dayAbbrev={daysOfWeek[day]}
+                dayHours={schedule[day]}
+                key={i}
+                handleScheduleChange={this.handleScheduleChange}
+                toggle24Hours={this.toggle24Hours}
+                getDayHours={this.getDayHours}
+                addTime={this.addTime}
+                removeTime={this.removeTime}
+              />
+            ))
+          }
         </ul>
       </li>
     );

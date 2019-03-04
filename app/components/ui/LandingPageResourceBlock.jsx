@@ -12,7 +12,11 @@ class LandingPageResourceBlock extends Component {
           <div className="landing-page-resource-block__resources-title">
             <h1>
               {this.props.config.TITLE.BEFORE_BLUE_WORD}
-              <span className="blue-word"> {this.props.config.TITLE.BLUE_WORD} </span>
+              <span className="blue-word">
+                {' '}
+                {this.props.config.TITLE.BLUE_WORD}
+                {' '}
+              </span>
               {this.props.config.TITLE.AFTER_BLUE_WORD}
             </h1>
           </div>

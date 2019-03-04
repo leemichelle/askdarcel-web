@@ -2,7 +2,9 @@ import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import { Link } from 'react-router';
 import PropTypes from 'prop-types';
-import { AddressInfo, PhoneNumber, ResourceCategories, Website, Email, StreetView } from 'components/listing/ResourceInfos';
+import {
+  AddressInfo, PhoneNumber, ResourceCategories, Website, Email, StreetView,
+} from 'components/listing/ResourceInfos';
 import { RelativeOpeningTime } from 'components/listing/RelativeOpeningTime';
 import Services from 'components/listing/Services';
 import Notes from 'components/listing/Notes';
@@ -40,7 +42,7 @@ export class OrganizationListingPage extends React.Component {
     const url = `/api/resources/${id}`;
     fetch(url, { credentials: 'include' })
       .then(r => r.json())
-      .then((data) => {
+      .then(data => {
         this.setState({ resource: data.resource });
       });
   }
@@ -48,12 +50,12 @@ export class OrganizationListingPage extends React.Component {
   verifyResource() {
     const changeRequest = { verified_at: new Date().toISOString() };
     dataService.post(`/api/resources/${this.state.resource.id}/change_requests`, { change_request: changeRequest })
-      .then((response) => {
+      .then(response => {
         // TODO: Do not use alert() for user notifications.
         if (response.ok) {
-          alert('Resource verified. Thanks!');  // eslint-disable-line no-alert
+          alert('Resource verified. Thanks!'); // eslint-disable-line no-alert
         } else {
-          alert('Issue verifying resource. Please try again.');  // eslint-disable-line no-alert
+          alert('Issue verifying resource. Please try again.'); // eslint-disable-line no-alert
         }
       });
   }
@@ -76,143 +78,154 @@ export class OrganizationListingPage extends React.Component {
     const { resource } = this.state;
     const isMOHCDFunded = this.isMOHCDFunded();
     // console.log(resource, window.google);
-    return (!resource || !window.google ? <Loader /> :
-    <div className="org-container">
-      <article className="org" id="resource">
-      {
-        resource.address &&
-        <div className="org--map">
-          <ResourceMap
-            name={resource.name}
-            lat={resource.address.latitude}
-            long={resource.address.longitude}
-            userLocation={this.props.userLocation}
-          />
-          <StreetView address={resource.address} resourceName={resource.name} />
-        </div>
-      }
-        <div className="org--main">
-          <div className="org--main--left">
-
-            <header className="org--main--header">
-              <div className="badges">
-                {
-                  resource.certified &&
-                  <img
-                    className="certified"
-                    src={HAPcertified}
-                    alt="Verified by the Homeless Assistance Project"
-                  />
-                }
-                {
-                  isMOHCDFunded &&
-                  <img
-                    className="mohcd-funded"
-                    src={MOHCDFunded}
-                    alt="Verified by MOHCD"
-                  />
-                }
-              </div>
-              <h1 className="org--main--header--title">{resource.name}</h1>
-              <div className="org--main--header--rating disabled-feature">
-                <p className="excellent">
-                  <i className="material-icons">sentiment_very_satisfied</i>
-                  <i className="material-icons">sentiment_very_satisfied</i>
-                  <i className="material-icons">sentiment_very_satisfied</i>
-                  <i className="material-icons">sentiment_very_satisfied</i>
-                  <i className="material-icons">sentiment_very_satisfied</i>
-                </p>
-              </div>
-              <div className="org--main--header--hours">
-                <RelativeOpeningTime schedule={resource.schedule} />
-              </div>
-              <div className="org--main--header--phone">
-                <PhoneNumber phones={resource.phones} />
-              </div>
-              <div className="org--main--header--description">
-                <header>About this resource</header>
-                <ReactMarkdown className="rendered-markdown" source={resource.long_description || resource.short_description || 'No Description available'} />
-              </div>
-            </header>
-
-            <section className="service--section" id="services">
-              <header className="service--section--header">
-                <h4>Services</h4>
-              </header>
-              {/* { resource.services.map(service => <ServiceCard key={service.id} service={service} />) } */}
-              <Services description={resource.long_description} services={resource.services} />
-            </section>
-
-            <Notes notes={this.state.resource.notes} id="notes" />
-
-            <section className="info--section" id="info">
-              <header className="service--section--header">
-                <h4>Info</h4>
-              </header>
-              <ul className="info">
-                <div className="info--column">
-                  <ResourceCategories categories={resource.categories} />
-                  {
-                    resource.address &&
-                    <AddressInfo address={resource.address} />
-                  }
-                  <PhoneNumber phones={resource.phones} />
-                  <Website website={resource.website} />
-                  <Email email={resource.email} />
-                </div>
-                <div className="info--column">
-                  <TableOfOpeningTimes schedule={resource.schedule} />
-                </div>
-              </ul>
-            </section>
+    return (!resource || !window.google ? <Loader />
+      : (
+        <div className="org-container">
+          <article className="org" id="resource">
+            {
+              resource.address
+        && (
+          <div className="org--map">
+            <ResourceMap
+              name={resource.name}
+              lat={resource.address.latitude}
+              long={resource.address.longitude}
+              userLocation={this.props.userLocation}
+            />
+            <StreetView address={resource.address} resourceName={resource.name} />
           </div>
+        )
+            }
+            <div className="org--main">
+              <div className="org--main--left">
 
-          <div className="org--aside">
-            <div className="org--aside--content">
-              {
-                resource.address &&
-                <a
-                  href={`https://maps.google.com?saddr=Current+Location&daddr=${resource.address.latitude},${resource.address.longitude}&dirflg=w`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="org--aside--content--button directions-button"
-                >
-                  Get Directions
-                </a>
-              }
-              <Link to={{ pathname: '/resource/edit', query: { resourceid: resource.id } }} className="org--aside--content--button edit-button">
-                  Make Edits
-              </Link>
-              <button
-                className="org--aside--content--button"
-                onClick={this.verifyResource}
-              >
-                Mark Info as Correct
-              </button>
-              <nav className="org--aside--content--nav">
-                <ul>
-                  <li><a href="#resource">{resource.name}</a></li>
-                  <li><a href="#services">Services</a>
-                    <ul className="service--nav--list">
+                <header className="org--main--header">
+                  <div className="badges">
+                    {
+                      resource.certified
+                  && (
+                    <img
+                      className="certified"
+                      src={HAPcertified}
+                      alt="Verified by the Homeless Assistance Project"
+                    />
+                  )
+                    }
+                    {
+                      isMOHCDFunded
+                  && (
+                    <img
+                      className="mohcd-funded"
+                      src={MOHCDFunded}
+                      alt="Verified by MOHCD"
+                    />
+                  )
+                    }
+                  </div>
+                  <h1 className="org--main--header--title">{resource.name}</h1>
+                  <div className="org--main--header--rating disabled-feature">
+                    <p className="excellent">
+                      <i className="material-icons">sentiment_very_satisfied</i>
+                      <i className="material-icons">sentiment_very_satisfied</i>
+                      <i className="material-icons">sentiment_very_satisfied</i>
+                      <i className="material-icons">sentiment_very_satisfied</i>
+                      <i className="material-icons">sentiment_very_satisfied</i>
+                    </p>
+                  </div>
+                  <div className="org--main--header--hours">
+                    <RelativeOpeningTime schedule={resource.schedule} />
+                  </div>
+                  <div className="org--main--header--phone">
+                    <PhoneNumber phones={resource.phones} />
+                  </div>
+                  <div className="org--main--header--description">
+                    <header>About this resource</header>
+                    <ReactMarkdown className="rendered-markdown" source={resource.long_description || resource.short_description || 'No Description available'} />
+                  </div>
+                </header>
+
+                <section className="service--section" id="services">
+                  <header className="service--section--header">
+                    <h4>Services</h4>
+                  </header>
+                  {/* { resource.services.map(service => <ServiceCard key={service.id} service={service} />) } */}
+                  <Services description={resource.long_description} services={resource.services} />
+                </section>
+
+                <Notes notes={this.state.resource.notes} id="notes" />
+
+                <section className="info--section" id="info">
+                  <header className="service--section--header">
+                    <h4>Info</h4>
+                  </header>
+                  <ul className="info">
+                    <div className="info--column">
+                      <ResourceCategories categories={resource.categories} />
                       {
-                        resource.services.map(service => (
-                          <li key={service.id}>
-                            <a href={`#service-${service.id}`} onClick={scrollToElement(`service-${service.id}`)}>
-                              {service.name}
-                            </a>
-                          </li>
-                        ))
+                        resource.address
+                    && <AddressInfo address={resource.address} />
                       }
+                      <PhoneNumber phones={resource.phones} />
+                      <Website website={resource.website} />
+                      <Email email={resource.email} />
+                    </div>
+                    <div className="info--column">
+                      <TableOfOpeningTimes schedule={resource.schedule} />
+                    </div>
+                  </ul>
+                </section>
+              </div>
+
+              <div className="org--aside">
+                <div className="org--aside--content">
+                  {
+                    resource.address
+                && (
+                  <a
+                    href={`https://maps.google.com?saddr=Current+Location&daddr=${resource.address.latitude},${resource.address.longitude}&dirflg=w`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="org--aside--content--button directions-button"
+                  >
+                  Get Directions
+                  </a>
+                )
+                  }
+                  <Link to={{ pathname: '/resource/edit', query: { resourceid: resource.id } }} className="org--aside--content--button edit-button">
+                  Make Edits
+                  </Link>
+                  <button
+                    className="org--aside--content--button"
+                    onClick={this.verifyResource}
+                  >
+                Mark Info as Correct
+                  </button>
+                  <nav className="org--aside--content--nav">
+                    <ul>
+                      <li><a href="#resource">{resource.name}</a></li>
+                      <li>
+                        <a href="#services">Services</a>
+                        <ul className="service--nav--list">
+                          {
+                            resource.services.map(service => (
+                              <li key={service.id}>
+                                <a href={`#service-${service.id}`} onClick={scrollToElement(`service-${service.id}`)}>
+                                  {service.name}
+                                </a>
+                              </li>
+                            ))
+                          }
+                        </ul>
+                      </li>
+                      <li><a href="#info">Info</a></li>
                     </ul>
-                  </li>
-                  <li><a href="#info">Info</a></li>
-                </ul>
-              </nav>
+                  </nav>
+                </div>
+              </div>
             </div>
-          </div>
+          </article>
         </div>
-      </article>
-    </div>
+      )
     );
   }
 }

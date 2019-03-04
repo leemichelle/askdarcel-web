@@ -14,5 +14,4 @@ export default class ResourcePage {
     this.schedule = baseSelector.findReact('TableOfOpeningTimes tbody tr');
     this.url = serviceId => `${config.baseUrl}/services/${serviceId}`;
   }
-
 }

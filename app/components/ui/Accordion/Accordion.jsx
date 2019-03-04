@@ -16,7 +16,7 @@ class Accordion extends React.Component {
   }
 
   render() {
-    const { activeTab } = this.state
+    const { activeTab } = this.state;
 
     return (
       <ul className="accordion">

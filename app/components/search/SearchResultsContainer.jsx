@@ -13,7 +13,12 @@ const searchResultsContainer = connectStateResults(
     if (!searchResults && searching) {
       output = <Loader />;
     } else if (searchResults && searchResults.nbHits === 0) {
-      output = <div className="no-results">No results have been found for {searchState.query}</div>;
+      output = (
+        <div className="no-results">
+No results have been found for
+          {searchState.query}
+        </div>
+      );
     } else if (searchResults) {
       output = (
         <div className="results">
@@ -23,7 +28,9 @@ const searchResultsContainer = connectStateResults(
               <h4>Can&apos;t find the organization you&apos;re looking for? </h4>
               <h3 className="entry-headline">
                 <Link to="/resource/new">
-                  <i className="material-icons">add_circle</i> Add an organization to our database
+                  <i className="material-icons">add_circle</i>
+                  {' '}
+Add an organization to our database
                 </Link>
               </h3>
             </div>
@@ -38,6 +45,7 @@ const searchResultsContainer = connectStateResults(
         {output}
       </div>
     );
-  });
+  },
+);
 
 export default searchResultsContainer;

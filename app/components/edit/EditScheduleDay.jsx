@@ -13,16 +13,19 @@ class EditScheduleDay extends Component {
     return (
       <li key={index}>
         <p>{ index === 0 ? abbrev : '' }</p>
-        {is24Hours ?
-          <div>
-            <p className="open-24-hours">Open 24 hours</p>
-          </div>
-          :
-          <div>
-            <input type="time" defaultValue={this.props.getDayHours(day, 'opens_at', index)} data-key={day} data-field="opens_at" onChange={e => this.props.handleScheduleChange(day, index, 'opens_at', e.target.value)} />
-            <input type="time" defaultValue={this.props.getDayHours(day, 'closes_at', index)} data-key={day} data-field="closes_at" onChange={e => this.props.handleScheduleChange(day, index, 'closes_at', e.target.value)} />
-            {index > 0 ? <button onClick={() => this.props.removeTime(day, index)}className="remove-time icon-button"><i className="material-icons">delete</i></button> : ''}
-          </div>
+        {is24Hours
+          ? (
+            <div>
+              <p className="open-24-hours">Open 24 hours</p>
+            </div>
+          )
+          : (
+            <div>
+              <input type="time" defaultValue={this.props.getDayHours(day, 'opens_at', index)} data-key={day} data-field="opens_at" onChange={e => this.props.handleScheduleChange(day, index, 'opens_at', e.target.value)} />
+              <input type="time" defaultValue={this.props.getDayHours(day, 'closes_at', index)} data-key={day} data-field="closes_at" onChange={e => this.props.handleScheduleChange(day, index, 'closes_at', e.target.value)} />
+              {index > 0 ? <button onClick={() => this.props.removeTime(day, index)} className="remove-time icon-button"><i className="material-icons">delete</i></button> : ''}
+            </div>
+          )
         }
       </li>
     );
@@ -30,7 +33,7 @@ class EditScheduleDay extends Component {
 
   render() {
     const { dayHours } = this.props;
-    const day = this.props.day;
+    const { day } = this.props;
     let is24Hours = false;
 
     if (dayHours[0].opens_at === 0 && dayHours[0].closes_at === 2359) {
@@ -42,15 +45,14 @@ class EditScheduleDay extends Component {
         <div className="hours">
           {
             dayHours.map((curr, i) => (
-                  this.buildTimeInput(day, i, this.props.dayAbbrev, curr, is24Hours)
-              ))
+              this.buildTimeInput(day, i, this.props.dayAbbrev, curr, is24Hours)
+            ))
           }
         </div>
         <div className="add-time">
-          {is24Hours ?
-            null
-            :
-            <button className="icon-button" onClick={() => this.props.addTime(day)}><i className="material-icons">add</i></button>
+          {is24Hours
+            ? null
+            : <button className="icon-button" onClick={() => this.props.addTime(day)}><i className="material-icons">add</i></button>
           }
         </div>
         <div className="is-24-hours">

@@ -5,27 +5,33 @@ import TableOfOpeningTimes from '../listing/TableOfOpeningTimes';
 import { timeToString } from '../../utils/index';
 
 class SearchTabView extends React.Component {
-    constructor(props) {
-      super(props);
-      this.state = { active: this.props.applicationProcess ? 'How to Apply' : 'Description' };
-      // this.getSchedule = this.getSchedule.bind(this);
-    }
-  
+  constructor(props) {
+    super(props);
+    this.state = { active: this.props.applicationProcess ? 'How to Apply' : 'Description' };
+    // this.getSchedule = this.getSchedule.bind(this);
+  }
+
   // @Deprecated for now
   getSchedule(scheduleInfo) {
     if (!scheduleInfo) {
-        return 'No hours listed';
-    } else { 
-        return (<table className="compact">
+      return 'No hours listed';
+    }
+    return (
+      <table className="compact">
         <tbody>
           { scheduleInfo.map(sched => (
             <tr key={sched.day}>
               <th>{ sched.day }</th>
-              <td>{ timeToString(sched.opens_at) }-{ timeToString(sched.closes_at) }</td>
+              <td>
+                { timeToString(sched.opens_at) }
+-
+                { timeToString(sched.closes_at) }
+              </td>
             </tr>
           )) }
         </tbody>
-      </table>)}
+      </table>
+    );
   }
 
   getTabList() {
@@ -36,7 +42,7 @@ class SearchTabView extends React.Component {
     // tabs.push({ title: 'Hours', content: this.getSchedule(schedule) });
     return tabs;
   }
-    
+
   render() {
     const tabs = this.getTabList();
     const activeTab = tabs.find(tab => tab.title === this.state.active);

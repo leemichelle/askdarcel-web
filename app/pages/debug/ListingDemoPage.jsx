@@ -43,7 +43,7 @@ export class ListingDebugPage extends React.Component {
       });
       return days;
     }).map((schedule_days, i) => ({ schedule_days, id: i }));
-    
+
     return schedules;
   }
 

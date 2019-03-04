@@ -6,7 +6,7 @@ class EditNotes extends Component {
 
     this.state = {
       notes: {},
-      existingNotes: props.notes ? props.notes.map((note) => {
+      existingNotes: props.notes ? props.notes.map(note => {
         const newNote = note;
         newNote.key = note.id;
         return newNote;
@@ -21,7 +21,7 @@ class EditNotes extends Component {
   }
 
   handleNoteChange(key, note) {
-    const notes = this.state.notes;
+    const { notes } = this.state;
     notes[key] = note;
     this.setState({
       notes,
@@ -31,7 +31,7 @@ class EditNotes extends Component {
   }
 
   addNote() {
-    const existingNotes = this.state.existingNotes;
+    const { existingNotes } = this.state;
     const newUUID = this.state.uuid - 1;
     existingNotes.push({
       key: newUUID,
@@ -40,11 +40,11 @@ class EditNotes extends Component {
   }
 
   removeNote(index) {
-    const existingNotes = this.state.existingNotes;
+    const { existingNotes } = this.state;
     const currentNote = existingNotes[index];
     currentNote.isRemoved = true;
-    const key = currentNote.key;
-    const notes = this.state.notes;
+    const { key } = currentNote;
+    const { notes } = this.state;
     // If we haven't created the note in our DB yet
     // just remove it from the object locally
     if (key < 0) {
@@ -86,7 +86,11 @@ class EditNotes extends Component {
         <label htmlFor="add-note">
           Notes
         </label>
-        <p><a href="https://github.github.com/gfm/" target="_blank" rel="noopener noreferrer">Markdown</a> is also supported for notes.</p>
+        <p>
+          <a href="https://github.github.com/gfm/" target="_blank" rel="noopener noreferrer">Markdown</a>
+          {' '}
+is also supported for notes.
+        </p>
         <ul className="edit--section--list--item--sublist">
           {this.renderNotes()}
         </ul>
@@ -94,7 +98,9 @@ class EditNotes extends Component {
           className="edit--section--list--item--button"
           onClick={this.addNote}
         >
-          <i className="material-icons">add_box</i> Add Note
+          <i className="material-icons">add_box</i>
+          {' '}
+Add Note
         </button>
       </li>
     );
@@ -112,7 +118,7 @@ class EditNote extends Component {
   }
 
   handleFieldChange(e) {
-    const note = this.state.note;
+    const { note } = this.state;
     note.note = e.target.value;
     this.setState({ note });
 
@@ -125,7 +131,10 @@ class EditNote extends Component {
     if (!currentNote.isRemoved) {
       note = (
         <li>
-          <label htmlFor={`note-${this.props.index + 1}`}>Note {this.props.index + 1}</label>
+          <label htmlFor={`note-${this.props.index + 1}`}>
+Note
+            {this.props.index + 1}
+          </label>
           <textarea
             id={`note-${this.props.index + 1}`}
             className="large-input input"

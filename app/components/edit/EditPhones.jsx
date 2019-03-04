@@ -15,9 +15,9 @@ class EditPhone extends Component {
   }
 
   handleFieldChange(e) {
-    const value = e.target.value;
-    const field = e.target.dataset.field;
-    const phone = this.state.phone;
+    const { value } = e.target;
+    const { field } = e.target.dataset;
+    const { phone } = this.state;
 
     if (phone[field] || value !== this.props.item[field]) {
       phone[field] = value;

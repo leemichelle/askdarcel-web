@@ -24,7 +24,7 @@ function UserLocationMarker() {
   );
 }
 
-function CustomMarker({index}) {
+function CustomMarker({ index }) {
   /*  eslint-disable max-len */
   return (
     <svg width="30" height="50" viewBox="0 0 102 60" className="marker">
@@ -41,7 +41,7 @@ function CustomMarker({index}) {
             fill="#E6D2FC"
           />
         </g>
-        <text fontSize="45px" x="65" y="55" fill="#276ce5" fontWeight="bold" textAnchor="middle" >{index + 1}</text>
+        <text fontSize="45px" x="65" y="55" fill="#276ce5" fontWeight="bold" textAnchor="middle">{index + 1}</text>
       </g>
     </svg>
   );
@@ -55,9 +55,7 @@ const SearchMap = ({ hits, userLocation }) => {
     return null;
   }
 
-  const markers = hits.map((hit, index) => {
-    return <CustomMarker lat={hit._geoloc ? hit._geoloc.lat : 0} lng={hit._geoloc ? hit._geoloc.lng : 0} key={hit.objectID} index={index} />;
-  });
+  const markers = hits.map((hit, index) => <CustomMarker lat={hit._geoloc ? hit._geoloc.lat : 0} lng={hit._geoloc ? hit._geoloc.lng : 0} key={hit.objectID} index={index} />);
 
   markers.push(<UserLocationMarker lat={userLocation.lat} lng={userLocation.lng} key={1} />);
   /* eslint-disable no-undef */

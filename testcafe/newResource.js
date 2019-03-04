@@ -2,7 +2,7 @@ import NewResourcePage from './pages/NewResourcePage';
 
 const newResourcePage = new NewResourcePage();
 
-fixture `Add New Resource`
+fixture`Add New Resource`
   .page(NewResourcePage.url());
 
 test('Add new resource, basic', async t => {
@@ -28,9 +28,7 @@ test('Add new resource, basic', async t => {
   }
   await t.setNativeDialogHandler(dialogHandler)
     .click(newResourcePage.saveButton)
-    .setNativeDialogHandler(null)
-  ;
-
+    .setNativeDialogHandler(null);
   const dialogHistory = await t.getNativeDialogHistory();
   await t.expect(dialogHistory.length).eql(1);
 

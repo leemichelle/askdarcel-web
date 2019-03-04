@@ -7,7 +7,7 @@ class CategoryItem extends React.Component {
     const url = `/search?refinementList[categories][0]=${encodeURIComponent(this.props.name)}`;
     return (
       <li className="category-item">
-        <Link className="category-button" to={url} >
+        <Link className="category-button" to={url}>
           <div className="category-button-content">
             <div className="category-button-icon">
               <img

@@ -10,12 +10,14 @@ class AccordionItem extends React.Component {
           {
             this.props.headerRenderer
               ? this.props.headerRenderer(this.props.title)
-              : <div>
-                { this.title }
-                <div className="selector">
-                  <i className="material-icons">keyboard_arrow_down</i>
+              : (
+                <div>
+                  { this.title }
+                  <div className="selector">
+                    <i className="material-icons">keyboard_arrow_down</i>
+                  </div>
                 </div>
-              </div>
+              )
           }
         </header>
         <section>{ this.props.children }</section>

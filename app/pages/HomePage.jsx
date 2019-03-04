@@ -8,8 +8,8 @@ import FindHeader from 'components/layout/FindHeader';
 import { CategoryList } from 'components/layout/CategoryList';
 import BasicNeedsBlockConfig from 'components/ui/BasicNeedsBlockConfig';
 import LegalBlockConfig from 'components/ui/LegalBlockConfig';
-import config from '../config';
 import * as ax from 'axios';
+import config from '../config';
 
 import './HomePage.scss';
 

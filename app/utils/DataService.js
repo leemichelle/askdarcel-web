@@ -1,7 +1,7 @@
 import * as _ from 'lodash/fp/object';
 
 function setAuthHeaders(resp) {
-  const headers = resp.headers;
+  const { headers } = resp;
   if (headers.get('access-token') && headers.get('client')) {
     // console.log('we would set new auth headers except for an API bug giving us invalid tokens',
     //   headers.get('access-token'), headers.get('client')

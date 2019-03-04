@@ -19,7 +19,8 @@ class Splash extends React.Component {
             By signing up, you agree to AskDarcel&#39;s
             <a href="">Terms of Service</a>
             and
-            <a href="">Privacy Policy</a>.
+            <a href="">Privacy Policy</a>
+.
             We will never share private identifying information without your permission.
           </small>
         </div>

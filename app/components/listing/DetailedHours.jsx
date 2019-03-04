@@ -5,7 +5,7 @@ import { timeToString, sortScheduleDays } from '../../utils';
 export default function DetailedHours(props) {
   let { schedule } = props;
   schedule = sortScheduleDays(schedule);
-  const hoursList = schedule.map((item) => {
+  const hoursList = schedule.map(item => {
     if (item.opens_at === 0 && item.closes_at >= 2359) {
       return (
         <div key={item.id} className="weekly-hours-list--item">
@@ -18,7 +18,8 @@ export default function DetailedHours(props) {
       return (
         <div key={item.id} className="weekly-hours-list--item">
           <span className="weekly-hours-list--item--day">{`${item.day}`}</span>
-          <span className="weekly-hours-list--item--hours">{`${timeToString(item.opens_at)} - ${timeToString(item.closes_at)}`}
+          <span className="weekly-hours-list--item--hours">
+            {`${timeToString(item.opens_at)} - ${timeToString(item.closes_at)}`}
           </span>
         </div>
       );

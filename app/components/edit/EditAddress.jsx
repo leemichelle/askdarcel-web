@@ -8,9 +8,9 @@ class EditAddress extends Component {
   }
 
   handleAddressChange(e) {
-    const field = e.target.dataset.field;
-    const value = e.target.value;
-    const address = this.state.address;
+    const { field } = e.target.dataset;
+    const { value } = e.target;
+    const { address } = this.state;
     address[field] = value;
     this.setState(address, () => {
       this.props.updateAddress(address);

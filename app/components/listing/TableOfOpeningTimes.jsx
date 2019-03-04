@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { RelativeOpeningTime } from './RelativeOpeningTime';
 import moment from 'moment';
+import { RelativeOpeningTime } from './RelativeOpeningTime';
 
 export class TableOfOpeningTimes extends React.Component {
   static getScheduleTimestamp(sched) {
@@ -29,7 +29,13 @@ export class TableOfOpeningTimes extends React.Component {
             return (
               <tr key={sched.id}>
                 <th>{ sched.day }</th>
-                <td>{ opens_at } - { closes_at }</td>
+                <td>
+                  { opens_at }
+                  {' '}
+-
+                  {' '}
+                  { closes_at }
+                </td>
               </tr>
             );
           }) }

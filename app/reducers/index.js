@@ -6,7 +6,7 @@ import services from './serviceReducer';
 import auth from './authReducer';
 import changeRequestReducer from './changeRequestReducer';
 import userReducer from './userReducer';
-import forms from '../reducers/formConfig';
+import forms from './formConfig';
 
 const rootReducer = combineReducers({
   auth,

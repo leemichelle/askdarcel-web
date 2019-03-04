@@ -18,6 +18,7 @@ class ServiceEntry extends Component {
 
     this.getOpenInformation = this.getOpenInformation.bind(this);
   }
+
   componentDidMount() {
     this.getOpenInformation(this.props.hit.schedule);
   }
@@ -43,7 +44,10 @@ class ServiceEntry extends Component {
           <div className="entry-details">
             <h4 className="entry-headline"><Link to={{ pathname: `/services/${hit.service_id}` }}>{`${index + 1}.) ${hit.name}`}</Link></h4>
             <div className="entry-subhead">
-              <p className="entry-affiliated-resource">a service offered by <Link to={{ pathname: '/resource', query: { id: hit.resource_id } }}>{hit.service_of}</Link></p>
+              <p className="entry-affiliated-resource">
+a service offered by
+                <Link to={{ pathname: '/resource', query: { id: hit.resource_id } }}>{hit.service_of}</Link>
+              </p>
               <p>
                 { hit.addresses && hit.addresses.address_1 ? hit.addresses.address_1 : 'No address found' }
                 {/* { schedule ? ' • ' : null } */}
@@ -51,13 +55,14 @@ class ServiceEntry extends Component {
               </p>
             </div>
           </div>
-          {hit.is_mohcd_funded ?
-            <div className="mohcd-funded">
-              <img src={images.mohcdSeal} alt="MOHCD seal" />
-              <p>Funded by MOHCD</p>
-            </div>
-            :
-            null
+          {hit.is_mohcd_funded
+            ? (
+              <div className="mohcd-funded">
+                <img src={images.mohcdSeal} alt="MOHCD seal" />
+                <p>Funded by MOHCD</p>
+              </div>
+            )
+            : null
           }
         </header>
         <div className="line-break" />

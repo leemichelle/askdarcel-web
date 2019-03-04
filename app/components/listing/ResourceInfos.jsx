@@ -58,7 +58,9 @@ function buildLocation(address) {
 
   return (
     <span>
-      {line1}<br />{line2}
+      {line1}
+      <br />
+      {line2}
     </span>
   );
 }
@@ -92,9 +94,13 @@ function buildPhoneNumber(phones) {
     return null;
   }
 
-  return phones.map(phone =>
-    <p key={phone.id}>{phone.number} {phone.service_type}</p>,
-  );
+  return phones.map(phone => (
+    <p key={phone.id}>
+      {phone.number}
+      {' '}
+      {phone.service_type}
+    </p>
+  ));
 }
 
 function PhoneNumber(props) {

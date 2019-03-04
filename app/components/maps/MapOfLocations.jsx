@@ -12,7 +12,7 @@ class MapOfLocations extends React.Component {
 
   componentWillMount() {
     this.setState({
-      locations: this.props.locations.map((loc) => {
+      locations: this.props.locations.map(loc => {
         const { address, name, schedule } = loc;
         return {
           name,
@@ -27,7 +27,9 @@ class MapOfLocations extends React.Component {
     // TODO We should probably not just have google on the global namespace
     if (google === undefined) { return; }
 
-    const { Map, Marker, LatLng, SymbolPath } = google.maps;
+    const {
+      Map, Marker, LatLng, SymbolPath,
+    } = google.maps;
     const { locations } = this.state;
     const { latitude, longitude } = locations[0].address;
     // TODO Geocode from address if no lat/long
@@ -48,7 +50,7 @@ class MapOfLocations extends React.Component {
       });
     }
 
-    locations.forEach((loc) => {
+    locations.forEach(loc => {
       const { address, name } = loc;
       const locMarker = new google.maps.Marker({
         map,
@@ -67,36 +69,42 @@ class MapOfLocations extends React.Component {
     return (
       <div>
         <div ref="map" className="map" />
-        { this.props.locationRenderer &&
-          <Accordion>
-            { locations.map((loc, i) => (
-              <AccordionItem
-                key={loc.address.id}
-                title={loc.address.address_1}
-                headerRenderer={title => (
-                  <div>
-                    <table>
-                      <tbody>
-                        <tr>
-                          <td className="iconcell">{i + 1}.</td>
-                          <td><strong>{title}</strong></td>
-                          {/* <td className="right"><RelativeOpeningTime schedule={loc.schedule} /></td> */}
-                          <td className="iconcell">
-                            <div className="selector">
-                              <i className="material-icons">keyboard_arrow_down</i>
-                            </div>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                    {/* TODO Transportation options */}
-                  </div>
-                )}
-              >
-                { this.props.locationRenderer(loc) }
-              </AccordionItem>))
-            }
-          </Accordion>
+        { this.props.locationRenderer
+          && (
+            <Accordion>
+              { locations.map((loc, i) => (
+                <AccordionItem
+                  key={loc.address.id}
+                  title={loc.address.address_1}
+                  headerRenderer={title => (
+                    <div>
+                      <table>
+                        <tbody>
+                          <tr>
+                            <td className="iconcell">
+                              {i + 1}
+.
+                            </td>
+                            <td><strong>{title}</strong></td>
+                            {/* <td className="right"><RelativeOpeningTime schedule={loc.schedule} /></td> */}
+                            <td className="iconcell">
+                              <div className="selector">
+                                <i className="material-icons">keyboard_arrow_down</i>
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      {/* TODO Transportation options */}
+                    </div>
+                  )}
+                >
+                  { this.props.locationRenderer(loc) }
+                </AccordionItem>
+              ))
+              }
+            </Accordion>
+          )
         }
         {/* <table>
           <tbody>

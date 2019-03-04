@@ -43,7 +43,10 @@ function Footer() {
           </section>
         </div>
         <div className="site-footer__disclosure">
-          Created and maintained by ©{ new Date().getFullYear() } ShelterTech, a 501(c)(3) nonprofit | Made with love in San Francisco
+          Created and maintained by ©
+          { new Date().getFullYear() }
+          {' '}
+ShelterTech, a 501(c)(3) nonprofit | Made with love in San Francisco
         </div>
       </div>
     </footer>

@@ -13,6 +13,7 @@ class Navigation extends React.Component {
     this.submitSearch = this.submitSearch.bind(this);
     this.toggleSecondarySearch = this.toggleSecondarySearch.bind(this);
   }
+
   submitSearch(e) {
     e.preventDefault();
     if (this.searchComponent.value) {
@@ -34,24 +35,26 @@ class Navigation extends React.Component {
       <nav className={styles.siteNav}>
         <div className={styles.primaryRow}>
           <div className={styles.navLeft}>
-            <Link className={styles.navLogo} to={'/'}>
+            <Link className={styles.navLogo} to="/">
               <img src={images.logoSmall} alt="Ask Darcel" />
             </Link>
-            {this.props.showSearch &&
-              <form
-                onSubmit={this.submitSearch}
-                className={`${styles.navSearch} search-container form-row`}
-                role="search"
-              >
-                <input
-                  ref={(c) => { this.searchComponent = c; }}
-                  type="text"
-                  className={styles.searchField}
-                  placeholder="Search for a service or organization"
-                  name="srch-term"
-                  id="srch-term"
-                />
-              </form>
+            {this.props.showSearch
+              && (
+                <form
+                  onSubmit={this.submitSearch}
+                  className={`${styles.navSearch} search-container form-row`}
+                  role="search"
+                >
+                  <input
+                    ref={c => { this.searchComponent = c; }}
+                    type="text"
+                    className={styles.searchField}
+                    placeholder="Search for a service or organization"
+                    name="srch-term"
+                    id="srch-term"
+                  />
+                </form>
+              )
             }
           </div>
           <div className={styles.mobileNavigation}>
@@ -59,11 +62,13 @@ class Navigation extends React.Component {
             <button className={styles.hamburgerButton} onClick={this.props.toggleHamburgerMenu} />
           </div>
           <ul className={styles.navRight}>
-            <li><a href="https://www.sheltertech.org" target="_blank" rel="noopener noreferrer">
+            <li>
+              <a href="https://www.sheltertech.org" target="_blank" rel="noopener noreferrer">
                 About Us
               </a>
             </li>
-            <li><a href="https://www.sheltertech.org/volunteer" target="_blank" rel="noopener noreferrer">
+            <li>
+              <a href="https://www.sheltertech.org/volunteer" target="_blank" rel="noopener noreferrer">
                 Volunteer
               </a>
             </li>

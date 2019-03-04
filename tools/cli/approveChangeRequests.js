@@ -48,30 +48,30 @@ function approveChangeRequests() {
       });
 
       return data.change_requests.reduce((action, changeRequest) => action
-          .catch(err => {
-            console.log(err);
-            stats.errors++;
-          })
-          .then(() => {
-            // If this changeRequest was not marked duplicate
-            if (!duplicates[changeRequest.id]) {
-              stats.approved++;
-              const body = {};
-              changeRequest.field_changes.forEach(fieldChange => {
-                const { field_name, field_value } = fieldChange;
-                body[field_name] = field_value;
-              });
+        .catch(err => {
+          console.log(err);
+          stats.errors++;
+        })
+        .then(() => {
+          // If this changeRequest was not marked duplicate
+          if (!duplicates[changeRequest.id]) {
+            stats.approved++;
+            const body = {};
+            changeRequest.field_changes.forEach(fieldChange => {
+              const { field_name, field_value } = fieldChange;
+              body[field_name] = field_value;
+            });
 
-              return new Promise(resolve => {
-                setTimeout(() => {
-                  resolve(darcel.postData(`/change_requests/${changeRequest.id}/approve`, { change_request: body }));
-                }, 10); // Brief timeout because Promise.all with ~500 requests broke the API
-              }).then(() => console.log('approved', changeRequest.id));
-            }
-            console.log('not applying duplicate', changeRequest.id);
-            stats.duplicates++;
-            return Promise.resolve();
-          }), Promise.resolve('first'));
+            return new Promise(resolve => {
+              setTimeout(() => {
+                resolve(darcel.postData(`/change_requests/${changeRequest.id}/approve`, { change_request: body }));
+              }, 10); // Brief timeout because Promise.all with ~500 requests broke the API
+            }).then(() => console.log('approved', changeRequest.id));
+          }
+          console.log('not applying duplicate', changeRequest.id);
+          stats.duplicates++;
+          return Promise.resolve();
+        }), Promise.resolve('first'));
     })
     .then(() => {
       console.log('completed', stats);
