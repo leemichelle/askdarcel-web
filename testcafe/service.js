@@ -7,7 +7,7 @@ const editResourcePage = new EditResourcePage();
 // Define service id to navigate to
 // Tests depend on service id
 const serviceId = 5;
-fixture `Service Page`
+fixture`Service Page`
   // TODO: Dynamically find a service to test against
   .page(servicePage.url(serviceId));
 
@@ -18,14 +18,13 @@ const modifySheduleTime = async (t, action = 'add') => {
 
   // Get the correct service and it's schedule
   const service = EditResourcePage.getService(serviceId);
-  const schedule = service.schedule;
+  const { schedule } = service;
 
   if (action === 'add') {
     await t
       .click(schedule.tuesday.addButton)
       .typeText(schedule.tuesday.lastStart, '17:00')
-      .typeText(schedule.tuesday.lastEnd, '18:00')
-      ;
+      .typeText(schedule.tuesday.lastEnd, '18:00');
   } else if (action === 'remove') {
     await t
       .click(schedule.tuesday.removeButton);
@@ -37,30 +36,29 @@ const modifySheduleTime = async (t, action = 'add') => {
 
 test('Confirm Page Loads with Information', async t => {
   await t
-        // Name element should exist
-        .expect(servicePage.serviceName.exists)
-        .ok()
+  // Name element should exist
+    .expect(servicePage.serviceName.exists)
+    .ok()
 
-        // Description element should exist
-        .expect(servicePage.description.exists)
-        .ok()
+  // Description element should exist
+    .expect(servicePage.description.exists)
+    .ok()
 
-        // Details element should exist
-        .expect(servicePage.details.exists)
-        .ok()
+  // Details element should exist
+    .expect(servicePage.details.exists)
+    .ok()
 
-        // Edit button should exist
-        .expect(servicePage.editButton.exists)
-        .ok()
+  // Edit button should exist
+    .expect(servicePage.editButton.exists)
+    .ok()
 
-        // Print button should exist
-        .expect(servicePage.printButton.exists)
-        .ok()
+  // Print button should exist
+    .expect(servicePage.printButton.exists)
+    .ok()
 
-        // Directions button should exist
-        .expect(servicePage.directionsButton.exists)
-        .ok()
-  ;
+  // Directions button should exist
+    .expect(servicePage.directionsButton.exists)
+    .ok();
 });
 
 test('Confirm Service Schedule Day Can Be Added', async t => {
@@ -76,8 +74,7 @@ test('Confirm Service Schedule Day Can Be Added', async t => {
     .navigateTo(servicePage.url(serviceId))
     .hover(servicePage.editButton)
     .expect(servicePage.schedule.count)
-    .eql(originalScheduleDayCount + 1)
-    ;
+    .eql(originalScheduleDayCount + 1);
 });
 
 // TODO: Uncomment with the completion of ISSUE #594
@@ -100,6 +97,5 @@ test.skip('Confirm Service Schedule Day Can Be Deleted', async t => {
     .navigateTo(servicePage.url(serviceId))
     .hover(servicePage.editButton)
     .expect(servicePage.schedule.count)
-    .eql(originalScheduleDayCount - 1)
-    ;
+    .eql(originalScheduleDayCount - 1);
 });

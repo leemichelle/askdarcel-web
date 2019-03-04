@@ -18,7 +18,8 @@ class LandingPageEligibilityBlock extends Component {
                 key={eligibility.id}
                 name={eligibility.name}
                 count={eligibility.service_count}
-              />))
+              />
+            ))
             }
           </div>
           {/* <a className="scroll-button scroll-button-right">&gt;</a> */}

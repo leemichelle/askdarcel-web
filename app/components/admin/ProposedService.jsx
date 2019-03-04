@@ -9,7 +9,9 @@ class ProposedService extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { schedule: {}, serviceFields: {}, notes: {}, categories: [] };
+    this.state = {
+      schedule: {}, serviceFields: {}, notes: {}, categories: [],
+    };
     this.renderNotesFields = this.renderNotesFields.bind(this);
     this.renderScheduleFields = this.renderScheduleFields.bind(this);
     this.renderAdditionalFields = this.renderAdditionalFields.bind(this);
@@ -66,13 +68,11 @@ class ProposedService extends React.Component {
       getAuthRequestHeaders(),
     )
 
-    .then(response =>
-      this.props.updateFunction(response, this.props.service),
-    )
+      .then(response => this.props.updateFunction(response, this.props.service))
 
-    .catch((err) => {
-      console.log(err);
-    });
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   reject() {
@@ -83,13 +83,11 @@ class ProposedService extends React.Component {
       getAuthRequestHeaders(),
     )
 
-    .then(response =>
-      this.props.updateFunction(response, this.props.service),
-    )
+      .then(response => this.props.updateFunction(response, this.props.service))
 
-    .catch((err) => {
-      console.log(err);
-    });
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   changeScheduleValue(day, value, time) {

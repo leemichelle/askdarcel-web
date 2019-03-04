@@ -7,8 +7,8 @@ const findPage = new FindPage();
 const searchPage = new SearchPage();
 // const resourcePage = new ResourcePage();
 
-fixture `Home Page`
-  .page `${config.baseUrl}`;
+fixture`Home Page`
+  .page`${config.baseUrl}`;
 
 // TODO: Investigate why this is failing
 // test('Basic navigation test', async (t) => {
@@ -25,6 +25,5 @@ test('Basic search test', async t => {
   await t
     .typeText(findPage.searchBox, 'Food')
     .pressKey('enter')
-    .expect(searchPage.pagination).exists
-    ;
+    .expect(searchPage.pagination).exists;
 });

@@ -90,7 +90,7 @@ class ServicePage extends React.Component {
         address,
         name: service.name,
         schedule: schedule && schedule.schedule_days.length ? schedule : resource.schedule,
-         // Just to make it clear this is inherited from the resource
+        // Just to make it clear this is inherited from the resource
         inherited: !schedule && resource.schedule,
       }))
       : [];
@@ -116,10 +116,18 @@ class ServicePage extends React.Component {
                 <p>
                   A service
                   {/* TODO Implement rendering/popover when programs exist */}
-                  {program ? <span>in the {program.name} program,</span> : null}
+                  {program ? (
+                    <span>
+in the
+                      {program.name}
+                      {' '}
+program,
+                    </span>
+                  ) : null}
                   <span>
                     {' '}
-                    offered by{' '}
+                    offered by
+                    {' '}
                     <ListingTitleLink type="org" listing={resource} />
                   </span>
                 </p>

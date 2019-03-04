@@ -18,18 +18,18 @@ class ChangeRequest extends React.Component {
   getExistingValueFromChangeRequest(changeRequest, fieldName, fieldValue) {
     const { resource } = changeRequest;
     switch (changeRequest.type) {
-      case 'ResourceChangeRequest':
-      case 'AddressChangeRequest':
-      case 'PhoneChangeRequest':
-      case 'NoteChangeRequest':
-        return resource[fieldName] ? resource[fieldName] : false;
-      case 'ScheduleDayChangeRequest':
-        return 'date change';
-      case 'ServiceChangeRequest':
-        return resource.services.find(service => service.id === changeRequest.object_id)[fieldName];
-      default:
-        console.log('unknown type', changeRequest, fieldName, fieldValue);
-        return '<Some Change>';
+    case 'ResourceChangeRequest':
+    case 'AddressChangeRequest':
+    case 'PhoneChangeRequest':
+    case 'NoteChangeRequest':
+      return resource[fieldName] ? resource[fieldName] : false;
+    case 'ScheduleDayChangeRequest':
+      return 'date change';
+    case 'ServiceChangeRequest':
+      return resource.services.find(service => service.id === changeRequest.object_id)[fieldName];
+    default:
+      console.log('unknown type', changeRequest, fieldName, fieldValue);
+      return '<Some Change>';
     }
   }
 
@@ -41,7 +41,7 @@ class ChangeRequest extends React.Component {
 
   approve() {
     const details = {};
-    this.props.changeRequest.field_changes.forEach((change) => {
+    this.props.changeRequest.field_changes.forEach(change => {
       details[change.field_name] = change.field_value;
     });
     const body = Object.assign({}, details, this.state.changeRequestFields);
@@ -51,12 +51,10 @@ class ChangeRequest extends React.Component {
       { change_request: body },
       getAuthRequestHeaders(),
     )
-    .then(response =>
-      this.props.updateFunction(response, this.props.changeRequest),
-    )
-    .catch((err) => {
-      console.log(err);
-    });
+      .then(response => this.props.updateFunction(response, this.props.changeRequest))
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   reject() {
@@ -65,12 +63,10 @@ class ChangeRequest extends React.Component {
       {},
       getAuthRequestHeaders(),
     )
-    .then(response =>
-      this.props.updateFunction(response, this.props.changeRequest, {}),
-    )
-    .catch((err) => {
-      console.log(err);
-    });
+      .then(response => this.props.updateFunction(response, this.props.changeRequest, {}))
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   renderFieldChange(change) {
@@ -83,23 +79,23 @@ class ChangeRequest extends React.Component {
     );
 
     switch (this.props.changeRequest.type) {
-      default:
-        return (
-          <div key={fieldName} className="change-wrapper">
-            <label htmlFor={fieldName}>
-              { fieldName.replace(/_/g, ' ') }
-              { existingValue ? '' : (<sub>NEW</sub>) }
-            </label>
-            <div className="request-fields">
-              <div className="request-entry">
-                <TextareaAutosize
-                  value={fieldValue}
-                  onChange={e => this.changeFieldValue(fieldName, e.target.value)}
-                  className="request-cell value"
-                />
-              </div>
-              {
-                existingValue
+    default:
+      return (
+        <div key={fieldName} className="change-wrapper">
+          <label htmlFor={fieldName}>
+            { fieldName.replace(/_/g, ' ') }
+            { existingValue ? '' : (<sub>NEW</sub>) }
+          </label>
+          <div className="request-fields">
+            <div className="request-entry">
+              <TextareaAutosize
+                value={fieldValue}
+                onChange={e => this.changeFieldValue(fieldName, e.target.value)}
+                className="request-cell value"
+              />
+            </div>
+            {
+              existingValue
                 ? (
                   <p className="change-existing">
                     {
@@ -112,10 +108,10 @@ class ChangeRequest extends React.Component {
                   </p>
                 )
                 : ''
-              }
-            </div>
+            }
           </div>
-        );
+        </div>
+      );
     }
   }
 

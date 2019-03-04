@@ -42,10 +42,13 @@ class Service extends Component {
     const { service } = this.props;
 
     return (
-      <li className="service" id={`service-${service.id}`} >
+      <li className="service" id={`service-${service.id}`}>
         <div className="service--meta disabled-feature">
           <p><ServiceCategory category={service.category} /></p>
-          <p>updated {service.updated_date}</p>
+          <p>
+updated
+            {service.updated_date}
+          </p>
         </div>
         <h2 className="service--header">{service.name}</h2>
         <ReactMarkdown className="rendered-markdown service--description" source={service.long_description} />
@@ -56,46 +59,60 @@ class Service extends Component {
           tabIndex="0"
         >
           { infoHidden
-            ? <span>More Info <i className="material-icons">keyboard_arrow_down</i></span>
+            ? (
+              <span>
+More Info
+                <i className="material-icons">keyboard_arrow_down</i>
+              </span>
+            )
             : null
           }
         </div>
 
-        { infoHidden ? null :
-        <div className="service-application-process-container">
-          <ul className="service--details">
-            <ServiceContactDetails email={service.email} website={service.url} />
-            <ServiceEligibility
-              subject="How to apply"
-              result={service.application_process}
-            />
-            <ServiceEligibility
-              subject="Eligibilities"
-              result={service.eligibility}
-            />
-            <ServiceEligibility
-              subject="Required documents"
-              result={service.required_documents}
-            />
-            <ServiceEligibility
-              subject="Fees"
-              result={service.fee}
-            />
-            {service.notes.length ? <Notes notes={service.notes} /> : null }
-            <WeeklyHours schedule={service.schedule} />
-          </ul>
-          <div
-            role="button"
-            tabIndex={0}
-            className="service--details-toggle"
-            onClick={this.toggleVisible}
-          >
-            <span>{infoHidden ?
-                null :
-                <span>Less Info <i className="material-icons">keyboard_arrow_up</i></span>}</span>
-          </div>
-        </div>
-      }
+        { infoHidden ? null
+          : (
+            <div className="service-application-process-container">
+              <ul className="service--details">
+                <ServiceContactDetails email={service.email} website={service.url} />
+                <ServiceEligibility
+                  subject="How to apply"
+                  result={service.application_process}
+                />
+                <ServiceEligibility
+                  subject="Eligibilities"
+                  result={service.eligibility}
+                />
+                <ServiceEligibility
+                  subject="Required documents"
+                  result={service.required_documents}
+                />
+                <ServiceEligibility
+                  subject="Fees"
+                  result={service.fee}
+                />
+                {service.notes.length ? <Notes notes={service.notes} /> : null }
+                <WeeklyHours schedule={service.schedule} />
+              </ul>
+              <div
+                role="button"
+                tabIndex={0}
+                className="service--details-toggle"
+                onClick={this.toggleVisible}
+              >
+                <span>
+                  {infoHidden
+                    ? null
+                    : (
+                      <span>
+Less Info
+                        <i className="material-icons">keyboard_arrow_up</i>
+                      </span>
+                    )}
+                </span>
+              </div>
+            </div>
+          )
+        }
       </li>
     );
   }
@@ -130,8 +147,18 @@ class ServiceContactDetails extends Component {
       <li className="service--details--item">
         <header>Contact Info</header>
         <div className="service--details--item--info">
-          {email && <p>Email: <a href={'mailto:' + email}>{email}</a></p>}
-          {website && <p>Website: <a href={website}>{website}</a></p>}
+          {email && (
+            <p>
+Email:
+              <a href={`mailto:${email}`}>{email}</a>
+            </p>
+          )}
+          {website && (
+            <p>
+Website:
+              <a href={website}>{website}</a>
+            </p>
+          )}
         </div>
       </li>
     ) : null;

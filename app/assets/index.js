@@ -15,7 +15,7 @@ const subDomain = window.location.host.split('.')[0];
 let appImages = {};
 if (subDomain === config.MOHCD_SUBDOMAIN) {
 /* eslint-enable no-undef */
-    /* eslint-disable global-require */
+  /* eslint-disable global-require */
   appImages = {
     background: require('../assets/img/bg.png'),
     logoLarge: require('../assets/img/help-sfgov.svg'),

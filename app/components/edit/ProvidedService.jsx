@@ -93,7 +93,12 @@ class ProvidedService extends Component {
     return (
       <li id={`${this.props.service.id}`} className="edit--service edit--section">
         <header className="edit--section--header">
-          <h4>Service {this.props.index + 1}: {this.props.service.name}</h4>
+          <h4>
+Service
+            {this.props.index + 1}
+:
+            {this.props.service.name}
+          </h4>
           <button
             className="remove-item"
             id="service--deactivation"
@@ -101,7 +106,7 @@ class ProvidedService extends Component {
             onClick={() => this.props.handleDeactivation('service', this.props.service.id)}
           >
             Remove Service
-            </button>
+          </button>
         </header>
 
         <ul className="edit--section--list">
@@ -151,8 +156,8 @@ class ProvidedService extends Component {
             <MultiSelectDropdown
               selectedItems={this.props.service.eligibilities}
               handleSelectChange={this.handleElgibilityChange}
-              label={'Elgibility'}
-              optionsRoute={'eligibilities'}
+              label="Elgibility"
+              optionsRoute="eligibilities"
             />
           </li>
 
@@ -196,8 +201,8 @@ class ProvidedService extends Component {
           <MultiSelectDropdown
             selectedItems={this.props.service.categories}
             handleSelectChange={this.handleCategoryChange}
-            label={'Categories'}
-            optionsRoute={'categories'}
+            label="Categories"
+            optionsRoute="categories"
           />
         </ul>
       </li>

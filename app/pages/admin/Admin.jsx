@@ -36,7 +36,7 @@ export class AdminPage extends React.Component {
     return (
       <ul>
         <li>
-          <Link to={'/admin/changes'}>Change Requests</Link>
+          <Link to="/admin/changes">Change Requests</Link>
         </li>
       </ul>
     );

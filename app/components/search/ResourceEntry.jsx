@@ -62,13 +62,14 @@ class ResourceEntry extends Component {
               </p>
             </div>
           </div>
-          {hit.is_mohcd_funded ?
-            <div className="mohcd-funded">
-              <img src={images.mohcdSeal} alt="MOHCD seal" />
-              <p>Funded by MOHCD</p>
-            </div>
-            :
-            null
+          {hit.is_mohcd_funded
+            ? (
+              <div className="mohcd-funded">
+                <img src={images.mohcdSeal} alt="MOHCD seal" />
+                <p>Funded by MOHCD</p>
+              </div>
+            )
+            : null
           }
         </header>
         <div className="line-break" />

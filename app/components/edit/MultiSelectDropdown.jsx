@@ -23,7 +23,7 @@ class MultiSelectDropdown extends Component {
 
   componentDidMount() {
     const { optionsRoute } = this.props;
-    dataService.get(`/api/${optionsRoute}`).then((json) => {
+    dataService.get(`/api/${optionsRoute}`).then(json => {
       this.setState({
         options: json[optionsRoute].map(dataToSelectValue),
       });

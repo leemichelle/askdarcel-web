@@ -10,20 +10,24 @@ class EditSidebar extends React.Component {
   }
 
   render() {
-    const resource = this.props.resource;
+    const { resource } = this.props;
     let actionButtons = [
       <button
         className="sidebar--actions--button"
         key="submit"
         disabled={this.props.submitting}
         onClick={this.props.handleSubmit}
-      >Save Changes</button>,
+      >
+Save Changes
+      </button>,
       <button
         className="sidebar--actions--button deactivate"
         key="deactive"
         disabled={this.props.submitting}
         onClick={() => this.props.handleDeactivation('resource', resource.id)}
-      >Deactivate</button>,
+      >
+Deactivate
+      </button>,
     ];
     if (this.props.newResource) {
       actionButtons = [
@@ -32,12 +36,16 @@ class EditSidebar extends React.Component {
           key="submit"
           disabled={this.props.submitting}
           onClick={this.props.createResource}
-        >Submit</button>,
+        >
+Submit
+        </button>,
         <button
           className="sidebar--actions--button cancel"
           key="cancel"
           onClick={this.props.handleCancel}
-        >Cancel</button>,
+        >
+Cancel
+        </button>,
       ];
     }
     if (!resource.certified) {
@@ -46,7 +54,9 @@ class EditSidebar extends React.Component {
           className="sidebar--actions--button hap--button"
           key="hap"
           onClick={this.props.certifyHAP}
-        >HAP Approve</button>,
+        >
+HAP Approve
+        </button>,
       );
     }
     return (

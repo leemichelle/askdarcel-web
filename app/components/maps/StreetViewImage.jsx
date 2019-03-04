@@ -16,14 +16,13 @@ class StreetViewImage extends React.Component {
       if (config.GOOGLE_API_KEY) { url += `&key=${config.GOOGLE_API_KEY}`; }
 
       return url;
-    } else {
-      // TODO Allow configurable defaults or icons from org type
-      return 'http://lorempixel.com/200/200/city/';
     }
+    // TODO Allow configurable defaults or icons from org type
+    return 'http://lorempixel.com/200/200/city/';
   }
 
   render() {
-    const { size } = this.props
+    const { size } = this.props;
     return (
       <img
         className="streetview"
@@ -37,11 +36,11 @@ class StreetViewImage extends React.Component {
 
 StreetViewImage.propTypes = {
   address: PropTypes.object.isRequired,
-  size: PropTypes.string
+  size: PropTypes.string,
 };
 
 StreetViewImage.defaultProps = {
-  size: null
-}
+  size: null,
+};
 
 export default StreetViewImage;

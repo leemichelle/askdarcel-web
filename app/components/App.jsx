@@ -11,7 +11,6 @@ import HamburgerMenu from './ui/HamburgerMenu';
 
 
 class App extends Component {
-
   /**
    * Get user location.
    *
@@ -44,10 +43,10 @@ class App extends Component {
       bottom: 37.688167,
       right: -122.326927,
     };
-    return coords.lat > bb.bottom &&
-      coords.lat < bb.top &&
-      coords.lng > bb.left &&
-      coords.lng < bb.right;
+    return coords.lat > bb.bottom
+      && coords.lat < bb.top
+      && coords.lng > bb.left
+      && coords.lng < bb.right;
   }
 
   /**
@@ -129,19 +128,17 @@ class App extends Component {
   }
 
   toggleHamburgerMenu() {
-    this.setState((state, props) => ({hamburgerMenuIsOpen: !state.hamburgerMenuIsOpen}));
+    this.setState((state, props) => ({ hamburgerMenuIsOpen: !state.hamburgerMenuIsOpen }));
   }
 
   onHamburgerMenuStateChange(state) {
-    this.setState({hamburgerMenuIsOpen: state.isOpen});
+    this.setState({ hamburgerMenuIsOpen: state.isOpen });
   }
 
   render() {
-    const childrenWithProps = React.Children.map(this.props.children, (child) => {
-      return React.cloneElement(child, {
-        userLocation: this.state.userLocation,
-      });
-    });
+    const childrenWithProps = React.Children.map(this.props.children, child => React.cloneElement(child, {
+      userLocation: this.state.userLocation,
+    }));
 
     const outerContainerId = 'outer-container';
     const pageWrapId = 'page-wrap';
@@ -174,7 +171,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    setUserLocation: (location) => dispatch(userActions.setUserLocation(location)),
+    setUserLocation: location => dispatch(userActions.setUserLocation(location)),
   };
 }
 

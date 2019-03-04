@@ -22,7 +22,7 @@ class CategoriesDropdown extends Component {
   }
 
   componentDidMount() {
-    dataService.get('/api/categories').then((json) => {
+    dataService.get('/api/categories').then(json => {
       this.setState({
         options: json.categories.map(categoryToSelectValue),
       });

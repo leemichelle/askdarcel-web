@@ -18,8 +18,8 @@ class Filtering extends Component {
     const currentValue = this.state.openNow;
     const currentDayTime = getCurrentDayTime();
     const currentLocation = browserHistory.getCurrentLocation();
-    const pathname = currentLocation.pathname;
-    const search = currentLocation.search;
+    const { pathname } = currentLocation;
+    const { search } = currentLocation;
     const { oldPathname, oldSearch } = this.state;
 
 
@@ -41,6 +41,7 @@ class Filtering extends Component {
     // refinementList[open_times][0]=F-11:30
     this.setState({ openNow: !currentValue });
   }
+
   render() {
     const { openNow } = this.state;
     return (

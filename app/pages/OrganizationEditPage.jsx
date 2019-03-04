@@ -94,9 +94,9 @@ function postSchedule(scheduleObj, promises) {
   }
   let currDay = [];
   let value = {};
-  Object.keys(scheduleObj).forEach((day) => {
+  Object.keys(scheduleObj).forEach(day => {
     currDay = scheduleObj[day];
-    currDay.forEach((curr) => {
+    currDay.forEach(curr => {
       value = {};
       if (curr.id) {
         if (!curr.openChanged && !curr.closeChanged) {
@@ -135,7 +135,7 @@ function postSchedule(scheduleObj, promises) {
 
 function postNotes(notesObj, promises, uriObj) {
   if (notesObj && notesObj.notes) {
-    const notes = notesObj.notes;
+    const { notes } = notesObj;
     Object.entries(notes).forEach(([key, currentNote]) => {
       if (key < 0) {
         const uri = `/api/${uriObj.path}/${uriObj.id}/notes`;
@@ -155,8 +155,8 @@ function createFullSchedule(scheduleObj) {
   if (scheduleObj) {
     const newSchedule = [];
     let tempDay = {};
-    Object.keys(scheduleObj).forEach((day) => {
-      scheduleObj[day].forEach((curr) => {
+    Object.keys(scheduleObj).forEach(day => {
+      scheduleObj[day].forEach(curr => {
         tempDay = {};
         tempDay.day = day;
         tempDay.opens_at = curr.opens_at;
@@ -171,7 +171,6 @@ function createFullSchedule(scheduleObj) {
 }
 
 export class OrganizationEditPage extends React.Component {
-
   constructor(props) {
     super(props);
 
@@ -214,20 +213,22 @@ export class OrganizationEditPage extends React.Component {
     const splitPath = pathname.split('/');
     window.addEventListener('beforeunload', this.keepOnPage);
     if (splitPath[splitPath.length - 1] === 'new') {
-      this.setState({ newResource: true, resource: {}, originalResource: {}, scheduleMap: {} });
+      this.setState({
+        newResource: true, resource: {}, originalResource: {}, scheduleMap: {},
+      });
     }
     const resourceID = query.resourceid;
     if (resourceID) {
       const url = `/api/resources/${resourceID}`;
       fetch(url).then(r => r.json())
-        .then((data) => {
+        .then(data => {
           this.setState({
             resource: data.resource,
             originalResource: data.resource,
           });
 
           const scheduleMap = {};
-          data.resource && data.resource.schedule && data.resource.schedule.schedule_days.forEach((day) => {
+          data.resource && data.resource.schedule && data.resource.schedule.schedule_days.forEach(day => {
             scheduleMap[day.day] = day;
           });
           this.setState({ scheduleMap });
@@ -259,6 +260,7 @@ export class OrganizationEditPage extends React.Component {
       return 'Are you sure you want to leave? Any changes you have made will be lost.';
     }
   }
+
   createResource() {
     const {
       scheduleObj,
@@ -272,27 +274,27 @@ export class OrganizationEditPage extends React.Component {
       website,
       email,
       address,
-    } = this.state,
-      newResource = {
-        name,
-        address,
-        long_description,
-        email,
-        website,
-        notes: notes.notes ? this.prepNotesData(notes.notes) : [],
-        schedule: { schedule_days: schedule },
-        phones,
-      },
-      requestString = '/api/resources',
-      schedule = this.prepSchedule(scheduleObj);
+    } = this.state;
+    const newResource = {
+      name,
+      address,
+      long_description,
+      email,
+      website,
+      notes: notes.notes ? this.prepNotesData(notes.notes) : [],
+      schedule: { schedule_days: schedule },
+      phones,
+    };
+    const requestString = '/api/resources';
+    const schedule = this.prepSchedule(scheduleObj);
     // let newServices = this.prepServicesData(services.services);
 
     this.setState({ submitting: true });
     const setNotSubmitting = () => {
       this.setState({ submitting: false });
-    }
+    };
     dataService.post(requestString, { resources: [newResource] })
-      .then((response) => {
+      .then(response => {
         if (response.ok) {
           alert('Resource successfuly created. Thanks!');
           response.json().then(res => browserHistory.push(`/resource?id=${res.resources[0].resource.id}`));
@@ -300,7 +302,7 @@ export class OrganizationEditPage extends React.Component {
           Promise.reject(response);
         }
       })
-      .catch((error) => {
+      .catch(error => {
         alert('Issue creating resource, please try again.');
         console.log(error);
         setNotSubmitting();
@@ -317,11 +319,12 @@ export class OrganizationEditPage extends React.Component {
       return false;
     }
   }
+
   prepSchedule(scheduleObj) {
     const newSchedule = [];
     let tempDay = {};
-    Object.keys(scheduleObj).forEach((day) => {
-      scheduleObj[day].forEach((curr) => {
+    Object.keys(scheduleObj).forEach(day => {
+      scheduleObj[day].forEach(curr => {
         tempDay = {};
         tempDay.day = day;
         tempDay.opens_at = curr.opens_at;
@@ -338,7 +341,7 @@ export class OrganizationEditPage extends React.Component {
 
   handleSubmit() {
     this.setState({ submitting: true });
-    const resource = this.state.resource;
+    const { resource } = this.state;
     const promises = [];
 
     // Resource
@@ -401,9 +404,9 @@ export class OrganizationEditPage extends React.Component {
     this.postNotes(this.state.notes, promises, { path: 'resources', id: this.state.resource.id });
 
     const that = this;
-    Promise.all(promises).then((resp) => {
+    Promise.all(promises).then(resp => {
       that.props.router.push({ pathname: '/resource', query: { id: that.state.resource.id } });
-    }).catch((err) => {
+    }).catch(err => {
       console.log(err);
     });
   }
@@ -517,7 +520,7 @@ export class OrganizationEditPage extends React.Component {
 
   postNotes(notesObj, promises, uriObj) {
     if (notesObj) {
-      const notes = notesObj.notes;
+      const { notes } = notesObj;
       const newNotes = [];
       for (const key in notes) {
         if (notes.hasOwnProperty(key)) {
@@ -536,13 +539,14 @@ export class OrganizationEditPage extends React.Component {
       }
     }
   }
+
   handlePhoneChange(phoneCollection) {
     this.setState({ phones: phoneCollection, inputsDirty: true });
   }
 
   handleResourceFieldChange(e) {
-    const field = e.target.dataset.field;
-    const value = e.target.value;
+    const { field } = e.target.dataset;
+    const { value } = e.target;
     const object = {};
     object[field] = value;
     object.inputsDirty = true;
@@ -571,15 +575,15 @@ export class OrganizationEditPage extends React.Component {
 
   certifyHAP() {
     dataService.post(`/api/resources/${this.state.resource.id}/certify`)
-      .then((response) => {
+      .then(response => {
         // TODO: Do not use alert() for user notifications.
         if (response.ok) {
-          alert('HAP Certified. Thanks!');  // eslint-disable-line no-alert
-          const resource = this.state.resource;
+          alert('HAP Certified. Thanks!'); // eslint-disable-line no-alert
+          const { resource } = this.state;
           resource.certified = response.ok;
           this.setState({ resource });
         } else {
-          alert('Issue verifying resource. Please try again.');  // eslint-disable-line no-alert
+          alert('Issue verifying resource. Please try again.'); // eslint-disable-line no-alert
         }
       });
   }
@@ -590,7 +594,7 @@ export class OrganizationEditPage extends React.Component {
   }
 
   renderSectionFields() {
-    const resource = this.state.resource;
+    const { resource } = this.state;
     return (
       <section id="info" className="edit--section">
         <ul className="edit--section--list">
@@ -666,7 +670,11 @@ export class OrganizationEditPage extends React.Component {
               data-field="long_description"
               onChange={this.handleResourceFieldChange}
             />
-            <p>If you&#39;d like to add formatting to descriptions, we support <a href="https://github.github.com/gfm/" target="_blank" rel="noopener noreferrer">Github flavored markdown</a>.</p>
+            <p>
+If you&#39;d like to add formatting to descriptions, we support
+              <a href="https://github.github.com/gfm/" target="_blank" rel="noopener noreferrer">Github flavored markdown</a>
+.
+            </p>
           </li>
 
           <li key="legal_status" className="edit--section--list--item email">
@@ -712,45 +720,49 @@ export class OrganizationEditPage extends React.Component {
 
   addService() {
     this.serviceChild.addService();
-    const newService =document.getElementById('new-service-button');
+    const newService = document.getElementById('new-service-button');
     const domNode = ReactDOM.findDOMNode(newService);
-    domNode.scrollIntoView({behavior: "smooth"});
+    domNode.scrollIntoView({ behavior: 'smooth' });
   }
 
   render() {
-    const resource = this.state.resource;
+    const { resource } = this.state;
 
-    return (!resource && !this.state.newResource ? <Loader /> :
-    <div className="edit">
-      <EditSidebar
-        createResource={this.createResource}
-        handleSubmit={this.handleSubmit}
-        handleCancel={this.handleCancel}
-        handleDeactivation={this.handleDeactivation}
-        resource={this.state.resource}
-        submitting={this.state.submitting}
-        certifyHAP={this.certifyHAP}
-        newServices={this.state.services.services}
-        newResource={this.state.newResource}
-        addService={this.addService}
-      />
-      <div className="edit--main">
-        <header className="edit--main--header">
-          <h1 className="edit--main--header--title">Let's start with the basics</h1>
-        </header>
-        <div className="edit--sections">
-          {this.renderSectionFields()}
-        </div>
-        {this.state.newResource ? null : (<div className="edit--services">
-          <header className="edit--main--header">
-            <h1 className="edit--main--header--title">Services</h1>
-          </header>
-          <div className="edit--sections">
-             {this.renderServices()}
+    return (!resource && !this.state.newResource ? <Loader />
+      : (
+        <div className="edit">
+          <EditSidebar
+            createResource={this.createResource}
+            handleSubmit={this.handleSubmit}
+            handleCancel={this.handleCancel}
+            handleDeactivation={this.handleDeactivation}
+            resource={this.state.resource}
+            submitting={this.state.submitting}
+            certifyHAP={this.certifyHAP}
+            newServices={this.state.services.services}
+            newResource={this.state.newResource}
+            addService={this.addService}
+          />
+          <div className="edit--main">
+            <header className="edit--main--header">
+              <h1 className="edit--main--header--title">Let's start with the basics</h1>
+            </header>
+            <div className="edit--sections">
+              {this.renderSectionFields()}
+            </div>
+            {this.state.newResource ? null : (
+              <div className="edit--services">
+                <header className="edit--main--header">
+                  <h1 className="edit--main--header--title">Services</h1>
+                </header>
+                <div className="edit--sections">
+                  {this.renderServices()}
+                </div>
+              </div>
+            )}
           </div>
-        </div>)}
-      </div>
-    </div>
+        </div>
+      )
     );
   }
 }

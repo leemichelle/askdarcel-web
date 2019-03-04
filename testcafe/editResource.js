@@ -4,7 +4,7 @@ import EditResourcePage from './pages/EditResourcePage';
 const resourcePage = new ResourcePage();
 const editResourcePage = new EditResourcePage();
 
-fixture `Edit Resource`
+fixture`Edit Resource`
   .page(ResourcePage.url(1));
 
 
@@ -14,8 +14,7 @@ async function testEditTextProperty(t, showPageSelector, editPageSelector, newVa
     .typeText(editPageSelector, newValue, { replace: true })
     .click(editResourcePage.saveButton)
     .expect(showPageSelector.textContent)
-    .contains(newValue)
-    ;
+    .contains(newValue);
 }
 
 test('Edit resource name', async t => {
@@ -74,13 +73,12 @@ test('Edit resource phone number', async t => {
     .typeText(phone.number, newNumber, { replace: true })
     .typeText(phone.serviceType, newServiceType, { replace: true })
     .click(editResourcePage.saveButton)
-    ;
+  ;
 
   // Check visibility of edits on show page
   await t
     .expect(resourcePage.phones.parent().textContent).contains(newFormattedNumber)
-    .expect(resourcePage.phones.parent().textContent).contains(newServiceType)
-    ;
+    .expect(resourcePage.phones.parent().textContent).contains(newServiceType);
 });
 
 
@@ -101,15 +99,14 @@ test('Add resource phone number', async t => {
     .typeText(phone.number, newNumber, { replace: true })
     .typeText(phone.serviceType, newServiceType, { replace: true })
     .click(editResourcePage.saveButton)
-    ;
+  ;
 
   // Check visibility of edits on show page
   await t
     .expect(resourcePage.phones.parent().textContent).contains(newFormattedNumber)
     .expect(resourcePage.phones.parent().textContent).contains(newServiceType)
     .expect(resourcePage.phones.count)
-    .eql(originalCount + 1)
-    ;
+    .eql(originalCount + 1);
 });
 
 test('Delete resource phone number', async t => {
@@ -119,13 +116,10 @@ test('Delete resource phone number', async t => {
   await resourcePage.clickEditButton(t);
   await t
     .click(editResourcePage.deletePhoneButton)
-    .click(editResourcePage.saveButton)
-    ;
-
+    .click(editResourcePage.saveButton);
   await t
     .expect(resourcePage.phones.count)
-    .eql(originalCount - 1)
-    ;
+    .eql(originalCount - 1);
 });
 
 test('Edit resource website', async t => {

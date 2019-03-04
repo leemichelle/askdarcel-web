@@ -8,8 +8,8 @@ class EditServices extends Component {
     super(props);
 
     const { services } = props;
-    const existingServices = services ?
-      services.map((service) => {
+    const existingServices = services
+      ? services.map(service => {
         /* eslint-disable no-param-reassign */
         service.key = service.id;
         return service;
@@ -32,7 +32,7 @@ class EditServices extends Component {
    * @returns {void}
    */
   handleServiceChange(key, service) {
-    const services = this.state.services;
+    const { services } = this.state;
     services[key] = service;
     this.setState({
       services,

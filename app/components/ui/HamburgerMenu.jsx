@@ -73,11 +73,12 @@ HamburgerMenu.propTypes = {
   toggleHamburgerMenu: PropTypes.func.isRequired,
 };
 
-const MenuItem = ({ children, isActive, onClick, to }) => (
-  (to.startsWith('http') || to.startsWith('mailto:')) ?
-    <a className={styles.menuItem} href={to}>{children}</a>
-    :
-    <Link className={`${styles.menuItem} ${isActive ? styles.active : ''}`} to={to} onClick={onClick}>{children}</Link>
+const MenuItem = ({
+  children, isActive, onClick, to,
+}) => (
+  (to.startsWith('http') || to.startsWith('mailto:'))
+    ? <a className={styles.menuItem} href={to}>{children}</a>
+    : <Link className={`${styles.menuItem} ${isActive ? styles.active : ''}`} to={to} onClick={onClick}>{children}</Link>
 );
 
 MenuItem.propTypes = {

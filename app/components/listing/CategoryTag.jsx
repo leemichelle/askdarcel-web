@@ -8,7 +8,9 @@ class CategoryTag extends React.Component {
     const { category } = this.props;
     return (
       <Link className="tag block" to={`/search?query=${category.name}`}>
-        <i className="material-icons">label</i> { category.name }
+        <i className="material-icons">label</i>
+        {' '}
+        { category.name }
       </Link>
     );
   }

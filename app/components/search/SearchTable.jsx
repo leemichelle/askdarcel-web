@@ -2,7 +2,7 @@ import React from 'react';
 import {
   Hits,
   Pagination,
-  } from 'react-instantsearch/dom';
+} from 'react-instantsearch/dom';
 import { images } from 'assets';
 import CustomSearchHits from './CustomSearchHits';
 

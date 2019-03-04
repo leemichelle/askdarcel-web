@@ -1,4 +1,6 @@
-import { SERVICE_LOAD_REQUEST, SERVICE_LOAD_SUCCESS, SERVICE_LOAD_ERROR, SERVICES_LOAD_REQUEST } from 'actions/actionTypes';
+import {
+  SERVICE_LOAD_REQUEST, SERVICE_LOAD_SUCCESS, SERVICE_LOAD_ERROR, SERVICES_LOAD_REQUEST,
+} from 'actions/actionTypes';
 import { get } from 'utils/DataService';
 
 export function fetchService(id) {

@@ -36,7 +36,7 @@ function scrollToTop(prevState, nextState) {
 }
 
 export default (
-  <Route path="/" component={App} onChange={scrollToTop} >
+  <Route path="/" component={App} onChange={scrollToTop}>
     <IndexRoute component={HomePage} />
     <Route name="admin" path="/admin" component={RequireAuth(AdminPage)} />
     <Route name="changeRequests" path="/admin/changes" component={RequireAuth(ChangeRequestsPage)} />

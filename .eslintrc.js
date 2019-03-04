@@ -10,6 +10,7 @@ module.exports = {
     "it": true,
     "NODE_ENV": true,
   },
+  "parser": "babel-eslint",
   "plugins": [
     "react",
     "jsx-a11y",

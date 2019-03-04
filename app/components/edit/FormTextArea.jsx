@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const FormTextArea = (props) => {
-  const { label, placeholder, field, defaultValue, onChange } = props;
+const FormTextArea = props => {
+  const {
+    label, placeholder, field, defaultValue, onChange,
+  } = props;
   return (
     <li className="edit--section--list--item">
       <label htmlFor="textarea">{label}</label>

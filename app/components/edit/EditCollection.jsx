@@ -9,8 +9,7 @@ import React, { Component } from 'react';
 export default function editCollectionHOC(ResourceObjectItem,
   label,
   blankTemplateObj,
-  showAdd = true,
-) {
+  showAdd = true) {
   return class EditCollection extends Component {
     constructor(props) {
       super(props);
@@ -26,13 +25,13 @@ export default function editCollectionHOC(ResourceObjectItem,
     }
 
     addItem() {
-      const collection = this.state.collection;
+      const { collection } = this.state;
       collection.push(blankTemplateObj);
       this.setState(collection);
     }
 
     handleChange(index, item) {
-      const collection = this.state.collection;
+      const { collection } = this.state;
       /* eslint-disable no-param-reassign */
       item.dirty = true;
       collection[index] = item;
@@ -40,7 +39,7 @@ export default function editCollectionHOC(ResourceObjectItem,
     }
 
     removeItem(index, item) {
-      const collection = this.state.collection;
+      const { collection } = this.state;
       if (collection[index].id) {
         collection[index] = { ...item, isRemoved: true };
       } else {
@@ -51,7 +50,7 @@ export default function editCollectionHOC(ResourceObjectItem,
     }
 
     createItemComponents() {
-      const collection = this.state.collection;
+      const { collection } = this.state;
       const items = [];
       for (let i = 0; i < collection.length; i++) {
         if (!collection[i].isRemoved) {
@@ -84,14 +83,16 @@ export default function editCollectionHOC(ResourceObjectItem,
           <ul className="edit--section--list--item--sublist">
             {this.createItemComponents()}
           </ul>
-          {showAdd &&
-            <button className="edit--section--list--item--button" onClick={this.addItem}>
-              <i className="material-icons">add_box</i>
+          {showAdd
+            && (
+              <button className="edit--section--list--item--button" onClick={this.addItem}>
+                <i className="material-icons">add_box</i>
               Add
-            </button>
+              </button>
+            )
           }
         </li>
       );
     }
-    };
+  };
 }

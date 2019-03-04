@@ -4,9 +4,9 @@ import ReactDOM from 'react-dom';
 import { Router, browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
 import { syncHistoryWithStore } from 'react-router-redux';
+import * as Sentry from '@sentry/browser';
 import configureStore from './store/configureStore';
 import routes from './routes';
-import * as Sentry from '@sentry/browser';
 import config from './config';
 
 require('instantsearch.css/themes/reset.css');
@@ -19,7 +19,7 @@ const history = syncHistoryWithStore(browserHistory, store);
 const googleAnalyticsId = (NODE_ENV === 'production' || window.location.host === 'www.askdarcel.org') ? 'UA-116318550-1' : 'UA-116318550-2';
 
 ReactGA.initialize(googleAnalyticsId);
-history.listen((loc) => {
+history.listen(loc => {
   const page = loc.pathname + loc.search;
   ReactGA.set({ page });
   ReactGA.pageview(loc.pathname);
