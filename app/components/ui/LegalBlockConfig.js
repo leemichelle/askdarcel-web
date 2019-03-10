@@ -6,7 +6,7 @@ const LegalBlockConfig = {
   },
   CARDS: [
     {
-      title: 'Housing',
+      title: 'Housing Advocacy',
       content: 'Eviction defense, housing help, homeownership',
       query: 'Housing+Law',
       imgClass: 'legal-block-housing',
