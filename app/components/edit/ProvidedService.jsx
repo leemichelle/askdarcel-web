@@ -15,7 +15,7 @@ class ProvidedService extends Component {
 
     this.textAreas = [
       {
-        label: 'Service description',
+        label: 'Service Description',
         placeholder: "Describe what you'll receive from this service in a few sentences.",
         field: 'long_description',
         defaultValue: this.props.service.long_description,
