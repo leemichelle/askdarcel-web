@@ -10,10 +10,10 @@ function icon(name) {
   return iconPathMap[name.toLowerCase().replace(/(\s+|\/)/g, '-')];
 }
 
-const domain = window.location.host.split('.')[0];
+const host = window.location.host;
 
 let appImages = {};
-if (domain === config.MOHCD_DOMAIN) {
+if (host.indexOf(config.MOHCD_DOMAIN) > -1) {
 /* eslint-enable no-undef */
     /* eslint-disable global-require */
   appImages = {
