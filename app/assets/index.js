@@ -10,7 +10,7 @@ function icon(name) {
   return iconPathMap[name.toLowerCase().replace(/(\s+|\/)/g, '-')];
 }
 
-const host = window.location.host;
+const { host } = window.location;
 
 let appImages = {};
 if (host.indexOf(config.MOHCD_DOMAIN) > -1) {

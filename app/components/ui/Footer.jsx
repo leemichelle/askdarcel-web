@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import config from '../../config';
 
-const host = window.location.host;
+const { host } = window.location;
 
 function Footer() {
   return (
