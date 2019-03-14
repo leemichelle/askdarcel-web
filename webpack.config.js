@@ -15,6 +15,7 @@ const environmentConfig = [
   'ALGOLIA_READ_ONLY_API_KEY',
   'MOHCD_SUBDOMAIN',
   'MOHCD_DOMAIN',
+  'TESTCAFE_RUNNING',
 ];
 
 const config = environmentConfig.reduce((acc, key) => {

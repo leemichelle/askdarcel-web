@@ -145,7 +145,7 @@ class App extends Component {
     const pageWrapId = 'page-wrap';
     return (
       <div id={outerContainerId}>
-        <Intercom appID={config.INTERCOM_APP_ID} />
+        {config.INTERCOM_APP_ID && <Intercom appID={config.INTERCOM_APP_ID} />}
         <HamburgerMenu
           isOpen={this.state.hamburgerMenuIsOpen}
           location={this.props.location}
