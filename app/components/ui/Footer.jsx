@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import config from '../../config';
 
-const subDomain = window.location.host.split('.')[0];
+const { host } = window.location;
 
 function Footer() {
   return (
@@ -12,7 +12,7 @@ function Footer() {
           <section className="service-guide">
             <div className="service-guide__icon" />
             <h1 className="service-guide__text">
-              {subDomain === config.MOHCD_SUBDOMAIN ? 'SF Service Guide' : 'Ask Darcel'}
+              {host.indexOf(config.MOHCD_DOMAIN) > -1 ? 'SF Service Guide' : 'Ask Darcel'}
             </h1>
           </section>
           <section className="site-footer__links">

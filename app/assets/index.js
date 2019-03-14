@@ -10,16 +10,16 @@ function icon(name) {
   return iconPathMap[name.toLowerCase().replace(/(\s+|\/)/g, '-')];
 }
 
-const subDomain = window.location.host.split('.')[0];
+const { host } = window.location;
 
 let appImages = {};
-if (subDomain === config.MOHCD_SUBDOMAIN) {
+if (host.indexOf(config.MOHCD_DOMAIN) > -1) {
 /* eslint-enable no-undef */
   /* eslint-disable global-require */
   appImages = {
     background: require('../assets/img/bg.png'),
-    logoLarge: require('../assets/img/help-sfgov.svg'),
-    logoSmall: require('../assets/img/help-sfgov.svg'),
+    logoLarge: require('../assets/img/sf-service.svg'),
+    logoSmall: require('../assets/img/sf-service.svg'),
     algolia: require('../assets/img/search-by-algolia.png'),
     mohcdSeal: require('../assets/img/sf-seal.png'),
     icon,
