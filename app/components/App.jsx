@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Intercom from 'react-intercom';
 import Navigation from './ui/Navigation';
 // import CategoryPage from './find/FindPage';
 // import ResourcesTable from './search/ResourcesTable';
@@ -144,6 +145,7 @@ class App extends Component {
     const pageWrapId = 'page-wrap';
     return (
       <div id={outerContainerId}>
+        {config.INTERCOM_APP_ID && <Intercom appID={config.INTERCOM_APP_ID} />}
         <HamburgerMenu
           isOpen={this.state.hamburgerMenuIsOpen}
           location={this.props.location}
