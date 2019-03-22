@@ -1,4 +1,4 @@
-import config from '../config';
+import { isSFServiceGuideSite } from '../utils/whitelabel';
 
 const icons = require.context('../assets/img', true, /ic-.*\.(png|svg)$/i);
 const iconPathMap = {};
@@ -10,10 +10,8 @@ function icon(name) {
   return iconPathMap[name.toLowerCase().replace(/(\s+|\/)/g, '-')];
 }
 
-const { host } = window.location;
-
 let appImages = {};
-if (host.indexOf(config.MOHCD_DOMAIN) > -1) {
+if (isSFServiceGuideSite()) {
 /* eslint-enable no-undef */
   /* eslint-disable global-require */
   appImages = {
