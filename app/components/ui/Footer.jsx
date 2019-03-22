@@ -1,8 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
-import config from '../../config';
-
-const { host } = window.location;
+import { isSFServiceGuideSite } from '../../utils/whitelabel';
 
 function Footer() {
   return (
@@ -12,7 +10,7 @@ function Footer() {
           <section className="service-guide">
             <div className="service-guide__icon" />
             <h1 className="service-guide__text">
-              {host.indexOf(config.MOHCD_DOMAIN) > -1 ? 'SF Service Guide' : 'Ask Darcel'}
+              {isSFServiceGuideSite() ? 'SF Service Guide' : 'Ask Darcel'}
             </h1>
           </section>
           <section className="site-footer__links">
