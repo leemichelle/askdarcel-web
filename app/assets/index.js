@@ -24,6 +24,7 @@ if (host.indexOf(config.MOHCD_DOMAIN) > -1) {
     mohcdSeal: require('../assets/img/sf-seal.png'),
     icon,
   };
+  window.title = 'SF Service Guide';
 } else {
   appImages = {
     background: require('../assets/img/bg.png'),
