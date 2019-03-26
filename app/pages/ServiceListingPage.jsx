@@ -14,7 +14,7 @@ import {
 } from 'components/listing';
 import { MapOfLocations } from 'components/maps';
 import ReactMarkdown from 'react-markdown';
-
+import Helmet from 'react-helmet';
 import 'react-tippy/dist/tippy.css';
 
 class ServicePage extends React.Component {
@@ -106,6 +106,10 @@ class ServicePage extends React.Component {
     const locations = this.getServiceLocations(service, resource, schedule);
 
     return (
+      <div>
+        <Helmet>
+          <meta name="description" content="asdf"/>
+        </Helmet>
       <div className="listing-container">
         <article className="listing" id="service">
           <div className="listing--main">
@@ -197,6 +201,7 @@ program,
             </div>
           </div>
         </article>
+      </div>
       </div>
     );
   }

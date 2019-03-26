@@ -149,6 +149,7 @@ class App extends Component {
       <div id={outerContainerId}>
         <Helmet>
           <title>{ isSFServiceGuideSite() ? 'SF Service Guide' : 'AskDarcel' }</title>
+          <meta name="description" content="overwrite me"></meta>
         </Helmet>
         {config.INTERCOM_APP_ID && <Intercom appID={config.INTERCOM_APP_ID} />}
         <HamburgerMenu
