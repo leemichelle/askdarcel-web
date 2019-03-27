@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import { Link } from 'react-router';
+import Helmet from 'react-helmet';
 import PropTypes from 'prop-types';
 import {
   AddressInfo, PhoneNumber, ResourceCategories, Website, Email, StreetView,
@@ -80,6 +81,11 @@ export class OrganizationListingPage extends React.Component {
     // console.log(resource, window.google);
     return (!resource || !window.google ? <Loader />
       : (
+        <div>
+          <Helmet>
+            <title>{ resource.name }</title>
+            <meta name="description" content={ resource.long_description }></meta>
+          </Helmet>
         <div className="org-container">
           <article className="org" id="resource">
             {
@@ -224,6 +230,7 @@ export class OrganizationListingPage extends React.Component {
               </div>
             </div>
           </article>
+        </div>
         </div>
       )
     );
