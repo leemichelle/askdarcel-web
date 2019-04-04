@@ -16,6 +16,7 @@ import { MapOfLocations } from 'components/maps';
 import ReactMarkdown from 'react-markdown';
 import Helmet from 'react-helmet';
 import 'react-tippy/dist/tippy.css';
+import { isSFServiceGuideSite } from '../utils/whitelabel';
 
 class ServicePage extends React.Component {
   componentWillMount() {
@@ -106,9 +107,13 @@ class ServicePage extends React.Component {
     const locations = this.getServiceLocations(service, resource, schedule);
 
     return (
-      <div>
+      <React.Fragment>
         <Helmet>
-          <title>{ service.name } - AskDarcel</title>
+          <title>
+            { service.name }
+              |
+            { isSFServiceGuideSite() ? 'SF Service Guide' : 'AskDarcel' }
+          </title>
           <meta name="description" content={ service.long_description } />
         </Helmet>
         <div className="listing-container">
@@ -203,7 +208,7 @@ class ServicePage extends React.Component {
             </div>
           </article>
         </div>
-      </div>
+      </React.Fragment>
     );
   }
 }
