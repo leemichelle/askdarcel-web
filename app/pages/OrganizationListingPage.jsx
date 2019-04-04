@@ -82,7 +82,7 @@ export class OrganizationListingPage extends React.Component {
     // console.log(resource, window.google);
     return (!resource || !window.google ? <Loader />
       : (
-        <React.Fragment>
+        <div>
           <Helmet>
             <title>
               { resource.name }
@@ -236,7 +236,7 @@ export class OrganizationListingPage extends React.Component {
               </div>
             </article>
           </div>
-        </React.Fragment>
+        </div>
       )
     );
   }

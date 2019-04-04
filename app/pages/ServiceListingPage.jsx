@@ -107,7 +107,7 @@ class ServicePage extends React.Component {
     const locations = this.getServiceLocations(service, resource, schedule);
 
     return (
-      <React.Fragment>
+      <div>
         <Helmet>
           <title>
             { service.name }
@@ -208,7 +208,7 @@ class ServicePage extends React.Component {
             </div>
           </article>
         </div>
-      </React.Fragment>
+      </div>
     );
   }
 }
