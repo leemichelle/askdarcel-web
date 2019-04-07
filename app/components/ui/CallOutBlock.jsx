@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import styles from './CallOutBlock.scss';
 
 class CallOutBlock extends Component {
   render() {
     return (
       <div className="callout-block">
         <div className="callout-block__content">
-          <h2 className="callout-block__subheadline">
+          <div className="callout-block__subheadline">
             {this.props.config.CONTENT.SUBHEADLINE}
-          </h2>
-          <h1 className="callout-block__headline">
+          </div>
+          <div className="callout-block__headline">
             {this.props.config.CONTENT.HEADLINE}
-          </h1>
+          </div>
           {this.props.config.CONTENT.BUTTON_TEXT}
         </div>
       </div>
