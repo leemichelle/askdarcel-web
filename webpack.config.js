@@ -78,6 +78,7 @@ module.exports = {
         exclude: [
           path.resolve(__dirname, 'app/components/ui/HamburgerMenu'),
           path.resolve(__dirname, 'app/components/ui/Navigation'),
+          path.resolve(__dirname, 'app/components/ui/CallOutBlock')
         ],
         test: /\.s?css$/,
         use: [
@@ -96,6 +97,7 @@ module.exports = {
         include: [
           path.resolve(__dirname, 'app/components/ui/HamburgerMenu'),
           path.resolve(__dirname, 'app/components/ui/Navigation'),
+          path.resolve(__dirname, 'app/components/ui/CallOutBlock')
         ],
         test: /\.s?css$/,
         use: [
