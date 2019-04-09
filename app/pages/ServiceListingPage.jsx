@@ -11,6 +11,7 @@ import {
   TableOfContactInfo,
   TableOfOpeningTimes,
   CategoryTag,
+  MobileActionBar,
 } from 'components/listing';
 import { MapOfLocations } from 'components/maps';
 import ReactMarkdown from 'react-markdown';
@@ -18,12 +19,83 @@ import Helmet from 'react-helmet';
 import 'react-tippy/dist/tippy.css';
 import { isSFServiceGuideSite } from '../utils/whitelabel';
 
+const getResourceActions = resource => ({
+  // TODO Edit should add service ID header
+  edit: {
+    name: 'Edit',
+    icon: 'edit',
+    to: `/resource/edit?resourceid=${resource.id}`,
+  }, // TODO Update with path to /resource/:id
+  print: {
+    name: 'Print',
+    icon: 'print',
+    handler: () => {
+      window.print();
+    },
+  },
+  directions: {
+    name: 'Directions',
+    icon: 'directions',
+    link: `http://google.com/maps/dir/?api=1&destination=${
+      resource.address.latitude
+    },${resource.address.longitude}`,
+  },
+  phone: {
+    name: 'Call',
+    icon: 'call',
+    link: `tel:${resource.phones[0].number}`,
+  },
+  // TODO Integrate with mobile share, how to handle shares
+  // { name: 'Share', icon: 'share' },
+  // { name: 'Save', icon: 'save' }, TODO We have no save mechanism yet
+});
+
+const getSidebarActions = resource => {
+  const resourceActions = getResourceActions(resource);
+  const sidebarActions = [
+    resourceActions.edit,
+    resourceActions.print,
+  ];
+  if (resource.address) {
+    sidebarActions.push(resourceActions.directions);
+  }
+  return sidebarActions;
+};
+
+const getMobileActions = resource => {
+  const resourceActions = getResourceActions(resource);
+  const mobileActions = [
+    { ...resourceActions.edit, icon: 'edit-blue' },
+  ];
+  if (resource.address) {
+    mobileActions.unshift({ ...resourceActions.directions, icon: 'directions-blue' });
+  }
+  if (resource.phones && resource.phones.length > 0) {
+    mobileActions.unshift({ ...resourceActions.phone, icon: 'phone-blue' });
+  }
+  return mobileActions;
+};
+
+// TODO This should be serviceAtLocation
+const getServiceLocations = (service, resource, schedule) => (resource.address
+  ? [resource.address].map(address => ({
+    id: address.id,
+    address,
+    name: service.name,
+    schedule: schedule && schedule.schedule_days.length ? schedule : resource.schedule,
+    // Just to make it clear this is inherited from the resource
+    inherited: !schedule && resource.schedule,
+  }))
+  : []);
+
+
 class ServicePage extends React.Component {
   componentWillMount() {
     const {
+      fetchService: propsFetchService,
       routeParams: { service },
     } = this.props;
-    this.props.fetchService(service);
+    propsFetchService(service);
   }
 
   generateDetailsRows() {
@@ -49,53 +121,6 @@ class ServicePage extends React.Component {
       .map(row => ({ title: row[0], value: row[1] }));
   }
 
-  getSidebarActions(resource) {
-    const sidebarActions = [
-      // TODO Edit should add service ID header
-      {
-        name: 'Edit',
-        icon: 'edit',
-        to: `/resource/edit?resourceid=${resource.id}`,
-      }, // TODO Update with path to /resource/:id
-      {
-        name: 'Print',
-        icon: 'print',
-        handler: () => {
-          window.print();
-        },
-      },
-      // TODO Integrate with mobile share, how to handle shares
-      // { name: 'Share', icon: 'share' },
-      // { name: 'Save', icon: 'save' }, TODO We have no save mechanism yet
-    ];
-    if (resource.address) {
-      sidebarActions.push(
-        // TODO Directions to address, not lat/long, is much better UX
-        {
-          name: 'Directions',
-          icon: 'directions',
-          link: `http://google.com/maps/dir/?api=1&destination=${
-            resource.address.latitude
-          },${resource.address.longitude}`,
-        },
-      );
-    }
-    return sidebarActions;
-  }
-
-  getServiceLocations(service, resource, schedule) {
-    // TODO This should be serviceAtLocation
-    return resource.address
-      ? [resource.address].map(address => ({
-        id: address.id,
-        address,
-        name: service.name,
-        schedule: schedule && schedule.schedule_days.length ? schedule : resource.schedule,
-        // Just to make it clear this is inherited from the resource
-        inherited: !schedule && resource.schedule,
-      }))
-      : [];
-  }
 
   render() {
     const { activeService: service } = this.props;
@@ -103,8 +128,9 @@ class ServicePage extends React.Component {
 
     const { resource, program, schedule } = service;
     const details = this.generateDetailsRows();
-    const sidebarActions = this.getSidebarActions(resource);
-    const locations = this.getServiceLocations(service, resource, schedule);
+    const sidebarActions = getSidebarActions(resource);
+    const mobileActions = getMobileActions(resource);
+    const locations = getServiceLocations(service, resource, schedule);
 
     return (
       <div>
@@ -114,7 +140,7 @@ class ServicePage extends React.Component {
               |
             { isSFServiceGuideSite() ? 'SF Service Guide' : 'AskDarcel' }
           </title>
-          <meta name="description" content={ service.long_description } />
+          <meta name="description" content={service.long_description} />
         </Helmet>
         <div className="listing-container">
           <article className="listing" id="service">
@@ -142,6 +168,7 @@ class ServicePage extends React.Component {
                     </span>
                   </p>
                 </header>
+                <MobileActionBar actions={mobileActions} />
 
                 <section className="listing--main--left--about">
                   <h2>About This Service</h2>
@@ -177,7 +204,10 @@ class ServicePage extends React.Component {
                   <MapOfLocations
                     locations={locations}
                     locationRenderer={location => (
-                      <TableOfOpeningTimes schedule={location.schedule} inherited={location.inherited} />
+                      <TableOfOpeningTimes
+                        schedule={location.schedule}
+                        inherited={location.inherited}
+                      />
                     )}
                   />
                   {/* TODO Transport Options */}
