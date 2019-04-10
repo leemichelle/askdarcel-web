@@ -8,6 +8,7 @@ import { Datatable, Loader } from 'components/ui';
 import { ServiceCard, ListingTitleLink } from 'components/layout';
 import {
   ActionSidebar,
+  Attribution,
   TableOfContactInfo,
   TableOfOpeningTimes,
   CategoryTag,
@@ -173,6 +174,7 @@ class ServicePage extends React.Component {
                 <section className="listing--main--left--about">
                   <h2>About This Service</h2>
                   <ReactMarkdown className="rendered-markdown" source={service.long_description} />
+                  <Attribution></Attribution>
                 </section>
 
                 {details.length ? (
