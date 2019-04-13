@@ -192,6 +192,7 @@ Service
           </li>
 
           <EditSchedule
+            canInheritFromParent
             schedule={this.props.service.schedule}
             handleScheduleChange={this.handleScheduleChange}
           />

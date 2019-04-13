@@ -134,6 +134,12 @@
 
 		&--sublist .edit--section--list--item {
 			margin-right: 0;
+      .inherit-schedule {
+        display: flex;
+        input {
+          width: auto;
+        }
+      }
 		}
 	}
 }
