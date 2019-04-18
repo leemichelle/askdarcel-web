@@ -5,24 +5,6 @@ import PropTypes from 'prop-types';
 import { Accordion, AccordionItem } from '../ui/Accordion';
 
 class MapOfLocations extends React.Component {
-  constructor(...args) {
-    super(...args);
-    this.state = {};
-  }
-
-  componentWillMount() {
-    this.setState({
-      locations: this.props.locations.map(loc => {
-        const { address, name, schedule } = loc;
-        return {
-          name,
-          address,
-          schedule,
-        };
-      }),
-    });
-  }
-
   componentDidMount() {
     // TODO We should probably not just have google on the global namespace
     if (google === undefined) { return; }
@@ -30,7 +12,7 @@ class MapOfLocations extends React.Component {
     const {
       Map, Marker, LatLng, SymbolPath,
     } = google.maps;
-    const { locations } = this.state;
+    const { locations } = this.props;
     const { latitude, longitude } = locations[0].address;
     // TODO Geocode from address if no lat/long
 
@@ -41,35 +23,37 @@ class MapOfLocations extends React.Component {
     };
 
     const map = new Map(this.refs.map, mapOptions);
+    const { userLocation } = this.props;
 
-    if (this.props.userLocation) {
+    if (userLocation) {
       const userMarker = new Marker({
-        map,
-        position: new LatLng(this.props.userLocation),
+        position: new LatLng(userLocation),
         icon: { path: SymbolPath.CIRCLE, scale: 5 },
       });
+      userMarker.setMap(map);
     }
 
     locations.forEach(loc => {
       const { address, name } = loc;
-      const locMarker = new google.maps.Marker({
-        map,
+      const locMarker = new Marker({
         icon: {
           title: name,
           label: name,
         },
         position: new LatLng(Number(address.latitude), Number(address.longitude)),
       });
+      locMarker.setMap(map);
     });
   }
 
   render() {
-    const { locations } = this.state;
+    const { locationRenderer } = this.props;
+    const { locations } = this.props;
 
     return (
       <div>
         <div ref="map" className="map" />
-        { this.props.locationRenderer
+        { locationRenderer
           && (
             <Accordion>
               { locations.map((loc, i) => (
@@ -86,7 +70,11 @@ class MapOfLocations extends React.Component {
 .
                             </td>
                             <td><strong>{title}</strong></td>
-                            {/* <td className="right"><RelativeOpeningTime schedule={loc.schedule} /></td> */}
+                            {/*
+                              <td className="right">
+                                <RelativeOpeningTime schedule={loc.schedule} />
+                              </td>
+                            */}
                             <td className="iconcell">
                               <div className="selector">
                                 <i className="material-icons">keyboard_arrow_down</i>
@@ -99,7 +87,7 @@ class MapOfLocations extends React.Component {
                     </div>
                   )}
                 >
-                  { this.props.locationRenderer(loc) }
+                  { locationRenderer(loc) }
                 </AccordionItem>
               ))
               }

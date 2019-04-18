@@ -1,5 +1,4 @@
 build
-app/components/App.jsx
 app/components/admin/ChangeRequest.jsx
 app/components/admin/ProposedService.jsx
 app/components/auth/RequireAuth.jsx
@@ -8,8 +7,6 @@ app/components/edit/EditAddress.jsx
 app/components/edit/EditCollection.jsx
 app/components/edit/EditNotes.jsx
 app/components/edit/EditPhones.jsx
-app/components/edit/EditSchedule.jsx
-app/components/edit/EditScheduleDay.jsx
 app/components/edit/EditServices.jsx
 app/components/edit/EditSidebar.jsx
 app/components/edit/FormTextArea.jsx
@@ -21,16 +18,11 @@ app/components/layout/FindHeader.jsx
 app/components/layout/OrganizationCard.jsx
 app/components/listing/ActionSidebar.jsx
 app/components/listing/Notes.jsx
-app/components/listing/RelativeOpeningTime.jsx
 app/components/listing/ResourceInfos.jsx
 app/components/listing/ResourceMap.jsx
-app/components/listing/Services.jsx
 app/components/listing/__tests__/RelativeOpeningTimes.spec.jsx
 app/components/listing/index.js
-app/components/maps/MapOfLocations.jsx
-app/components/search/CustomSearchHits.jsx
 app/components/search/Filtering.jsx
-app/components/search/ResourceEntry.jsx
 app/components/search/ResourcesList.jsx
 app/components/search/ResourcesMap.jsx
 app/components/search/ResourcesRow.jsx
@@ -39,18 +31,13 @@ app/components/search/SearchMap.jsx
 app/components/search/SearchTabHelper.jsx
 app/components/search/SearchTabView.jsx
 app/components/search/SearchTable.jsx
-app/components/search/ServiceEntry.jsx
 app/components/ui/Accordion/Accordion.jsx
 app/components/ui/Accordion/AccordionItem.jsx
 app/components/ui/LandingPageEligibilityBlock.jsx
 app/components/ui/LandingPageResourceBlock.jsx
-app/components/ui/Navigation.jsx
 app/components/ui/WhiteLabel.jsx
-app/pages/HomePage.jsx
-app/pages/OrganizationEditPage.jsx
 app/pages/OrganizationListingPage.jsx
 app/pages/SearchPage.jsx
-app/pages/ServiceListingPage.jsx
 app/pages/_unused/CreateAccount.jsx
 app/pages/_unused/Splash.jsx
 app/pages/_unused/TestAuth.jsx
@@ -58,5 +45,3 @@ app/pages/admin/Admin.jsx
 app/pages/admin/ChangeRequests.jsx
 app/pages/admin/Login.jsx
 app/pages/debug/ListingDemoPage.jsx
-testcafe/editResource.js
-testcafe/listings.js
