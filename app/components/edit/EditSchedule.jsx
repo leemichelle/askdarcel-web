@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import _ from 'lodash';
 import { stringToTime } from '../../utils/index';
 import EditScheduleDay from './EditScheduleDay';
 
@@ -66,12 +67,56 @@ class EditSchedule extends Component {
       // eslint-disable-next-line react/no-unused-state
       scheduleId: props.schedule ? props.schedule.id : null,
       scheduleDays: buildSchedule(props.schedule),
+      // If the service doesn't had a schedule associated with it, inherit
+      // the parent resource's schedule.
+      shouldInheritSchedule: !(_.get(props, 'schedule.schedule_days.length', false)),
     };
 
     this.handleScheduleChange = this.handleScheduleChange.bind(this);
     this.addTime = this.addTime.bind(this);
     this.removeTime = this.removeTime.bind(this);
     this.toggle24Hours = this.toggle24Hours.bind(this);
+    this.toggleInheritSchedule = this.toggleInheritSchedule.bind(this);
+  }
+
+  toggleInheritSchedule(e) {
+    const { handleScheduleChange, schedule } = this.props;
+    const shouldInheritSchedule = e.target.checked;
+
+    let tempScheduleDays = {};
+    this.setState(
+      ({ scheduleDays }) => {
+        tempScheduleDays = { ...scheduleDays };
+
+        // Services without explicit schedules automatically inherit their
+        // schedule from their parent resource. So, by completely wiping out
+        // the service schedule, the service will fall back to inheriting its
+        // parent's schedule.
+        //
+        // Go through each schedule day item and set the open/close times to null
+        // and the dirty state to true in order to completely wipe the schedule
+        // on save.
+        if (shouldInheritSchedule) {
+          Object.keys(scheduleDays).forEach(day => {
+            const tempDaySchedule = scheduleDays[day].map(curr => ({
+              ...curr,
+              opens_at: null,
+              closes_at: null,
+              openChanged: true,
+              closeChanged: true,
+            }));
+            tempScheduleDays[day] = tempDaySchedule;
+          });
+        } else {
+          tempScheduleDays = buildSchedule(schedule);
+        }
+
+        return { scheduleDays: tempScheduleDays, shouldInheritSchedule };
+      },
+      () => {
+        handleScheduleChange(tempScheduleDays);
+      },
+    );
   }
 
   addTime(day) {
@@ -184,26 +229,44 @@ class EditSchedule extends Component {
   }
 
   render() {
-    const { scheduleDays: schedule } = this.state;
+    const { scheduleDays: schedule, shouldInheritSchedule } = this.state;
+    const { canInheritFromParent } = this.props;
     return (
       <li key="hours" className="edit--section--list--item hours">
         <span className="label">Hours</span>
-        <span className="label open-24-label">24 hrs?</span>
-        <ul className="edit-hours-list">
-          {
-            Object.keys(schedule).map(day => (
-              <EditScheduleDay
-                key={day.id}
-                day={day}
-                dayHours={schedule[day]}
-                handleScheduleChange={this.handleScheduleChange}
-                toggle24Hours={this.toggle24Hours}
-                addTime={this.addTime}
-                removeTime={this.removeTime}
+        { canInheritFromParent
+          && (
+            <div className="inherit-schedule">
+              <input
+                id="inherit"
+                type="checkbox"
+                checked={shouldInheritSchedule}
+                onChange={this.toggleInheritSchedule}
               />
-            ))
-          }
-        </ul>
+              <label htmlFor="inherit">Inherit schedule from parent organization</label>
+            </div>
+          )
+        }
+        {!shouldInheritSchedule && (
+          <div>
+            <span className="label open-24-label">24 hrs?</span>
+            <ul className="edit-hours-list">
+              {
+                Object.keys(schedule).map(day => (
+                  <EditScheduleDay
+                    key={day.id}
+                    day={day}
+                    dayHours={schedule[day]}
+                    handleScheduleChange={this.handleScheduleChange}
+                    toggle24Hours={this.toggle24Hours}
+                    addTime={this.addTime}
+                    removeTime={this.removeTime}
+                  />
+                ))
+              }
+            </ul>
+          </div>
+        )}
       </li>
     );
   }
