@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import { getResourceActions } from 'utils/ResourceActions';
 
+import './ActionSidebar.scss';
+
 const getSidebarActions = resource => {
   const resourceActions = getResourceActions(resource);
   const sidebarActions = [
@@ -29,18 +31,18 @@ class ListPageSidebar extends React.Component {
     const actions = getSidebarActions(resource);
 
     return (
-      <ul className="actions">
+      <ul className="action-sidebar">
         {actions.map(action => (
           <li key={action.name}>
             {
               action.to || action.handler
                 ? (
-                  <Link to={action.to} onClick={action.handler} className={`listing--aside--${action.name.toLowerCase()}`}>
+                  <Link to={action.to} onClick={action.handler} className={`action-sidebar--${action.name.toLowerCase()}`}>
                     { renderButtonContent(action) }
                   </Link>
                 )
                 : (
-                  <a href={action.link} rel="noopener noreferrer" target="_blank" className={`listing--aside--${action.name.toLowerCase()}`}>
+                  <a href={action.link} rel="noopener noreferrer" target="_blank" className={`action-sidebar--${action.name.toLowerCase()}`}>
                     { renderButtonContent(action) }
                   </a>
                 )

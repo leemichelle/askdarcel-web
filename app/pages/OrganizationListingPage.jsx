@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
-import { Link } from 'react-router';
 import Helmet from 'react-helmet';
 import PropTypes from 'prop-types';
 import {
@@ -192,9 +191,7 @@ export class OrganizationListingPage extends React.Component {
               </div>
 
               <div className="org--aside">
-                <div className="org--aside--content">
-                  <ActionSidebar resource={resource} />
-                </div>
+                <ActionSidebar resource={resource} />
               </div>
             </div>
           </article>

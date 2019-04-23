@@ -109,6 +109,7 @@ class ServicePage extends React.Component {
                     </span>
                   </p>
                 </header>
+
                 <MobileActionBar resource={resource} />
 
                 <section className="listing--main--left--about">

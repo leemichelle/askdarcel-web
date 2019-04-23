@@ -5,6 +5,8 @@ import { Link } from 'react-router';
 import { getResourceActions } from 'utils/ResourceActions';
 import { images } from '../../assets';
 
+import './MobileActionBar.scss';
+
 const getMobileActions = resource => {
   const resourceActions = getResourceActions(resource);
   const mobileActions = [
@@ -20,11 +22,11 @@ const getMobileActions = resource => {
 };
 
 const renderButtonContent = action => (
-  <div key={action.name} className="listing-menu--button-content">
+  <div key={action.name} className="mobile-action-bar--button-content">
     <img
       src={images.icon(action.icon)}
       alt={action.icon}
-      className="listing-menu--button-icon"
+      className="mobile-action-bar--button-icon"
     />
     <span>{action.name}</span>
   </div>
@@ -36,9 +38,9 @@ export default class MobileActionBar extends React.Component {
     const actions = getMobileActions(resource);
 
     return (
-      <div className="listing-menu">
+      <div className="mobile-action-bar">
         {actions.map(action => (
-          <div key={action.name} className="listing-menu--button">
+          <div key={action.name} className="mobile-action-bar--button">
             {
               action.to || action.handler
                 ? (

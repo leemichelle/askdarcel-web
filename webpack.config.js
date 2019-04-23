@@ -78,6 +78,8 @@ module.exports = {
         exclude: [
           path.resolve(__dirname, 'app/components/ui/HamburgerMenu'),
           path.resolve(__dirname, 'app/components/ui/Navigation'),
+          path.resolve(__dirname, 'app/components/listing/MobileActionBar'),
+          path.resolve(__dirname, 'app/components/listing/ActionSidebar'),
         ],
         test: /\.s?css$/,
         use: [
@@ -96,6 +98,8 @@ module.exports = {
         include: [
           path.resolve(__dirname, 'app/components/ui/HamburgerMenu'),
           path.resolve(__dirname, 'app/components/ui/Navigation'),
+          path.resolve(__dirname, 'app/components/listing/MobileActionBar'),
+          path.resolve(__dirname, 'app/components/listing/ActionSidebar'),
         ],
         test: /\.s?css$/,
         use: [
