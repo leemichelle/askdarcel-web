@@ -16,7 +16,6 @@ app/components/layout/CategoryItem.jsx
 app/components/layout/CategoryList.jsx
 app/components/layout/FindHeader.jsx
 app/components/layout/OrganizationCard.jsx
-app/components/listing/ActionSidebar.jsx
 app/components/listing/Notes.jsx
 app/components/listing/ResourceInfos.jsx
 app/components/listing/ResourceMap.jsx

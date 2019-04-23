@@ -2,7 +2,22 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { Link } from 'react-router';
+import { getResourceActions } from 'utils/ResourceActions';
 import { images } from '../../assets';
+
+const getMobileActions = resource => {
+  const resourceActions = getResourceActions(resource);
+  const mobileActions = [
+    { ...resourceActions.edit, icon: 'edit-blue' },
+  ];
+  if (resource.address) {
+    mobileActions.unshift({ ...resourceActions.directions, icon: 'directions-blue' });
+  }
+  if (resource.phones && resource.phones.length > 0) {
+    mobileActions.unshift({ ...resourceActions.phone, icon: 'phone-blue' });
+  }
+  return mobileActions;
+};
 
 const renderButtonContent = action => (
   <div key={action.name} className="listing-menu--button-content">
@@ -17,7 +32,8 @@ const renderButtonContent = action => (
 
 export default class MobileActionBar extends React.Component {
   render() {
-    const { actions } = this.props;
+    const { resource } = this.props;
+    const actions = getMobileActions(resource);
 
     return (
       <div className="listing-menu">
@@ -44,11 +60,5 @@ export default class MobileActionBar extends React.Component {
 }
 
 MobileActionBar.propTypes = {
-  actions: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    icon: PropTypes.string.isRequired,
-    link: PropTypes.string,
-    to: PropTypes.string,
-    handler: PropTypes.function,
-  })).isRequired,
+  resource: PropTypes.object.isRequired,
 };
