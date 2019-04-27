@@ -62,6 +62,13 @@
 		align-items: stretch;
 		align-content: stretch;
 	}
+  @include r_max($break-tablet-s) {
+    margin-top: 0;
+      &--left {
+        border-right: none;
+        width: 100%;
+      }
+  }
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -107,6 +114,9 @@
 			padding-right: 6px;
 			margin-top: calc-em(10px);
 		}
+    @include r_max($break-tablet-s) {
+      padding-bottom: calc-em(20px);
+    }
 	}
 	.badges {
 		display: flex;
@@ -247,56 +257,7 @@
 	padding: 0 0 0 calc-em(30px);
 	width: 100%;
 	max-width: calc-em(240px);
-	&--content {
-		width: 100%;
-		max-width: calc-em(240px);
-		&--button {
-			color: #FFFFFF;
-			font-size: 17px;
-			font-weight: bold;
-			padding: calc-em(9px) calc-em(25px);
-			background: #1C72E6;
-			border-radius: 8px;
-			margin-top: calc-em(10px);
-			display: block;
-			text-align: center;
-			width: 100%;
-			height: auto; // Unset global height for button tag name selector
-			&-first-of-type {
-				margin-top: 0;
-			}
-		}
-		&--nav {
-			margin: calc-em(30px) 0;
-			ul {
-				list-style-type: none;
-				li {
-					width: 100%;
-					white-space: nowrap;
-				  overflow: hidden;
-				  text-overflow: ellipsis;
-				  margin-bottom: calc-em(10px);
-				  &:last-of-type {
-				  	margin-bottom: 0;
-				  }
-
-				  a {
-				  	color: #333333;
-				  	&:hover {
-				  		color: #1C72E6;
-				  	}
-				  }
-				}
-				&.service--nav--list {
-					list-style: disc;
-					margin-left: 1em;
-					list-style-position: inside;
-
-					li {
-						line-height: 1em;
-					}
-				}
-			}
-		}
-	}
+  @include r_max($break-tablet-s) {
+    display: none;
+  }
 }

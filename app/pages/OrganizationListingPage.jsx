@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
-import { Link } from 'react-router';
 import Helmet from 'react-helmet';
 import PropTypes from 'prop-types';
 import {
@@ -11,6 +10,11 @@ import {
   Email,
   StreetView,
 } from 'components/listing/ResourceInfos';
+import {
+  ActionSidebar,
+  TableOfOpeningTimes,
+  MobileActionBar,
+} from 'components/listing';
 import { RelativeOpeningTime } from 'components/listing/RelativeOpeningTime';
 import Services from 'components/listing/Services';
 import Notes from 'components/listing/Notes';
@@ -19,16 +23,7 @@ import ResourceMap from 'components/listing/ResourceMap';
 import HAPcertified from '../assets/img/ic-hap.png';
 import MOHCDFunded from '../assets/img/ic-mohcd-funded-services.png';
 import * as dataService from '../utils/DataService';
-// import ServiceCard from '../components/layout/ServiceCard';
-import { TableOfOpeningTimes } from '../components/listing/TableOfOpeningTimes';
 import { isSFServiceGuideSite } from '../utils/whitelabel';
-
-function scrollToElement(selector) {
-  const elem = document.getElementById(selector);
-  if (elem) {
-    elem.scrollIntoView({ block: 'center', behaviour: 'smooth' });
-  }
-}
 
 export class OrganizationListingPage extends React.Component {
   constructor(props) {
@@ -161,6 +156,8 @@ export class OrganizationListingPage extends React.Component {
                   </div>
                 </header>
 
+                <MobileActionBar resource={resource} />
+
                 <section className="service--section" id="services">
                   <header className="service--section--header">
                     <h4>Services</h4>
@@ -194,53 +191,7 @@ export class OrganizationListingPage extends React.Component {
               </div>
 
               <div className="org--aside">
-                <div className="org--aside--content">
-                  {
-                    resource.address && (
-                      <a href={`https://maps.google.com?saddr=Current+Location&daddr=${resource.address.latitude},${resource.address.longitude}&dirflg=w`} target="_blank" rel="noopener noreferrer" className="org--aside--content--button directions-button">
-                        Get Directions
-                      </a>
-                    )
-                  }
-                  <Link
-                    to={{
-                      pathname: '/resource/edit',
-                      query: {
-                        resourceid: resource.id,
-                      },
-                    }}
-                    className="org--aside--content--button edit-button"
-                  >
-                      Make Edits
-                  </Link>
-                  <button type="button" className="org--aside--content--button" onClick={this.verifyResource}>
-                      Mark Info as Correct
-                  </button>
-                  <nav className="org--aside--content--nav">
-                    <ul>
-                      <li>
-                        <a href="#resource">{resource.name}</a>
-                      </li>
-                      <li>
-                        <a href="#services">Services</a>
-                        <ul className="service--nav--list">
-                          {
-                            resource.services.map(service => (
-                              <li key={service.id}>
-                                <a href={`#service-${service.id}`} onClick={scrollToElement(`service-${service.id}`)}>
-                                  {service.name}
-                                </a>
-                              </li>
-                            ))
-                          }
-                        </ul>
-                      </li>
-                      <li>
-                        <a href="#info">Info</a>
-                      </li>
-                    </ul>
-                  </nav>
-                </div>
+                <ActionSidebar resource={resource} />
               </div>
             </div>
           </article>
