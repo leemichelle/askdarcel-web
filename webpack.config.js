@@ -94,12 +94,24 @@ module.exports = {
         ],
       },
       {
+        include: [
+          path.resolve(__dirname, 'app/components/listing/MobileActionBar'),
+          path.resolve(__dirname, 'app/components/listing/ActionSidebar'),
+        ],
+        test: /\.s?css$/,
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+          },
+          'sass-loader',
+        ],
+      },
+      {
         // New stylesheets are treated as locally-scoped CSS modules.
         include: [
           path.resolve(__dirname, 'app/components/ui/HamburgerMenu'),
           path.resolve(__dirname, 'app/components/ui/Navigation'),
-          path.resolve(__dirname, 'app/components/listing/MobileActionBar'),
-          path.resolve(__dirname, 'app/components/listing/ActionSidebar'),
         ],
         test: /\.s?css$/,
         use: [
