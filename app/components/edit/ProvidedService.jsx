@@ -1,9 +1,63 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import EditNotes from './EditNotes';
 import EditSchedule from './EditSchedule';
 import MultiSelectDropdown from './MultiSelectDropdown';
 import FormTextArea from './FormTextArea';
+
+
+const InputField = ({
+  type, label, placeholder, value, setValue,
+}) => (
+  <Fragment>
+    <label htmlFor="input">{label}</label>
+    <input
+      type={type}
+      placeholder={placeholder}
+      value={value}
+      onChange={evt => setValue(evt.target.value)}
+    />
+  </Fragment>
+);
+
+InputField.propTypes = {
+  type: PropTypes.string,
+  label: PropTypes.string.isRequired,
+  placeholder: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+  setValue: PropTypes.func.isRequired, // A function to call when setting a new value
+};
+
+InputField.defaultProps = {
+  type: 'text',
+};
+
+
+const TEXT_AREAS = [
+  {
+    label: 'Service Description',
+    placeholder: "Describe what you'll receive from this service in a few sentences.",
+    field: 'long_description',
+  },
+  {
+    label: 'Application Process',
+    placeholder: 'How do you apply for this service?',
+    field: 'application_process',
+  },
+  {
+    label: 'Required Documents',
+    placeholder: 'What documents do you need to bring to apply?',
+    field: 'required_documents',
+  },
+  {
+    // TODO: Make this a multiselectdropdown, create a new table in the DB for languages,
+    //       and seed it with languages
+    label: 'Interpretation Services',
+    placeholder: 'What interpretation services do they offer?',
+    field: 'interpretation_services',
+  },
+];
+
 
 class ProvidedService extends Component {
   constructor(props) {
@@ -20,93 +74,25 @@ class ProvidedService extends Component {
     this.state = {
       service: {},
     };
-
-    const { service } = this.props;
-
-    this.textAreas = [
-      {
-        label: 'Service Description',
-        placeholder: "Describe what you'll receive from this service in a few sentences.",
-        field: 'long_description',
-        defaultValue: service.long_description,
-      },
-      {
-        label: 'Application Process',
-        placeholder: 'How do you apply for this service?',
-        field: 'application_process',
-        defaultValue: service.application_process,
-      },
-      {
-        label: 'Required Documents',
-        placeholder: 'What documents do you need to bring to apply?',
-        field: 'required_documents',
-        defaultValue: service.required_documents,
-      },
-      {
-        // TODO: Make this a multiselectdropdown, create a new table in the DB for languages,
-        //       and seed it with languages
-        label: 'Interpretation Services',
-        placeholder: 'What interpretation services do they offer?',
-        field: 'interpretation_services',
-        defaultValue: service.interpretation_services,
-      },
-    ];
-
-    this.handleFieldChange = this.handleFieldChange.bind(this);
-    this.handleNotesChange = this.handleNotesChange.bind(this);
-    this.handleScheduleChange = this.handleScheduleChange.bind(this);
-    this.handleCategoryChange = this.handleCategoryChange.bind(this);
-    this.handleEligibilityChange = this.handleEligibilityChange.bind(this);
   }
 
-  // This is meant to gradually replace handleFieldChange in a way that does not
-  // depend on the caller necessarily being a DOM event.
-  handleServiceFieldChange = (field, value) => {
+  handleChange = (field, value) => {
     const { service } = this.state;
+    // TODO: We shouldn't be mutating state, but this component currently depends on it
     service[field] = value;
-    this.handleChange(service);
-  }
-
-  handleChange(service) {
     this.setState({ service }, () => {
       const { service: { key }, handleChange } = this.props;
       handleChange(key, service);
     });
   }
 
-  handleFieldChange(e) {
-    const { service } = this.state;
-    service[e.target.dataset.field] = e.target.value;
-    this.handleChange(service);
-  }
-
-  handleNotesChange(notesObj) {
-    const { service } = this.state;
-    service.notesObj = notesObj;
-    this.handleChange(service);
-  }
-
-  handleScheduleChange(scheduleObj) {
-    const { service } = this.state;
-    service.scheduleObj = scheduleObj;
-    this.handleChange(service);
-  }
-
-  handleCategoryChange(categories) {
-    const { service } = this.state;
-    service.categories = categories;
-    this.handleChange(service);
-  }
-
-  handleEligibilityChange(eligibilities) {
-    const { service } = this.state;
-    service.eligibilities = eligibilities;
-    this.handleChange(service);
-  }
-
   render() {
     const { handleDeactivation, index, service } = this.props;
     const { service: stateService, submitting } = this.state;
+    const flattenedService = {
+      ...service,
+      ...stateService,
+    };
     return (
       <li id={`${service.id}`} className="edit--service edit--section">
         <header className="edit--section--header">
@@ -126,96 +112,94 @@ class ProvidedService extends Component {
 
         <ul className="edit--section--list">
           <li className="edit--section--list--item">
-            <label htmlFor="input">Name of the Service</label>
-            <input
-              type="text"
+            <InputField
+              label="Name of the Service"
               placeholder="What is this service called?"
-              data-field="name"
-              defaultValue={service.name}
-              onChange={this.handleFieldChange}
+              value={flattenedService.name}
+              setValue={value => this.handleChange('name', value)}
             />
           </li>
 
           <li className="edit--section--list--item">
-            <label htmlFor="input">Nickname</label>
-            <input
-              type="text"
+            <InputField
+              label="Nickname"
               placeholder="What it's known as in the community"
-              data-field="alternate_name"
-              defaultValue={service.alternate_name}
-              onChange={this.handleFieldChange}
+              value={flattenedService.alternate_name}
+              setValue={value => this.handleChange('alternate_name', value)}
             />
           </li>
 
           <li key="email" className="edit--section--list--item email">
-            <label htmlFor="email">Service E-Mail</label>
-            <input
+            <InputField
               type="email"
-              defaultValue={service.email}
-              data-field="email"
-              onChange={this.handleFieldChange}
+              label="Service E-Mail"
+              placeholder="Email address for this service"
+              value={flattenedService.email}
+              setValue={value => this.handleChange('email', value)}
             />
           </li>
 
-          {this.textAreas.map(textArea => (
-            <FormTextArea
-              label={textArea.label}
-              placeholder={textArea.placeholder}
-              value={stateService[textArea.field] || textArea.defaultValue || ''}
-              setValue={value => this.handleServiceFieldChange(textArea.field, value)}
-            />
+          {TEXT_AREAS.map(textArea => (
+            <li className="edit--section--list--item" key={textArea.field}>
+              <FormTextArea
+                label={textArea.label}
+                placeholder={textArea.placeholder}
+                value={flattenedService[textArea.field] || ''}
+                setValue={value => this.handleChange(textArea.field, value)}
+              />
+            </li>
           ))}
 
           <li className="edit--section--list--item">
             <MultiSelectDropdown
               selectedItems={service.eligibilities}
-              handleSelectChange={this.handleEligibilityChange}
+              handleSelectChange={value => this.handleChange('eligibilities', value)}
               label="Eligibility"
               optionsRoute="eligibilities"
             />
           </li>
 
           <li className="edit--section--list--item">
-            <label htmlFor="input">Cost</label>
-            <input
+            <InputField
+              label="Cost"
               placeholder="How much does this service cost?"
-              data-field="fee"
-              defaultValue={service.fee}
-              onChange={this.handleFieldChange}
+              value={flattenedService.fee}
+              setValue={value => this.handleChange('fee', value)}
             />
           </li>
 
           <li className="edit--section--list--item">
-            <label htmlFor="input">Wait Time</label>
-            <input
+            <InputField
+              label="Wait Time"
               placeholder="Is there a waiting list or wait time?"
-              data-field="wait_time"
-              defaultValue={service.wait_time}
-              onChange={this.handleFieldChange}
+              value={flattenedService.wait_time}
+              setValue={value => this.handleChange('wait_time', value)}
             />
           </li>
 
           <li className="edit--section--list--item">
-            <label htmlFor="input">Service&#39;s Website</label>
-            <input
+            <InputField
+              label="Service&#39;s Website"
               placeholder="http://"
-              data-field="url"
-              defaultValue={service.url}
-              onChange={this.handleFieldChange}
+              value={flattenedService.url}
+              setValue={value => this.handleChange('url', value)}
             />
           </li>
 
           <EditSchedule
             canInheritFromParent
             schedule={service.schedule}
-            handleScheduleChange={this.handleScheduleChange}
+            handleScheduleChange={value => this.handleChange('scheduleObj', value)}
           />
 
-          <EditNotes notes={service.notes} handleNotesChange={this.handleNotesChange} />
+          <EditNotes
+            notes={service.notes}
+            handleNotesChange={value => this.handleChange('notesObj', value)}
+          />
 
           <MultiSelectDropdown
             selectedItems={service.categories}
-            handleSelectChange={this.handleCategoryChange}
+            handleSelectChange={value => this.handleChange('categories', value)}
             label="Categories"
             optionsRoute="categories"
           />
