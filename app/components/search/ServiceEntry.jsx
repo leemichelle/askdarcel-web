@@ -50,19 +50,20 @@ class ServiceEntry extends Component {
           description={description}
           schedule={hit.schedule}
         />
-
         <div className="entry-action-buttons">
           <ul className="action-buttons">
             <li className="action-button"><Link to={{ pathname: `/services/${hit.service_id}` }}>Details</Link></li>
-            <li className="action-button">
-              <a
-                href={`https://maps.google.com?saddr=Current+Location&daddr=${hit._geoloc ? hit._geoloc.lat : 0},${hit._geoloc ? hit._geoloc.lng : 0}&dirflg=w`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Directions
-              </a>
-            </li>
+            {hit._geoloc && (
+              <li className="action-button">
+                <a
+                  href={`http://google.com/maps/dir/?api=1&destination=${hit._geoloc.lat},${hit._geoloc.lng}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Directions
+                </a>
+              </li>
+            )}
           </ul>
         </div>
 
