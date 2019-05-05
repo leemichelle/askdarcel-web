@@ -31,6 +31,7 @@ function Footer() {
               <li><a href="https://www.facebook.com/ShelterTechOrg" target="_blank" rel="noopener noreferrer">Facebook</a></li>
               <li><a href="https://twitter.com/sheltertechorg" target="_blank" rel="noopener noreferrer">Twitter</a></li>
               <li><a href="https://www.instagram.com/shelter_tech" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+              <li><a href="https://goo.gl/forms/tjMhMlQHEMT90xav1" target="_blank" rel="noopener noreferrer">Submit Feedback</a></li>
             </ul>
             <ul>
               <h1>Legal</h1>
