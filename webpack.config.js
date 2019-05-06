@@ -137,6 +137,36 @@ module.exports = {
         ],
       },
       {
+        test: /\.webmanifest$/,
+        include: /assets\//,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]'
+            }
+          },
+          {
+            loader: 'webmanifest-loader',
+            options: {
+              name: 'Foobar',
+              shortName: 'Foobar',
+              description: 'Just an example.'
+            }
+          }
+        ]
+      },
+      {
+        test: /\.(jpg|png)$/,
+        include: /assets\//,
+        use: {
+          loader: 'file-loader',
+          options: {
+            name: '[name].[ext]'
+          }
+        }
+      },
+      {
         test: /\.(jpe?g|png|gif|svg|ico)$/i,
         use: [
           {
