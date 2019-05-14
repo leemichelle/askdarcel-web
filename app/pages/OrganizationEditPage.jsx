@@ -193,12 +193,17 @@ function postNotes(notesObj, promises, uriObj) {
   }
 }
 
+// THis is only called for schedules for new services, not for resources nor for
+// existing services.
 function createFullSchedule(scheduleObj) {
   if (scheduleObj) {
     const newSchedule = [];
     let tempDay = {};
     Object.keys(scheduleObj).forEach(day => {
       scheduleObj[day].forEach(curr => {
+        if (curr.opens_at === null || curr.closes_at === null) {
+          return;
+        }
         tempDay = {};
         tempDay.day = day;
         tempDay.opens_at = curr.opens_at;
